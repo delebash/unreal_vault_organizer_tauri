@@ -5,7 +5,7 @@
   "productName": "Unreal Vault Organizer",
   "author": "Daniel Elebash",
   "type": "module",
-  "private": true,
+  "private": false,
   "scripts": {
     "app": "npx tauri dev",
     "dev": "quasar dev",
