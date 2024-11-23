@@ -4,7 +4,8 @@
   "pub_date": "2024-11-23",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/username/reponame/releases/download/v1.0.0/app-x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRT2U0SVRTSEhRcnJLY2dFWEkvUnNlaHdLMG1MM1VNM3FZcldlNXdGZlI0U01GcllTaXcvaHlmQTEwOWFrZjlNWnZoRUVYRFBlN1FqcU1ES0pNS3A1b2VnTFpWdnZhNkFBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMyNDA0NjY3CWZpbGU6dW5yZWFsLXZhdWx0LW9yZ2FuaXplci10YXVyaV8xLjAuMF94NjRfZW4tVVMubXNpCmZ1NmVJc1lwcHJIMDEwM0dZVDczdStyUmlibEM5Yk94cldXVUE3YmFweVU1b3R5ZkhFN3dnU05NY3VqS0QvWHNEdTFCYzhRNm5McE05U2duNDRLZkJnPT0K",
+      "url": "https://github.com/delebash/unreal_vault_organizer_tauri/releases/download/1.0.0/unreal-vault-organizer-tauri_1.0.0_x64_en-US.msi"
     }
   }
 }
