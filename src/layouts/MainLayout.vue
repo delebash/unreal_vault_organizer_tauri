@@ -1,5 +1,4 @@
 <template>
-  <Suspense>
     <q-layout view="hHh Lpr lff" class="rounded-borders">
       <!--Begin Header-->
       <q-header dense elevated>
@@ -120,7 +119,6 @@
         </q-page>
       </q-page-container>
     </q-layout>
-  </Suspense>
 </template>
 
 <script setup>
@@ -131,6 +129,7 @@ import {api} from '../api/api.js'
 import {db} from '../api/db.js'
 import VaultGrid from "components/VaultGrid.vue";
 import SideNav from "components/SideNav.vue";
+import CheckForUpdates from "components/CheckForUpdates.vue";
 import {colorPalette} from '../utils/quasarColorPalatte.js'
 import {eventBus} from "boot/global-components.js";
 
