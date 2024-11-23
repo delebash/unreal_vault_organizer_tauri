@@ -10,7 +10,7 @@
               align="left"
               dense
             >
-              <q-tab dense name="vault" label="Vault"/>
+              <q-tab dense name="vault" label="Vaulty"/>
               <q-tab dense name="settings" label="Settings" @click="loadData"/>
             </q-tabs>
           </div>
