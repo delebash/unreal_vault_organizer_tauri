@@ -1,1 +1,13 @@
 // app global css in SCSS form
+html, body {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.ag-theme-alpine .ag-cell-value {
+  line-height: 15px !important;
+  word-break: normal; /* prevent words from breaking */
+  padding-top: 1px; /* space top */
+  padding-bottom: 1px; /* space bottom */
+}
