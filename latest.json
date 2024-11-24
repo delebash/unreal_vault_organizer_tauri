@@ -1,7 +1,5 @@
 {
   "version": "1.0.0",
-  "notes": "Your Release Notes go here",
-  "pub_date": "2024-11-23",
   "platforms": {
     "windows-x86_64": {
       "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRT2U0SVRTSEhRcnVpUVlvWGlGaWZpR0lwREh6cExxZ0JGZ2krY0I3eEVhVGhDbEdXOVAxd2xtYlBFMGUxaGlJRDZqcTBuOEdGZ0JYd2JGVk9rNnR0Ym1NcFdkWlg5T0FFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMyNDA2MjAzCWZpbGU6dW5yZWFsLXZhdWx0LW9yZ2FuaXplci10YXVyaV8xLjAuMF94NjRfZW4tVVMubXNpCjRLWkE5YVg5ek9ML3NmRjJzWVhFdExFdjRuNkN2dlB6SnhKKzdOR1ZJQ3NsdXAyUmc3bVhkcUFYMUZsWkZsQ1JFSTlBYVBzNnl2WDZOenlTRUNpM0RBPT0K",
