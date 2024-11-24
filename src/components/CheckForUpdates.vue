@@ -11,11 +11,11 @@ await checkForAppUpdates()
 async function checkForAppUpdates(onUserClick= false) {
   const update = await check();
   if (update === null) {
-    await message('You are on the latest version.', {
-      title: 'No Update Available',
-      kind: 'info',
-      okLabel: 'OK'
-    });
+    // await message('You are on the latest version.', {
+    //   title: 'No Update Available',
+    //   kind: 'info',
+    //   okLabel: 'OK'
+    // });
   } else if (update?.available) {
     const yes = await ask(`Update to ${update.version} is available!\n\nRelease notes: ${update.body}`, {
       title: 'Update Available',
