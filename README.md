@@ -2,23 +2,8 @@
 
 Organizer your Unreal vault your way.
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
+Notes:
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+create keys
+npx tauri signer generate -- -w test/.tauri/myapp.key
+then you will setup a github action and add a repo secret copying the value of the prive key just generated.
