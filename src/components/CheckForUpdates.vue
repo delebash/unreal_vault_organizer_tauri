@@ -4,18 +4,13 @@
 
 <script setup>
 import { check } from '@tauri-apps/plugin-updater';
-import { ask, message } from '@tauri-apps/plugin-dialog';
+import { ask } from '@tauri-apps/plugin-dialog';
 import { relaunch } from '@tauri-apps/plugin-process';
 
-await checkForAppUpdates()
-async function checkForAppUpdates(onUserClick= false) {
+async function checkForAppUpdates() {
   const update = await check();
   if (update === null) {
-    // await message('You are on the latest version.', {
-    //   title: 'No Update Available',
-    //   kind: 'info',
-    //   okLabel: 'OK'
-    // });
+    console.log("No new app updates");
   } else if (update?.available) {
     const yes = await ask(`Update to ${update.version} is available!\n\nRelease notes: ${update.body}`, {
       title: 'Update Available',
@@ -46,5 +41,9 @@ async function checkForAppUpdates(onUserClick= false) {
     }
   }
 }
+defineExpose({
+  checkForAppUpdates
+  }
+)
 </script>
 

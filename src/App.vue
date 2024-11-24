@@ -1,10 +1,10 @@
 <template>
   <Suspense>
-    <router-view />
-    </Suspense>
+    <router-view/>
+  </Suspense>
 </template>
-
 <script setup>
+import CheckForUpdates from "components/CheckForUpdates.vue";
 defineOptions({
   name: 'App'
 });
