@@ -1,5 +1,6 @@
 <template>
     <q-layout view="hHh Lpr lff" class="rounded-borders">
+      <check-for-updates></check-for-updates>
       <!--Begin Header-->
       <q-header dense elevated>
         <div class="row items-center">
