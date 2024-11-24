@@ -1,8 +1,10 @@
 {
   "version": "1.0.0",
+  "notes": "New release",
+  "pub_date": "2024-11-23T12:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRT2U0SVRTSEhRcnVpUVlvWGlGaWZpR0lwREh6cExxZ0JGZ2krY0I3eEVhVGhDbEdXOVAxd2xtYlBFMGUxaGlJRDZqcTBuOEdGZ0JYd2JGVk9rNnR0Ym1NcFdkWlg5T0FFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMyNDA2MjAzCWZpbGU6dW5yZWFsLXZhdWx0LW9yZ2FuaXplci10YXVyaV8xLjAuMF94NjRfZW4tVVMubXNpCjRLWkE5YVg5ek9ML3NmRjJzWVhFdExFdjRuNkN2dlB6SnhKKzdOR1ZJQ3NsdXAyUmc3bVhkcUFYMUZsWkZsQ1JFSTlBYVBzNnl2WDZOenlTRUNpM0RBPT0K",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRT2U0SVRTSEhRcnJqeC9FVDBmckRrejk4SzZ2c09IMURlalkyTUJhamJOWDcrSmFyamNadGtDVEg4aVp6QWs5U0RLaFArTUZpQkgwbW5rTW5Za0NKM2hXdzhQZmlUMndZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMyNDA3ODU1CWZpbGU6dW5yZWFsLXZhdWx0LW9yZ2FuaXplci10YXVyaV8xLjAuMF94NjRfZW4tVVMubXNpCmE1dUt3OGlSaklOdEdHeTlyMnJPUW1jNlpRYUJsOGdMUGpkV2tWSVZXcnhHdnl3dUUrejlsMGtYb1B2NWVuRVR2aitBamh5dHpyZTEyYU85UmVXOUFnPT0K",
       "url": "https://github.com/delebash/unreal_vault_organizer_tauri/releases/download/1.0.0/unreal-vault-organizer-tauri_1.0.0_x64_en-US.msi"
     }
   }
