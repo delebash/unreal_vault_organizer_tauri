@@ -41,7 +41,7 @@
       "windows": {
         "installMode": "passive"
       },
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEFFRDA3MTQ4MTM4MjdCMEUKUldRT2U0SVRTSEhRcnVIM1g1TEsxWnBQTm02c1NoM3gxTi9VUHRQZzZZUmxZT1Y2cUM3V25kMFUK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYzNTk1RDAxMDZBMzk3RUQKUldUdGw2TUdBVjFaOHdhRzNncEdPOFFBU1hCTjkyVUpscVdDSFViRlJ5NmpMVld2MEFOTUZpOE4K",
       "endpoints": ["https://raw.githubusercontent.com/delebash/unreal_vault_organizer_tauri/refs/heads/master/latest.json"]
     }
   }
