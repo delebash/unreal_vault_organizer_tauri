@@ -5,7 +5,7 @@
   "platforms": {
     "windows-x86_64": {
       "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRT2U0SVRTSEhRcnJqeC9FVDBmckRrejk4SzZ2c09IMURlalkyTUJhamJOWDcrSmFyamNadGtDVEg4aVp6QWs5U0RLaFArTUZpQkgwbW5rTW5Za0NKM2hXdzhQZmlUMndZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMyNDA3ODU1CWZpbGU6dW5yZWFsLXZhdWx0LW9yZ2FuaXplci10YXVyaV8xLjAuMF94NjRfZW4tVVMubXNpCmE1dUt3OGlSaklOdEdHeTlyMnJPUW1jNlpRYUJsOGdMUGpkV2tWSVZXcnhHdnl3dUUrejlsMGtYb1B2NWVuRVR2aitBamh5dHpyZTEyYU85UmVXOUFnPT0K",
-      "url": "https://github.com/delebash/unreal_vault_organizer_tauri/releases/download/1.0.0/unreal-vault-organizer-tauri_1.0.1_x64_en-US.msi"
+      "url": "https://github.com/delebash/unreal_vault_organizer_tauri/releases/download/1.0.1/unreal-vault-organizer-tauri_1.0.1_x64_en-US.msi"
     }
   }
 }
