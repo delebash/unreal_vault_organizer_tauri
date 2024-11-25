@@ -151,9 +151,10 @@ const rowSelection = {
 const overlayLoadingTemplate =
   '<span class="ag-overlay-loading-center">Please wait while your rows are loading. This could take a minute to refresh your data.</span>';
 
-async function fetchVault() {
-  await api.fetchVault();
-  await loadVault()
+async function importVault() {
+  console.log('test')
+  await api.importVault();
+  await getVault()
 }
 
 function testMatch() {
@@ -167,17 +168,8 @@ const onFilterTextBoxChanged = (filterValue) => {
   );
 };
 
-async function loadVault() {
+async function getVault() {
   rowData.value = await api.loadVault();
-}
-
-function showNotify(msg, color, position, icon) {
-  $q.notify({
-    message: msg,
-    color: color,
-    position: position,
-    icon: icon
-  })
 }
 
 
@@ -207,7 +199,7 @@ function onSelectionChanged() {
 
 async function onGridReady(params) {
   gridApi.value = params.api;
-  await loadVault()
+  await getVault()
 }
 
 function onFirstDataRendered(params) {
@@ -228,8 +220,8 @@ async function onCellValueChanged(event) {
 }
 
 defineExpose({
-    loadVault,
-    fetchVault,
+    getVault,
+    importVault,
     filterRows,
     onFilterTextBoxChanged,
     CustomFilter,

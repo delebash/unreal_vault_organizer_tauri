@@ -1,124 +1,157 @@
 <template>
-  <q-layout view="hHh Lpr lff" class="rounded-borders">
-    <check-for-updates ref="refCheckUpdates"></check-for-updates>
-    <!--Dialog Box-->
-    <q-dialog v-model="confirmDeleteTagDialog" ref="dialogRef" @hide="onDialogHide">
-      <q-card>
-        <q-card-section class="row items-center">
-
+  <Suspense>
+    <q-layout view="hHh Lpr lff" class="rounded-borders">
+      <check-for-updates ref="refCheckUpdates"></check-for-updates>
+      <!--Dialog Box-->
+      <q-dialog v-model="confirmDeleteTagDialog" ref="dialogRef" @hide="onDialogHide">
+        <q-card>
+          <q-card-section class="row items-center">
           <span
             class="q-ml-sm">The tag you are trying to delete is currently used in a record. Continue deleting?</span>
-        </q-card-section>
+          </q-card-section>
 
-        <q-card-actions align="right">
-          <q-btn flat label="OK" color="primary" position="top" @click="clickOKConfirmDelete"/>
-          <q-btn flat label="Cancel" color="primary" @click="onDialogCancel"/>
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!--End Dialog Box-->
+          <q-card-actions align="right">
+            <q-btn flat label="OK" color="primary" position="top" @click="clickOKConfirmDelete"/>
+            <q-btn flat label="Cancel" color="primary" @click="onDialogCancel"/>
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+      <!--End Dialog Box-->
 
-    <!--Begin Header-->
-    <q-header dense elevated>
-      <div class="row items-center">
-        <div class="col-3" @click="closeLeftDrawer">
-          <q-tabs
-            v-model="selectedTab"
-            align="left"
-            dense
-          >
-            <q-tab dense name="vault" label="Vault"/>
-            <q-tab dense name="settings" label="Settings" @click="loadData"/>
-          </q-tabs>
-        </div>
-        <!--          <div class="row items-center">-->
-        <!--            <span class="q-mr-md">Quick Filter:</span>-->
-        <!--            <q-input dense v-model="quickfilter" color="black" id="filter-text-box" bg-color="white" filled-->
-        <!--                     placeholder="Search All Columns except tags"-->
-        <!--                     @update:model-value="onFilterTextBoxChanged"></q-input>-->
-        <!--          </div>-->
-        <div class="col-grow" @click="closeLeftDrawer">
-          <div class="float-right">
-            <q-btn class="q-mr-sm" dense @click="fetchVault" color="green-9"
-                   label="Import Vault"></q-btn>
-            <q-btn class="q-mr-sm" dense @click="loadVault" color="orange-9"
-                   label="Refresh Grid"></q-btn>
+      <!--Begin Header-->
+      <q-header dense elevated>
+        <div class="row items-center">
+          <div class="col-3" @click="closeLeftDrawer">
+            <q-tabs
+              v-model="selectedTab"
+              align="left"
+              dense
+            >
+              <q-tab dense name="vault" label="Vault" @click="tabChange"/>
+              <q-tab dense name="settings" label="Settings" @click="tabChange"/>
+            </q-tabs>
           </div>
-        </div>
-        <div class="col-shrink ">
-          <q-btn dense class="q-mr-sm" color="yellow-9" @click="toggleLeftDrawer">Tags</q-btn>
-        </div>
-      </div>
-    </q-header>
-    <!--End Header-->
-
-    <!--Begin Left Drawer-->
-    <q-drawer
-      v-model="leftDrawerOpen"
-      :width="200"
-      :breakpoint="500"
-      overlay
-      bordered
-      behavior="desktop"
-    >
-      <!--Begin SideNav-->
-      <side-nav ref="refSideNav"></side-nav>
-      <!--End SideNav-->
-    </q-drawer>
-    <!--End Left Drawer-->
-
-    <!--Begin Main Page-->
-    <q-page-container @click="closeLeftDrawer">
-      <q-page>
-        <q-tab-panels keep-alive v-model="selectedTab" animated>
-
-          <!--Begin Vault Tab-->
-          <q-tab-panel name="vault" class="q-pa-none q-ma-none" style="height: calc(100vh - 40px)">
-            <vault-grid ref="refVaultGrid"></vault-grid>
-          </q-tab-panel>
-          <!--End Vault Tab-->
-
-          <!--Begin Settings Tab-->
-          <q-tab-panel class="row q-pl-xs q-pt-xs q-pb-none q-ma-none" name="settings">
-            <div class="q-md column" style="min-width: 600px;">
-              <a :href="`${getAuthUrl}`" target="_blank">Click to login to your Epic Account.</a>
-              Next copy the value of authorizationCode and paste in the field below. Then click Authenticate.
-              You will have to repeat this step every so often when your token expires.
-              <q-input dense v-model="authorizationCode" label="Authorization Code" stack-label>
-              </q-input>
-              <br>
-              <q-btn class="q-pt-none" dense @click="authenticate()" color="primary"
-                     label="Authenticate"></q-btn>
-
-              <q-input dense v-model="cachePath" label="Vault Cache Path*" stack-label
-                       lazy-rules
-                       :rules="[ val => val && val.length > 0 || 'Please type something']"
-              >
-              </q-input>
-              <q-btn class="q-pt-none" dense @click="saveUserSettings()" color="positive"
-                     label="Save settings"></q-btn>
-              <br>
-              <div>
-                <b>Delete Tags -- This also removes them from your vault item row.</b>
-              </div>
-              <div v-for="tag in tag_info_options.sort((a, b) => (a.label > b.label) ? 1 : -1)">
-                <q-chip
-                  text-color="white"
-                  removable
-                  @remove="beforeRemoveTag(tag)"
-                  :color=tag.color
-                >
-                  <div class="q-pl-md q-ma-xs">{{ tag.label }}</div>
-                </q-chip>
+          <div class="col-grow" @click="closeLeftDrawer">
+            <div class="float-right">
+              <div v-show="vaultButtons">
+                <q-btn class="q-mr-sm" dense @click="importVault" color="green-9"
+                       label="Import Vault"></q-btn>
+                <q-btn class="q-mr-sm" dense @click="loadVault" color="orange-9"
+                       label="Refresh Grid"></q-btn>
               </div>
             </div>
-          </q-tab-panel>
-          <!--End Settings Tab-->
+          </div>
+          <div class="col-shrink ">
+            <q-btn dense class="q-mr-sm" color="yellow-9" @click="toggleLeftDrawer">Tags</q-btn>
+          </div>
+        </div>
+      </q-header>
+      <!--End Header-->
 
-        </q-tab-panels>
-      </q-page>
-    </q-page-container>
-  </q-layout>
+      <!--Begin Left Drawer-->
+      <q-drawer
+        v-model="leftDrawerOpen"
+        :width="200"
+        :breakpoint="500"
+        overlay
+        bordered
+        behavior="desktop"
+      >
+        <!--Begin SideNav-->
+        <side-nav ref="refSideNav"></side-nav>
+        <!--End SideNav-->
+      </q-drawer>
+      <!--End Left Drawer-->
+
+      <!--Begin Main Page-->
+      <q-page-container @click="closeLeftDrawer">
+        <q-page>
+          <q-tab-panels keep-alive v-model="selectedTab" animated>
+
+            <!--Begin Vault Tab-->
+            <q-tab-panel name="vault" class="q-pa-none q-ma-none" style="height: calc(100vh - 40px)">
+              <vault-grid ref="refVaultGrid"></vault-grid>
+            </q-tab-panel>
+            <!--End Vault Tab-->
+
+            <!--Begin Settings Tab-->
+            <q-tab-panel class="q-pa-none q-ma-none" name="settings">
+
+              <div class="q-pa-md q-gutter-md">
+                <q-card>
+                  <q-card-section>
+                    <div>
+                      <a class="text-h6" :href="`${getAuthUrl}`" target="_blank">Click to login to your Epic
+                        Account.</a>
+                    </div>
+                    <div>
+                      Next copy the value of authorizationCode and paste in the field below. Then click Authenticate.
+                      You will have to repeat this step every so often when your token expires.
+                    </div>
+
+                    <q-input v-model="authorizationCode" label="Authorization Code"
+                             :type="isPwd ? 'password' : 'text'"
+                    >
+                      <template v-slot:append>
+                        <q-icon
+                          :name="isPwd ? 'visibility_off' : 'visibility'"
+                          class="cursor-pointer"
+                          @click="isPwd = !isPwd"
+                        />
+                      </template>
+                    </q-input>
+
+                    <q-btn class="q-mt-md" @click="authorize()" color="primary"
+                           label="Authorize">
+                    </q-btn>
+
+                    <q-input v-model="accessToken" label="Access Token"
+                             :type="isPwd ? 'password' : 'text'"
+                             readonly
+                    >
+                      <template v-slot:append>
+                        <q-icon
+                          :name="isPwd ? 'visibility_off' : 'visibility'"
+                          class="cursor-pointer"
+                          @click="isPwd = !isPwd"
+                        />
+                      </template>
+                    </q-input>
+                    <q-input v-model="cachePath" label="Vault Cache Path*"
+                             :rules="[val => !!val || 'Field is required']"
+                    >
+                      <q-checkbox v-model="cbCheckForUpdates" @update:model-value="checkForUpdatesChange"
+                                  label="Automatically check software updates?"/>
+                    </q-input>
+                    <q-btn @click="saveUserSettings()" color="positive"
+                           label="Save settings">
+                    </q-btn>
+                  </q-card-section>
+
+                  <q-card-section>
+                    <div class="text-h6">Delete Tags</div>
+                  </q-card-section>
+                  <q-card-section class="q-pt-none">
+                  <span v-for="tag in tag_info_options.sort((a, b) => (a.label > b.label) ? 1 : -1)">
+                    <q-chip
+                      text-color="white"
+                      removable
+                      @remove="beforeRemoveTag(tag)"
+                      :color=tag.color
+                    >
+                      <div class="q-pl-md q-ma-xs">{{ tag.label }}</div>
+                    </q-chip>
+                  </span>
+                  </q-card-section>
+                </q-card>
+              </div>
+            </q-tab-panel>
+            <!--End Settings Tab-->
+          </q-tab-panels>
+        </q-page>
+      </q-page-container>
+    </q-layout>
+  </Suspense>
 </template>
 
 <script setup>
@@ -135,12 +168,15 @@ import CheckForUpdates from "components/CheckForUpdates.vue";
 const $q = useQuasar()
 const leftDrawerOpen = ref(false)
 const cachePath = ref('')
-// const isPwd = ref(true)
+const isPwd = ref(true)
 const selectedTab = ref('vault')
+const vaultButtons = ref(true)
 const authorizationCode = ref('')
 const refVaultGrid = ref(null)
 const refSideNav = ref(null)
 const refCheckUpdates = ref(null)
+const cbCheckForUpdates = ref(true)
+const accessToken = ref(null)
 // const quickfilter = ref('')
 const tag_info_options = ref([])
 const confirmDeleteTagDialog = ref(false)
@@ -152,59 +188,100 @@ defineEmits([
   ...useDialogPluginComponent.emits
 ])
 
-onMounted(async() => {
+onMounted(async () => {
   eventBus.on('refreshGrid', (args) => {
-    refVaultGrid.value.loadVault()
+    loadVault()
   })
   eventBus.on('filteredRows', (args) => {
     refVaultGrid.value.filterRows(args)
   })
+  eventBus.on('showMessage', (args) => {
+    let color
+    switch (args.type) {
+      case 'success':
+        color = 'positive'
+        break;
+      case 'error':
+        color = 'negative'
+        break;
+    }
 
-  refCheckUpdates.value.checkForAppUpdates()
-})
-
-
-await loadData()
-
-//Settings
-async function loadData() {
-  await loadTags()
-  if (await api.isAuthDataValid() === true) {
-    console.log('auth data is valid')
-    // loadVault()
-  } else {
-    console.log('data is not valid')
-    selectedTab.value = 'settings'
     $q.notify({
-      color: 'red',
-      message: 'Error in settings',
-      timeout: 8000,
+      color: color,
+      message: args.message
     })
-  }
-}
-
-async function saveUserSettings() {
-  await api.saveUserSettings(cachePath)
-  $q.notify({
-    type: 'success',
-    message: 'Settings saved successfully',
-    timeout: 8000,
   })
-}
+})
 
 const getAuthUrl = computed(() => {
   return api.getAuthUrl()
 })
 
-async function authenticate() {
-  if (authorizationCode.value !== '') {
-    let auth = await api.authenticate(authorizationCode.value)
-    let data = {auth: auth}
-    await api.saveUserSettings(data)
+await loadSettings()
+
+//Settings
+async function loadSettings() {
+  await loadTags()
+  let userSettings = await api.getUserSettings()
+  if (!userSettings?.cachePath || userSettings?.cachePath === '') {
+    selectedTab.value = 'settings'
+    vaultButtons.value = false
+    $q.notify({
+      color: 'negative',
+      message: 'On your settings tab, you must set a vault cache path and have an access token by logging in and requesting an authorization code.',
+    })
+  }
+  // cachePath.value = userSettings?.cachePath
+  // cbCheckForUpdates.value = userSettings?.checkForUpdates
+  // accessToken.value = userSettings?.auth?.access_token
+}
+
+function checkForUpdatesChange() {
+  console.log(cbCheckForUpdates.value)
+  if (cbCheckForUpdates.value === true) {
+    refCheckUpdates.value.checkForAppUpdates()
+  }
+}
+
+function tabChange() {
+  if (selectedTab.value === 'vault') {
+    vaultButtons.value = true
+  } else {
+    vaultButtons.value = false
+    loadTags()
+  }
+}
+
+async function saveUserSettings() {
+  if (cachePath.value !== '') {
+    await api.saveUserSettings({cachePath: cachePath.value, checkForUpdates: cbCheckForUpdates.value})
+    $q.notify({
+      type: 'positive',
+      message: 'Settings saved successfully',
+    })
   } else {
     $q.notify({
-      color: 'red',
-      message: 'Please click on the log into your Epic link to get an Epic Authorization Code',
+      color: 'negative',
+      message: 'Vault cache path is required',
+    })
+  }
+}
+
+async function authorize() {
+  if (authorizationCode.value !== '') {
+    let auth = await api.authorize(authorizationCode.value)
+    let data = {auth: auth}
+    await api.saveUserSettings(data)
+    if (await api.isAuthDataValid() === true) {
+      $q.notify({
+        type: 'positive',
+        message: 'Authorization successful',
+      })
+    }
+  } else {
+    $q.notify({
+      color: 'negative',
+      message: 'Authorization Code is required please click the link above to login to your Epic account.',
     })
   }
 }
@@ -212,13 +289,16 @@ async function authenticate() {
 //End Settings
 
 //Begin Vault
-function loadVault() {
-  refVaultGrid.value.loadVault()
+async function loadVault() {
+  await refVaultGrid.value.getVault()
 }
 
-function fetchVault() {
-  refVaultGrid.value.fetchVault()
+async function importVault() {
+  if (await api.isAuthDataValid() === true) {
+    await refVaultGrid.value.importVault()
+  }
 }
+
 //End Vault
 
 //Begin Tags
@@ -227,7 +307,7 @@ function clickOKConfirmDelete() {
   onDialogOK()
 }
 
-function removeTag() {
+async function removeTag() {
   refSideNav.value.removeTag(currentTag)
   const index = tag_info_options.value.findIndex(({label}) => label === currentTag.label);
   tag_info_options.value.splice(index, 1)
@@ -239,7 +319,7 @@ async function beforeRemoveTag(tag) {
   if (filteredRows.length > 0) {
     confirmDeleteTagDialog.value = true
   } else {
-    removeTag()
+    await removeTag()
   }
 }
 
@@ -247,6 +327,7 @@ async function loadTags() {
   tag_info_options.value = await db.tags.toArray()
   tag_info_options.value = tag_info_options.value.sort((a, b) => (a.label > b.label) ? 1 : -1)
 }
+
 //End Tags
 
 //Drawer
@@ -259,5 +340,6 @@ function closeLeftDrawer() {
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
+
 //End Drawer
 </script>

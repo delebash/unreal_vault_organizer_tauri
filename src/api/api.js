@@ -1,6 +1,7 @@
 import {ENDPOINTS, VARS} from './globals'
 import {db} from './db.js'
 import {fetch} from '@tauri-apps/plugin-http';
+import {eventBus} from "boot/global-components.js";
 // import { invoke } from '@tauri-apps/api/core';
 // const invoke = window.__TAURI__.core.invoke;
 
@@ -27,17 +28,24 @@ export const api = {
   },
   async isAuthDataValid() {
     let userSettings = await this.getUserSettings()
-    let autData = {}
-    if (userSettings !== null && userSettings !== undefined) {
-      autData = userSettings.auth
-      if (autData !== null) {
-        return true
+    if (userSettings.auth) {
+      let authData = userSettings.auth
+      if (authData.access_token && new Date() < new Date(authData.expires_at)) {
+        return true;
+      } else if (authData.access_token && new Date() < new Date(authData.refresh_expires_at)) {
+        showErrorMessage('Access token expired.  On your settings tab please request a new authorization code to get a new access token.')
+        console.log('Auth expired.');
+        return false;
       }
+    } else {
+      showErrorMessage('Access token invalid.  On your settings tab please request a new authorization code to get a new access token.')
+      console.log('Auth invalid.');
+      return false;
     }
     return false
   },
-  async authenticate(authorizationCode) {
-    const response = await httpRequest(ENDPOINTS.auth_code, {
+  async authorize(authorizationCode) {
+    return await httpRequest(ENDPOINTS.auth_code, {
       method: 'post',
       body: new URLSearchParams({
         grant_type: 'authorization_code',
@@ -50,18 +58,11 @@ export const api = {
         'User-Agent': VARS.client_ua
       }
     })
-
-    if (response.errorMessage) {
-      //show err notification
-      console.error(response.errorMessage)
-    } else {
-      return response
-    }
   },
   async loadVault() {
     return await db.vaultLibrary.toArray()
   },
-  async fetchVault() {
+  async importVault() {
     let userSettings = await this.getUserSettings()
     let authData = userSettings.auth
     let url = ENDPOINTS.vault(authData.account_id)
@@ -73,18 +74,11 @@ export const api = {
       }
     }
 
-    const response = await httpRequest(url,options)
+    const response = await httpRequest(url, options)
+    await this.saveVaultData(response)
 
-    if (response.errorMessage) {
-      //show err notification
-      console.error(response.errorMessage)
-    } else {
-      await this.importVault(response)
-    }
   },
-  async importVault(data) {
-    console.log('Import Vault')
-
+  async saveVaultData(data) {
     if (data.results && data.results.length > 0) {
       for (let asset of data.results) {
         // let buildVersion
@@ -376,14 +370,25 @@ export const api = {
 }
 
 async function httpRequest(url, options) {
-  const response = await fetch(url, options);
-  let data = {}
-  data.status = response.status
+  let response
   try {
-    data = await response.json()
+    response = await fetch(url, options);
+    if (response.ok) {
+      return await response.json()
+    } else {
+      console.error(response.statusText)
+      showErrorMessage(response.statusText)
+    }
   } catch (err) {
     console.error(err)
-    data = {errorMessage: err}
+    showErrorMessage(err)
   }
-  return data
+  return false
+}
+
+function showErrorMessage(msg) {
+  let data = {}
+  data.message = msg
+  data.type = 'error'
+  eventBus.emit('showMessage', data)
 }
