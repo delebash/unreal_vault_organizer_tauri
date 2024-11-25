@@ -28,7 +28,7 @@ export const api = {
   },
   async isAuthDataValid() {
     let userSettings = await this.getUserSettings()
-    if (userSettings.auth) {
+    if (userSettings?.auth) {
       let authData = userSettings.auth
       if (authData.access_token && new Date() < new Date(authData.expires_at)) {
         return true;

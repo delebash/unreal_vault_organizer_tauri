@@ -231,9 +231,9 @@ async function loadSettings() {
       message: 'On your settings tab, you must set a vault cache path and have an access token by logging in and requesting an authorization code.',
     })
   }
-  // cachePath.value = userSettings?.cachePath
-  // cbCheckForUpdates.value = userSettings?.checkForUpdates
-  // accessToken.value = userSettings?.auth?.access_token
+  cachePath.value = userSettings?.cachePath
+  cbCheckForUpdates.value = userSettings?.checkForUpdates || true
+  accessToken.value = userSettings?.auth?.access_token
 }
 
 function checkForUpdatesChange() {
