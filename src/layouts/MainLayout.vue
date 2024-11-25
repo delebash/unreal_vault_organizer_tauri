@@ -277,6 +277,7 @@ async function authorize() {
         type: 'positive',
         message: 'Authorization successful',
       })
+      accessToken.value = auth.access_token
     }
   } else {
     $q.notify({
@@ -294,6 +295,7 @@ async function loadVault() {
 }
 
 async function importVault() {
+  await loadSettings()
   if (await api.isAuthDataValid() === true) {
     await refVaultGrid.value.importVault()
   }
