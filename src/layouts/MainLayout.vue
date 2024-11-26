@@ -81,19 +81,25 @@
                 <q-card>
                   <q-card-section>
                     <div>
-                      <a class="text-h6" :href="`${getAuthUrl}`" target="_blank">Click to login to your Epic
+                      <a class="text-h6" :href="`${getAuthUrl}`" target="_blank">Get Authorization Code, click to
+                        login to your Epic
                         Account.</a>
                     </div>
                     <div>
-                      Next copy the value of authorizationCode and paste in the field below. Then click Authenticate.
-                      You will have to repeat this step every so often when your token expires.
+                      <b>Next copy the value of authorizationCode and paste in the field below, do not include quotes.
+                        Then click Authorize. You will have to repeat this step every so often when your token expires.</b>
                     </div>
+                      <i>NOTE: this application does not have any access to your username or password. We just obtain the one time
+                        use authorization code you copy to obtain an access token.
+                      </i>
 
-                    <q-input v-model="authorizationCode" label="Authorization Code"
+                    <q-input dense v-model="authorizationCode"
+                             label="Authorization Code get by clicking link above to login to your account and pasting the value of authorizationCode  here, do not include quotes"
                              :type="isPwd ? 'password' : 'text'"
                     >
                       <template v-slot:append>
                         <q-icon
+                          dense
                           :name="isPwd ? 'visibility_off' : 'visibility'"
                           class="cursor-pointer"
                           @click="isPwd = !isPwd"
@@ -101,37 +107,49 @@
                       </template>
                     </q-input>
 
-                    <q-btn class="q-mt-md" @click="authorize()" color="primary"
+                    <q-btn dense class="q-mt-md" @click="authorize()" color="primary"
                            label="Authorize">
                     </q-btn>
 
-                    <q-input v-model="accessToken" label="Access Token"
+                    <q-input dense class="q-mb-md" v-model="accessToken"
+                             label="Access Token *Required*. Request an authorization code from above"
                              :type="isPwd ? 'password' : 'text'"
                              readonly
                     >
                       <template v-slot:append>
                         <q-icon
+                          dense
                           :name="isPwd ? 'visibility_off' : 'visibility'"
                           class="cursor-pointer"
                           @click="isPwd = !isPwd"
                         />
                       </template>
                     </q-input>
-                    <q-input v-model="cachePath" label="Vault Cache Path*"
+                    <q-input dense v-model="cachePath"
+                             label="Vault Cache Path *Required*.  You can find the path in your epic launcher settings"
                              :rules="[val => !!val || 'Field is required']"
                     >
-                      <q-checkbox v-model="cbCheckForUpdates" @update:model-value="checkForUpdatesChange"
+                      <q-checkbox dense v-model="cbCheckForUpdates" @update:model-value="checkForUpdatesChange"
                                   label="Automatically check software updates?"/>
                     </q-input>
-                    <q-btn @click="saveUserSettings()" color="positive"
+                    <q-btn dense @click="saveUserSettings()" color="positive"
                            label="Save settings">
                     </q-btn>
+                    <div class="float-right">
+                      <div class="text-h6">Warning</div>
+                      <q-btn
+                        @click="showDialog({function:'deleteDatabase',message:'Confirm deleting database.'})"
+                        color="negative" label="Delete Database">
+                      </q-btn>
+                    </div>
                   </q-card-section>
 
                   <q-card-section>
                     <div class="text-h6">Delete Tags</div>
                   </q-card-section>
-                  <q-card-section class="q-pt-none">
+                  <q-separator color="primary" size="5px" inset/>
+                  <q-card-section>
+                  <q-scroll-area  :visible="true" style="height: 200px; max-width: 100%;">
                   <span v-for="tag in tag_info_options.sort((a, b) => (a.label > b.label) ? 1 : -1)">
                     <q-chip
                       text-color="white"
@@ -142,14 +160,8 @@
                       <div class="q-pl-md q-ma-xs">{{ tag.label }}</div>
                     </q-chip>
                   </span>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="text-h6">Warning</div>
-                    <q-btn
-                      @click="showDialog({function:'deleteDatabase',message:'Confirm deleting database.'})"
-                      color="negative" label="Delete Database">
-                    </q-btn>
-                  </q-card-section>
+                  </q-scroll-area>
+                    </q-card-section>
                 </q-card>
               </div>
 
@@ -253,10 +265,14 @@ const getAuthUrl = computed(() => {
 async function loadSettings() {
 
   userSettings = await api.getUserSettings()
-  cbCheckForUpdates.value = userSettings?.checkForUpdates || true
-  if ( userSettings?.checkForUpdates === true) {
+  cbCheckForUpdates.value = userSettings?.checkForUpdates
+
+  if (cbCheckForUpdates.value || userSettings === undefined) {
+    cbCheckForUpdates.value = true
     refCheckUpdates.value.checkForAppUpdates()
   }
+
+
   await loadTags()
 
   accessToken.value = userSettings?.auth?.access_token
@@ -283,6 +299,7 @@ function checkForUpdatesChange() {
 function tabChange() {
   if (selectedTab.value === 'vault') {
     vaultButtons.value = true
+    // saveUserSettings()
   } else {
     vaultButtons.value = false
     loadTags()
