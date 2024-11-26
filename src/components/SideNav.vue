@@ -62,7 +62,7 @@
   </div>
   <div class="row">
     <div class="col-auto">
-      <q-btn class="q-pt-none"
+      <q-btn class="q-pt-none q-mb-md"
              dense
              size=""
              @click="filterByTags"
@@ -74,7 +74,7 @@
            dense
            size=""
            @click="bulkAddTags"
-           color="primary"
+           color="secondary"
            label="Bulk add selected tags to selected rows"></q-btn>
   </div>
 

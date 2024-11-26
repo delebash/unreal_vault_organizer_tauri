@@ -7,8 +7,3 @@ db.version(1).stores({
   tags: '++id, label, value',
   colorPalette: 'label, value'
 })
-
-// vaultItems: 'assetId,assetNamespace,categories,customAttributes,description,distributionMethod,images,projectVersions,source,title,url',
-
-// vaultLibrary: 'catalogItemId ,title, description, thumbnail_url, comment, *tagIds, updates_available, lastModifiedDate, buildVersion,url,artifactId',
-// vaultLibrary: 'assetId, comment, *tagIds, asset ',

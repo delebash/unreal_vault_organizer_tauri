@@ -3,19 +3,19 @@
     <q-layout view="hHh Lpr lff" class="rounded-borders">
       <check-for-updates ref="refCheckUpdates"></check-for-updates>
       <!--Dialog Box-->
-      <q-dialog v-model="confirmDeleteTagDialog" ref="dialogRef" @hide="onDialogHide">
-        <q-card>
-          <q-card-section class="row items-center">
-          <span
-            class="q-ml-sm">The tag you are trying to delete is currently used in a record. Continue deleting?</span>
-          </q-card-section>
+      <!--      <q-dialog v-model="confirmDeleteTagDialog" ref="dialogRef" @hide="onDialogHide">-->
+      <!--        <q-card>-->
+      <!--          <q-card-section class="row items-center">-->
+      <!--          <span-->
+      <!--            class="q-ml-sm">The tag you are trying to delete is currently used in a record. Continue deleting?</span>-->
+      <!--          </q-card-section>-->
 
-          <q-card-actions align="right">
-            <q-btn flat label="OK" color="primary" position="top" @click="clickOKConfirmDelete"/>
-            <q-btn flat label="Cancel" color="primary" @click="onDialogCancel"/>
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
+      <!--          <q-card-actions align="right">-->
+      <!--            <q-btn flat label="OK" color="primary" position="top" @click="clickOKConfirmDelete"/>-->
+      <!--            <q-btn flat label="Cancel" color="primary" @click="onDialogCancel"/>-->
+      <!--          </q-card-actions>-->
+      <!--        </q-card>-->
+      <!--      </q-dialog>-->
       <!--End Dialog Box-->
 
       <!--Begin Header-->
@@ -145,7 +145,9 @@
                   </q-card-section>
                   <q-card-section>
                     <div class="text-h6">Warning</div>
-                    <q-btn @click="deleteDatabase()" color="negative" label="Delete Database">
+                    <q-btn
+                      @click="showDialog({function:'deleteDatabase',message:'Confirm deleting database.'})"
+                      color="negative" label="Delete Database">
                     </q-btn>
                   </q-card-section>
                 </q-card>
@@ -161,9 +163,8 @@
 </template>
 
 <script setup>
-import {ref, computed, onMounted} from 'vue'
+import {ref, computed, onMounted, nextTick, watch} from 'vue'
 import {useQuasar} from 'quasar'
-import {useDialogPluginComponent} from 'quasar'
 import {api} from '../api/api.js'
 import {db} from '../api/db.js'
 import VaultGrid from "components/VaultGrid.vue";
@@ -183,16 +184,10 @@ const refSideNav = ref(null)
 const refCheckUpdates = ref(null)
 const cbCheckForUpdates = ref(true)
 const accessToken = ref(null)
-// const quickfilter = ref('')
 const tag_info_options = ref([])
-const confirmDeleteTagDialog = ref(false)
+const refsLoaded = ref(false);
 let currentTag = {}
-const {dialogRef, onDialogHide, onDialogOK, onDialogCancel} = useDialogPluginComponent()
-defineEmits([
-  // REQUIRED; need to specify some events that your
-  // component will emit through useDialogPluginComponent()
-  ...useDialogPluginComponent.emits
-])
+let userSettings
 
 onMounted(async () => {
   eventBus.on('refreshGrid', (args) => {
@@ -224,12 +219,23 @@ onMounted(async () => {
       message: args.message
     })
   })
+
 })
+
+
+watch([refCheckUpdates], () => {
+  if (refCheckUpdates.value) {
+    nextTick(() => {
+      loadSettings()
+    });
+  }
+});
 
 async function bulkAddTagIds(data) {
   let assets = refVaultGrid.value.getSelectedRowsData()
   if (assets.length > 0 && data.tagIds.length > 0) {
     await api.updateTagsByRow(assets, data.tagIds)
+    await loadVault()
   } else {
     $q.notify({
       color: 'info',
@@ -242,13 +248,17 @@ const getAuthUrl = computed(() => {
   return api.getAuthUrl()
 })
 
-await loadSettings()
 
 //Settings
 async function loadSettings() {
-  await loadTags()
-  let userSettings = await api.getUserSettings()
+
+  userSettings = await api.getUserSettings()
   cbCheckForUpdates.value = userSettings?.checkForUpdates || true
+  if ( userSettings?.checkForUpdates === true) {
+    refCheckUpdates.value.checkForAppUpdates()
+  }
+  await loadTags()
+
   accessToken.value = userSettings?.auth?.access_token
 
   if (!userSettings?.cachePath || userSettings?.cachePath === '') {
@@ -316,24 +326,32 @@ async function authorize() {
 
 async function deleteDatabase() {
   db.delete({disableAutoOpen: false});
-  await loadVault()
   $q.notify({
     color: 'positive',
     message: 'Database deleted.',
   })
+  location.reload();
 }
 
-//End Settings
-
-//Begin Vault
-async function loadVault() {
-  await refVaultGrid.value.getVault()
-}
-
-async function importVault() {
-  if (await api.isAuthDataValid() === true && await loadSettings() === true) {
-    await refVaultGrid.value.importVault()
-  }
+function showDialog(options) {
+  $q.dialog({
+    title: options.title || 'Confirm action',
+    message: options.message,
+    cancel: true,
+    persistent: true
+  }).onOk(() => {
+    switch (options.function) {
+      case 'removeTag':
+        removeTag(options.data)
+        break;
+      case 'deleteDatabase':
+        deleteDatabase()
+        break;
+    }
+  }).onCancel(() => {
+  }).onDismiss(() => {
+    // console.log('I am triggered on both OK and Cancel')
+  })
 }
 
 function showLoading(data) {
@@ -345,16 +363,33 @@ function showLoading(data) {
   } else {
     $q.loading.hide()
   }
+}
 
+//End Settings
+
+//Begin Vault
+async function loadVault() {
+  await refVaultGrid.value.getVault()
+}
+
+async function importVault() {
+  if (!userSettings?.cachePath || userSettings?.cachePath === '') {
+    selectedTab.value = 'settings'
+    vaultButtons.value = false
+    $q.notify({
+      color: 'negative',
+      message: 'On your settings tab, you must set a vault cache path and have an access token by logging in and requesting an authorization code.',
+    })
+  } else {
+    if (await api.isAuthDataValid()) {
+      await refVaultGrid.value.importVault()
+    }
+  }
 }
 
 //End Vault
 
 //Begin Tags
-function clickOKConfirmDelete() {
-  removeTag()
-  onDialogOK()
-}
 
 async function removeTag() {
   refSideNav.value.removeTag(currentTag)
@@ -366,7 +401,7 @@ async function beforeRemoveTag(tag) {
   currentTag = tag
   let filteredRows = await db.vaultLibrary.where('tagIds').anyOf(tag.id).toArray()
   if (filteredRows.length > 0) {
-    confirmDeleteTagDialog.value = true
+    showDialog({function: 'removeTag', message: 'This tag is in use, confirm delete', data: tag})
   } else {
     await removeTag()
   }

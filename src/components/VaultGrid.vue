@@ -74,25 +74,7 @@ columnDefs.value = [
     wrapText: true,
     autoHeight: true,
     cellRenderer: 'TitleImageGrid',
-    // cellRenderer: function (params) {
-    // let title = params.data.title;
-    // let myTitle = `<div>${title}</div>`;
-    // return myTitle;
-    // }
   },
-  // {
-  //   headerName: "Image",
-  //   editable: false,
-  //   width: 90,
-  //   autoHeight: true,
-  //   field: "asset.images[0]?.url",
-  //   // cellRenderer: function (params) {
-  //   //   let thumbnail_url = params.data.asset?.images[0]?.url;
-  //   //   let url = params.data.asset?.url
-  //   //     let img = `<a href=${url} target="_blank"><img  width="500px" height="50px" src= ${thumbnail_url}>`;
-  //   //   return img;
-  //   // }
-  // },
   {
     headerName: "Description",
     field: "asset.description",
@@ -124,12 +106,6 @@ columnDefs.value = [
     cellRenderer: 'CheckboxGrid',
     width: 165,
   },
-  // {
-  //   headerName: 'Last Modified Data',
-  //   field: 'lastModifiedDate',
-  //   editable: false,
-  //   width: 200,
-  // },
   {
     headerName: 'Build Version',
     field: 'buildVersion',
