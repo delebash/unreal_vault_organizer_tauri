@@ -143,8 +143,14 @@
                     </q-chip>
                   </span>
                   </q-card-section>
+                  <q-card-section>
+                    <div class="text-h6">Warning</div>
+                    <q-btn @click="deleteDatabase()" color="negative" label="Delete Database">
+                    </q-btn>
+                  </q-card-section>
                 </q-card>
               </div>
+
             </q-tab-panel>
             <!--End Settings Tab-->
           </q-tab-panels>
@@ -195,6 +201,10 @@ onMounted(async () => {
   eventBus.on('filteredRows', (args) => {
     refVaultGrid.value.filterRows(args)
   })
+  eventBus.on('bulkAddTags', (args) => {
+    bulkAddTagIds(args)
+
+  })
   eventBus.on('showLoading', (args) => {
     showLoading(args)
   })
@@ -215,6 +225,18 @@ onMounted(async () => {
     })
   })
 })
+
+async function bulkAddTagIds(data) {
+  let assets = refVaultGrid.value.getSelectedRowsData()
+  if (assets.length > 0 && data.tagIds.length > 0) {
+    await api.updateTagsByRow(assets, data.tagIds)
+  } else {
+    $q.notify({
+      color: 'info',
+      message: 'Please select rows and tags that you want to bulk add tags to.',
+    })
+  }
+}
 
 const getAuthUrl = computed(() => {
   return api.getAuthUrl()
@@ -290,6 +312,15 @@ async function authorize() {
       message: 'Authorization Code is required please click the link above to login to your Epic account.',
     })
   }
+}
+
+async function deleteDatabase() {
+  db.delete({disableAutoOpen: false});
+  await loadVault()
+  $q.notify({
+    color: 'positive',
+    message: 'Database deleted.',
+  })
 }
 
 //End Settings

@@ -33,20 +33,14 @@ import {onBeforeMount, onMounted, ref, shallowRef} from 'vue'
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional Theme applied to the Data Grid
 import {AgGridVue} from "ag-grid-vue3"; // Vue Data Grid Component
-import {useQuasar} from 'quasar'
-import lodash from 'lodash'
-import {eventBus} from 'boot/global-components.js'
 import {api} from '../api/api'
 import TagGridSelect from '../components/TagGridSelect.vue'
 import CheckboxGrid from '../components/CheckboxGrid.vue'
 import TitleImageGrid from '../components/TitleImageGrid.vue'
-import CustomFilter from '../components/CustomFilter.vue';
+// import {getSelectedRows} from "ag-grid-community/dist/types/core/api/rowSelectionApi.js";
 
-const $q = useQuasar()
-let additional_row_info = []
 let build_versions = []
 let updates = false
-let vault_cache_path = ''
 const columnDefs = ref([])
 
 const rowSelection = ref(null);
@@ -200,6 +194,10 @@ async function getVaultUpdates(catalogItem) {
   }
 }
 
+function getSelectedRowsData() {
+  return gridApi.value.getSelectedRows();
+}
+
 function onSelectionChanged() {
   let selectedRows = gridApi.value.getSelectedRows();
   selectedRows.forEach(function (selectedRow, index) {
@@ -233,8 +231,8 @@ defineExpose({
     getVault,
     importVault,
     filterRows,
+    getSelectedRowsData,
     onFilterTextBoxChanged,
-    CustomFilter,
     TagGridSelect,
     CheckboxGrid,
     TitleImageGrid

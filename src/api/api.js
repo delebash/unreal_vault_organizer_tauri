@@ -4,7 +4,7 @@ import {fetch} from '@tauri-apps/plugin-http';
 import {eventBus} from "boot/global-components.js";
 // import { invoke } from '@tauri-apps/api/core';
 // const invoke = window.__TAURI__.core.invoke;
-
+let loadingMsg = {}
 export const api = {
 
   async getUserSettings(id = 1) {
@@ -77,7 +77,7 @@ export const api = {
     let data = []
     let continueLoop = true
 
-    let loadingMsg = {}
+
     loadingMsg.show = true
     let msg = "Please wait while your vault is being downloaded."
     loadingMsg.msg = msg
@@ -102,9 +102,19 @@ export const api = {
     }
     loadingMsg.msg = "Begin parsing data"
     showLoading(loadingMsg)
-    await this.saveVaultData(data, loadingMsg)
+    await this.saveVaultData(data)
+    loadingMsg.show = true
+    loadingMsg.msg = "Finished parsing data"
+    showLoading(loadingMsg)
+    // hiding in 2s
+    let timer = setTimeout(() => {
+      loadingMsg.show = false
+      showLoading(loadingMsg)
+      timer = void 0
+    }, 2000)
+
   },
-  async saveVaultData(data, loadingMsg) {
+  async saveVaultData(data) {
     if (data.length > 0) {
       for (let asset of data) {
         // let buildVersion
@@ -201,20 +211,26 @@ export const api = {
           })
         }
       }
-    } else {
-      loadingMsg.show = false
-      showLoading(loadingMsg)
-      showErrorMessage("No data found.");
     }
-    loadingMsg.show = true
-    loadingMsg.msg = "Finished parsing data"
-    showLoading(loadingMsg)
-    // hiding in 2s
-    let timer = setTimeout(() => {
-      loadingMsg.show = false
-      showLoading(loadingMsg)
-      timer = void 0
-    }, 2000)
+  },
+   addUniqueValues(array1, array2) {
+  const uniqueValues = new Set(array1);
+
+  for (const element of array2) {
+    if (!uniqueValues.has(element)) {
+      array1.push(element);
+      uniqueValues.add(element);
+    }
+  }
+  //         asset.tagIds = this.addUniqueValues(asset.tagIds, data.tagIds)
+  return array1;
+},
+  async updateTagsByRow(assets,tagIds){
+    for (let asset of assets) {
+      await db.vaultLibrary.update(asset.assetId, {
+        tagIds: tagIds
+      })
+    }
   },
   async testDatat() {
     let data = [{
