@@ -62,10 +62,10 @@ export const api = {
   async loadVault() {
     return await db.vaultLibrary.toArray()
   },
-  async importVault() {
+  async importVault(count = 100) {
     let userSettings = await this.getUserSettings()
     let authData = userSettings.auth
-    let url = ENDPOINTS.vault(authData.account_id)
+    let url = new URL(ENDPOINTS.vault(authData.account_id));
     let options = {
       headers: {
         'Content-Type': 'application/json',
@@ -74,13 +74,39 @@ export const api = {
       }
     }
 
-    const response = await httpRequest(url, options)
-    await this.saveVaultData(response)
+    let data = []
+    let continueLoop = true
 
+    let loadingMsg = {}
+    loadingMsg.show = true
+    let msg = "Please wait while your vault is being downloaded."
+    loadingMsg.msg = msg
+    showLoading(loadingMsg)
+    while (continueLoop === true) {
+      const json_response = await httpRequest(url, options)
+      let next = json_response?.cursors?.next
+      let results = json_response?.results
+      if (next === null) {
+        if (results.length > 0) {
+          data.push(...results)
+          loadingMsg.msg = msg + ' Finished downloading, row count = ' + data.length
+          showLoading(loadingMsg)
+        }
+        continueLoop = false
+      } else {
+        url.searchParams.set("cursor", next);
+        data.push(...results)
+        loadingMsg.msg = msg + ' Rows downloaded ' + data.length
+        showLoading(loadingMsg)
+      }
+    }
+    loadingMsg.msg = "Begin parsing data"
+    showLoading(loadingMsg)
+    await this.saveVaultData(data, loadingMsg)
   },
-  async saveVaultData(data) {
-    if (data.results && data.results.length > 0) {
-      for (let asset of data.results) {
+  async saveVaultData(data, loadingMsg) {
+    if (data.length > 0) {
+      for (let asset of data) {
         // let buildVersion
         // let thumbnail_url = catalog_item.images[0]?.url
         // let ue_versions = catalog_item.projectVersions[0].engineVersions
@@ -175,7 +201,20 @@ export const api = {
           })
         }
       }
+    } else {
+      loadingMsg.show = false
+      showLoading(loadingMsg)
+      showErrorMessage("No data found.");
     }
+    loadingMsg.show = true
+    loadingMsg.msg = "Finished parsing data"
+    showLoading(loadingMsg)
+    // hiding in 2s
+    let timer = setTimeout(() => {
+      loadingMsg.show = false
+      showLoading(loadingMsg)
+      timer = void 0
+    }, 2000)
   },
   async testDatat() {
     let data = [{
@@ -391,4 +430,8 @@ function showErrorMessage(msg) {
   data.message = msg
   data.type = 'error'
   eventBus.emit('showMessage', data)
+}
+
+function showLoading(data) {
+  eventBus.emit('showLoading', data)
 }

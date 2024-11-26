@@ -12,6 +12,10 @@
     @grid-ready="onGridReady"
     :defaultColDef="defaultColDef"
     :rowData="rowData"
+    :rowSelection="rowSelection"
+    :pagination="true"
+    :paginationPageSize="paginationPageSize"
+    :paginationPageSizeSelector="paginationPageSizeSelector"
     :getRowNodeId="getRowNodeId"
     :valueCache="true"
     :overlayLoadingTemplate="overlayLoadingTemplate"
@@ -25,7 +29,7 @@
 </style>
 <script setup>
 
-import {onMounted, ref, shallowRef} from 'vue'
+import {onBeforeMount, onMounted, ref, shallowRef} from 'vue'
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional Theme applied to the Data Grid
 import {AgGridVue} from "ag-grid-vue3"; // Vue Data Grid Component
@@ -45,7 +49,9 @@ let updates = false
 let vault_cache_path = ''
 const columnDefs = ref([])
 
-const rowCount = 0
+const rowSelection = ref(null);
+const paginationPageSize = ref(null);
+const paginationPageSizeSelector = ref(null);
 const gridApi = shallowRef();
 const rowData = ref([])
 let getRowNodeId = ref(null)
@@ -145,14 +151,18 @@ columnDefs.value = [
 
 ];
 
-const rowSelection = {
-  mode: 'singleRow',
-};
+onBeforeMount(() => {
+  rowSelection.value = {
+    mode: "multiRow",
+  };
+  paginationPageSize.value = 5000;
+  paginationPageSizeSelector.value = [500, 1000, 5000];
+});
+
 const overlayLoadingTemplate =
   '<span class="ag-overlay-loading-center">Please wait while your rows are loading. This could take a minute to refresh your data.</span>';
 
 async function importVault() {
-  console.log('test')
   await api.importVault();
   await getVault()
 }

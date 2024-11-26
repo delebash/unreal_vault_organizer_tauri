@@ -8,9 +8,8 @@ const props = defineProps({
 const asset = props.params.data.asset
 
 </script>
-
 <template>
-
+  <a :href="`${asset.url}`" target="_blank">
   <div class="q-ml-xs">
     {{asset.title}}
     <q-img
@@ -18,9 +17,8 @@ const asset = props.params.data.asset
       spinner-color="white"
       style="height: 140px; max-width: 150px">
     </q-img>
-
   </div>
-
+  </a>
 </template>
 
 <style scoped>

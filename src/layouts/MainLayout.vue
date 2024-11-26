@@ -195,6 +195,9 @@ onMounted(async () => {
   eventBus.on('filteredRows', (args) => {
     refVaultGrid.value.filterRows(args)
   })
+  eventBus.on('showLoading', (args) => {
+    showLoading(args)
+  })
   eventBus.on('showMessage', (args) => {
     let color
     switch (args.type) {
@@ -223,6 +226,9 @@ await loadSettings()
 async function loadSettings() {
   await loadTags()
   let userSettings = await api.getUserSettings()
+  cbCheckForUpdates.value = userSettings?.checkForUpdates || true
+  accessToken.value = userSettings?.auth?.access_token
+
   if (!userSettings?.cachePath || userSettings?.cachePath === '') {
     selectedTab.value = 'settings'
     vaultButtons.value = false
@@ -230,14 +236,13 @@ async function loadSettings() {
       color: 'negative',
       message: 'On your settings tab, you must set a vault cache path and have an access token by logging in and requesting an authorization code.',
     })
+    return false
   }
   cachePath.value = userSettings?.cachePath
-  cbCheckForUpdates.value = userSettings?.checkForUpdates || true
-  accessToken.value = userSettings?.auth?.access_token
+  return true
 }
 
 function checkForUpdatesChange() {
-  console.log(cbCheckForUpdates.value)
   if (cbCheckForUpdates.value === true) {
     refCheckUpdates.value.checkForAppUpdates()
   }
@@ -295,10 +300,21 @@ async function loadVault() {
 }
 
 async function importVault() {
-  await loadSettings()
-  if (await api.isAuthDataValid() === true) {
+  if (await api.isAuthDataValid() === true && await loadSettings() === true) {
     await refVaultGrid.value.importVault()
   }
+}
+
+function showLoading(data) {
+  if (data.show === true) {
+    $q.loading.show({
+      message: data.msg,
+      spinnerColor: 'primary'
+    })
+  } else {
+    $q.loading.hide()
+  }
+
 }
 
 //End Vault

@@ -131,7 +131,8 @@ const filter_by = ref('And')
 const filter_by_options = ref(
   [
     {label: 'And', value: 'And'},
-    {label: 'Or', value: 'Or'}
+    {label: 'Or', value: 'Or'},
+    {label: 'Not', value: 'Not'}
   ]
 )
 const new_tags = ref([])
@@ -159,7 +160,7 @@ async function filterByTags() {
     }
     let rows
     //Or
-    if (operator === 'Or' || tagIds.length === 1) {
+    if (operator === 'Or') {
       filteredRows = await db.vaultLibrary.where('tagIds').anyOf(tagIds).toArray()
     } else if (operator === 'And') {
       rows = await db.vaultLibrary.toArray()
@@ -173,6 +174,18 @@ async function filterByTags() {
               filteredRows.push(row)
             }
           }
+        }
+      }
+    } else if (operator === 'Not') {
+      let rows = await db.vaultLibrary.toArray()
+      for (let item of rows) {
+        if (item.tagIds?.length > 0) {
+          const includesTags = item.tagIds.some(item => tagIds.includes(item));
+          if (includesTags === false) {
+            filteredRows.push(item)
+          }
+        } else {
+          filteredRows.push(item)
         }
       }
     }
@@ -223,7 +236,6 @@ async function removeTag(tag) {
 }
 
 function displayTag(tag) {
-  console.log(tag)
   tag_color.value = {}
   tag_edit.value = true
   tag_clicked.value = tag
