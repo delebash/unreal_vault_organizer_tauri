@@ -79,19 +79,19 @@
 
               <div class="q-pa-md q-gutter-md">
                 <q-card>
+                  <div>
+                    <a class="text-h6" :href="`${getAuthUrl}`" target="_blank">Get Authorization Code, click to
+                      login to your Epic
+                      Account.</a>
+                  </div>
+                  <div>
+                    <b>Next copy the value of authorizationCode and paste in the field below, do not include quotes.
+                      Then click Authorize. You will have to repeat this step every so often when your token expires.</b>
+                  </div>
+                  <i>NOTE: this application does not have any access to your username or password. We just obtain the one time
+                    use authorization code you copy to obtain an access token.
+                  </i>
                   <q-card-section>
-                    <div>
-                      <a class="text-h6" :href="`${getAuthUrl}`" target="_blank">Get Authorization Code, click to
-                        login to your Epic
-                        Account.</a>
-                    </div>
-                    <div>
-                      <b>Next copy the value of authorizationCode and paste in the field below, do not include quotes.
-                        Then click Authorize. You will have to repeat this step every so often when your token expires.</b>
-                    </div>
-                      <i>NOTE: this application does not have any access to your username or password. We just obtain the one time
-                        use authorization code you copy to obtain an access token.
-                      </i>
 
                     <q-input dense v-model="authorizationCode"
                              label="Authorization Code get by clicking link above to login to your account and pasting the value of authorizationCode  here, do not include quotes"
@@ -107,7 +107,7 @@
                       </template>
                     </q-input>
 
-                    <q-btn dense class="q-mt-md" @click="authorize()" color="primary"
+                    <q-btn dense class="q-mt-md q-mb-md" @click="authorize()" color="primary"
                            label="Authorize">
                     </q-btn>
 
@@ -136,7 +136,6 @@
                            label="Save settings">
                     </q-btn>
                     <div class="float-right">
-                      <div class="text-h6">Warning</div>
                       <q-btn
                         @click="showDialog({function:'deleteDatabase',message:'Confirm deleting database.'})"
                         color="negative" label="Delete Database">
