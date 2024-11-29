@@ -355,13 +355,13 @@ async function test() {
   }
   let data = []
   data.push(raw_asset)
-  api.testSaveVaultData(data)
+  vault.testSaveVaultData(data)
 }
 
 async function bulkAddTagIds(data) {
   let assets = refVaultGrid.value.getSelectedRowsData()
   if (assets.length > 0 && data.tagIds.length > 0) {
-    await api.updateTagsByRow(assets, data.tagIds)
+    await vault.updateTagsByRow(assets, data.tagIds)
     await loadVault()
   } else {
     $q.notify({
@@ -402,7 +402,6 @@ async function loadSettings(mounted = false) {
   }
 }
 
-
 function checkForUpdatesChange() {
   if (cbCheckForUpdates.value === true) {
     refCheckUpdates.value.checkForAppUpdates()
@@ -438,8 +437,8 @@ async function authorize() {
   if (authorizationCode.value !== '') {
     let auth = await auth.authorize(authorizationCode.value)
     let data = {auth: auth, cachePath: cachePath.value, checkForUpdates: cbCheckForUpdates.value}
-    await api.saveUserSettings(data)
-    if (await api.isAuthDataValid() === true) {
+    await settings.saveUserSettings(data)
+    if (await auth.isAuthDataValid() === true) {
       $q.notify({
         type: 'positive',
         message: 'Authorization successful',
@@ -494,7 +493,6 @@ function showLoading(data) {
     $q.loading.hide()
   }
 }
-
 //End Settings
 
 //Begin Vault
@@ -517,11 +515,9 @@ async function importVault() {
     }
   }
 }
-
 //End Vault
 
 //Begin Tags
-
 async function removeTag() {
   refSideNav.value.removeTag(currentTag)
   const index = tag_info_options.value.findIndex(({label}) => label === currentTag.label);
@@ -542,7 +538,6 @@ async function loadTags() {
   tag_info_options.value = await db.tags.toArray()
   tag_info_options.value = tag_info_options.value.sort((a, b) => (a.label > b.label) ? 1 : -1)
 }
-
 //End Tags
 
 //Drawer

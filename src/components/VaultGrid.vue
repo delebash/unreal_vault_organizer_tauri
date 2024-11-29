@@ -198,12 +198,12 @@ function onFirstDataRendered(params) {
 
 async function onCellValueChanged(event) {
   if (event.column.colId === 'comment') {
-    await api.updateVaultAsset(event.data.assetId, {
+    await vault.updateVaultAsset(event.data.assetId, {
       comment: event.data.comment
     })
   }
   if (event.column.colId === 'updates_available') {
-    await api.updateVaultAsset(event.data.assetId, {
+    await vault.updateVaultAsset(event.data.assetId, {
       updatesAvailable: event.data.updates_available
     })
   }
