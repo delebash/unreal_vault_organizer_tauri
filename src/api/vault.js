@@ -19,7 +19,7 @@ export const vault = {
       loadingMsg.show = true
       loadingMsg.msg = "Please wait while your vault is loading."
       utils.showLoading(loadingMsg)
-      let bSucess
+      let bSucess = false, bUpdatesAvailable = false
 
       bSucess = await this.updateInstalledProjects(userSettings.cachePath)
 
@@ -30,6 +30,7 @@ export const vault = {
           if (result !== null) {
             if (result.buildVersion !== project.buildVersionString) {
               assets[i].updatesAvailable = true
+              bUpdatesAvailable = true
               break;
             } else {
               assets[i].updatesAvailable = false
@@ -42,8 +43,11 @@ export const vault = {
       let timer = setTimeout(() => {
         loadingMsg.show = false
         utils.showLoading(loadingMsg)
+        if (bUpdatesAvailable === true) {
+          utils.showNotification('Updates Available! Filter Update Available column to true', 'positive')
+        }
         timer = void 0
-      }, 2000)
+      }, 1000)
 
       return assets
     }

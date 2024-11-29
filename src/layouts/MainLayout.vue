@@ -200,7 +200,10 @@ onMounted(async () => {
   })
   eventBus.on('showLoading', (args) => {
     showLoading(args)
-  })
+  }),
+    eventBus.on('showNotification', (args) => {
+      showNotification(args)
+    })
   eventBus.on('showMessage', (args) => {
     let color
     switch (args.type) {
@@ -490,7 +493,12 @@ function showLoading(data) {
     $q.loading.hide()
   }
 }
-
+function showNotification(data){
+  $q.notify({
+    color: data.type,
+    message: data.message
+  })
+}
 //End Settings
 
 //Begin Vault

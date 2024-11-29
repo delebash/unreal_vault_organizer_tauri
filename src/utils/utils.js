@@ -19,6 +19,13 @@ export const utils = {
     }
     return false
   },
+  showNotification(msg,type) {
+    let data = {}
+    data.message = msg
+    data.type = type
+    eventBus.emit('showNotification', data)
+  },
+
   showErrorMessage(msg) {
     let data = {}
     data.message = msg

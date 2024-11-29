@@ -64,7 +64,7 @@ columnDefs.value = [
     headerName: "Asset Id",
     field: "assetId",
     editable: false,
-    hide: false
+    hide: true
   },
   {
     headerName: "Title",
@@ -199,7 +199,16 @@ async function getVault(reset = false) {
   if (reset === true) {
     gridApi.value.setFilterModel(null);
     gridApi.value.applyColumnState({
-      defaultState: {sort: null},
+      state: [
+        {
+          colId: 'title',
+          sort: 'asc'
+        }
+      ],
+      defaultState: {
+        // important to say 'null' as undefined means 'do nothing'
+        sort: null
+      }
     });
   }
   rowData.value = await vault.loadVault();
@@ -234,11 +243,6 @@ async function onCellValueChanged(event) {
   if (event.column.colId === 'comment') {
     await vault.updateVaultAsset(event.data.assetId, {
       comment: event.data.comment
-    })
-  }
-  if (event.column.colId === 'updates_available') {
-    await vault.updateVaultAsset(event.data.assetId, {
-      updatesAvailable: event.data.updates_available
     })
   }
 }
