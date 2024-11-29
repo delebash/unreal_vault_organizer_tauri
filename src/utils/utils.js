@@ -37,5 +37,37 @@ export const utils = {
       }
     }
     return array1;
+  },
+  findNestedObject(arr, key, value) {
+    for (const obj of arr) {
+      if (obj[key] === value) {
+        return obj;
+      } else if (Array.isArray(obj)) {
+        const result = this.findNestedObject(obj, key, value);
+        if (result) return result;
+      } else if (typeof obj === 'object') {
+        for (const prop in obj) {
+          if (Array.isArray(obj[prop])) {
+            const result = this.findNestedObject(obj[prop], key, value);
+            if (result) return result;
+          }
+        }
+      }
+    }
+    return null;
+    // const foundObject = findNestedObject(data, 'id', 3);
+    // console.log(foundObject); // { id: 3, name: 'Charlie'
+  },
+  findByArtifactId(asset, artifactID) {
+    let obj = {}
+    for (let project of asset?.projectVersions) {
+      if (project.artifactId === artifactID) {
+        obj.assetID = asset.assetId
+        obj.buildVersion = project?.buildVersions[0]?.buildVersion
+        obj.artifactId = artifactID
+        return obj
+      }
+    }
+    return null
   }
 }

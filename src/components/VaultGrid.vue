@@ -38,6 +38,7 @@ import TagGridSelect from '../components/TagGridSelect.vue'
 import CheckboxGrid from '../components/CheckboxGrid.vue'
 import TitleImageGrid from '../components/TitleImageGrid.vue'
 import {vault} from "src/api/vault.js";
+import {isEqual, negate} from 'lodash';
 
 let updates = false
 const columnDefs = ref([])
@@ -63,7 +64,7 @@ columnDefs.value = [
     headerName: "Asset Id",
     field: "assetId",
     editable: false,
-    hide: true
+    hide: false
   },
   {
     headerName: "Title",
@@ -103,40 +104,72 @@ columnDefs.value = [
     autoHeight: true,
     editable: false,
     cellRenderer: 'agCheckboxCellRenderer',
-    // cellRenderer: 'CheckboxGrid',
-    valueGetter: updatesAvailable,
     width: 165,
   },
-  // {
-  //   headerName: 'Build Version',
-  //   field: 'buildVersions',
-  //   valueGetter: getBuildVersions,
-  //   editable: false,
-  //   wrapText: true,
-  //   width: 270,
-  // },
   {
     headerName: 'Engine Versions',
     field: 'engineVersions',
     editable: false,
-    wrapText: true,
+    wrapText: false,
     width: 270,
+    filterParams: {
+      filterOptions: ['contains', 'notContains', 'equals', 'notEqual'],
+      textMatcher: ({filterOption, value, filterText}) => {
+        if (filterText == null) {
+          return false;
+        }
+        let bMatch = false
+        const myArray = value.split(",")
+        let arryFilterText = filterText.split(",")
+        if (Array.isArray(arryFilterText)) {
+          switch (filterOption) {
+            case 'contains':
+              return arryFilterText.every(element => myArray.includes(element));
+            case 'notContains':
+              const filteredArray = arryFilterText.filter(item => !myArray.includes(item));
+              return filteredArray.length === arryFilterText.length;
+            case 'equals':
+              arryFilterText.sort();
+              myArray.sort()
+              return arraysEqual(arryFilterText, myArray);
+            // return isEqual(myArray, arryFilterText);
+            case 'notEqual':
+              arryFilterText.sort();
+              myArray.sort()
+              return !isEqual(arryFilterText, myArray);
+            //   return arryFilterText !== myArray
+            default:
+              // should never happen
+              console.warn('invalid filter type ' + filter);
+              return false;
+          }
+        }
+      }
+    }
   },
-
 ];
 
-function updatesAvailable(params) {
-  // let ProjectVersion = params.node.data.asset?.projectVersions
-  // for (let project of ProjectVersion) {
-  //
-  //   if (project.artifactId === "Raytrace68a070bd6f8fV1") {
-  //     return true
-  //   } else {
-  //     return false
-  //   }
-  // }
+function compareMixedTypes(a, b) {
+  if (typeof a === typeof b) {
+    return a === b ? 0 : a < b ? -1 : 1;
+  }
+  return typeof a < typeof b ? -1 : 1;
 }
 
+function arraysEqual(a, b) {
+  a.sort(compareMixedTypes);
+  b.sort(compareMixedTypes);
+
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length !== b.length) return false;
+
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) return false;
+  }
+
+  return true;
+}
 
 onBeforeMount(() => {
   rowSelection.value = {
@@ -170,6 +203,7 @@ async function getVault(reset = false) {
     });
   }
   rowData.value = await vault.loadVault();
+
 }
 
 function filterRows(args) {

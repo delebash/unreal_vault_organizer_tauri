@@ -17,13 +17,13 @@ const props = defineProps({
   params: Object
 });
 
-const updates_available = ref('0')
+const updates_available = ref(false)
 
 loadData()
 
 async function loadData() {
 
-  updates_available.value = props.params.data.updatesAvailable || '0'
+  updates_available.value = props.params.data.updatesAvailable || false
 }
 
 async function updateCheckbox(value) {

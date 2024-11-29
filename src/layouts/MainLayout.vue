@@ -355,7 +355,7 @@ async function test() {
   }
   let data = []
   data.push(raw_asset)
-  vault.testSaveVaultData(data)
+  await vault.saveVaultData(data)
 }
 
 async function bulkAddTagIds(data) {
@@ -379,26 +379,23 @@ const getAuthUrl = computed(() => {
 async function loadSettings(mounted = false) {
   let userSettings = await settings.getUserSettings()
 
-  if (!userSettings?.cachePath || userSettings?.cachePath === '') {
+  if (!userSettings?.cachePath || userSettings?.cachePath === '' || userSettings === undefined) {
     selectedTab.value = 'settings'
     vaultButtons.value = false
     $q.notify({
       color: 'negative',
       message: 'On your settings tab, you must set a vault cache path and have an access token by logging in and requesting an authorization code.',
     })
-  }
+  } else {
+    accessToken.value = userSettings?.auth?.access_token
+    cachePath.value = userSettings?.cachePath
+    await loadTags()
 
-  accessToken.value = userSettings?.auth?.access_token
-  cachePath.value = userSettings?.cachePath
-  await loadTags()
-
-  cbCheckForUpdates.value = userSettings?.checkForUpdates
-  if (cbCheckForUpdates.value || userSettings === undefined) {
-    cbCheckForUpdates.value = true
-    refCheckUpdates.value.checkForAppUpdates()
-  }
-  if (mounted === true && cachePath.value !== undefined && cachePath.value !== '') {
-    await vault.updateInstalledProjects(cachePath.value)
+    cbCheckForUpdates.value = userSettings?.checkForUpdates
+    if (cbCheckForUpdates.value || userSettings === undefined) {
+      cbCheckForUpdates.value = true
+      refCheckUpdates.value.checkForAppUpdates()
+    }
   }
 }
 
@@ -435,15 +432,15 @@ async function saveUserSettings() {
 
 async function authorize() {
   if (authorizationCode.value !== '') {
-    let auth = await auth.authorize(authorizationCode.value)
-    let data = {auth: auth, cachePath: cachePath.value, checkForUpdates: cbCheckForUpdates.value}
+    let authData = await auth.authorize(authorizationCode.value)
+    let data = {auth: authData, cachePath: cachePath.value, checkForUpdates: cbCheckForUpdates.value}
     await settings.saveUserSettings(data)
     if (await auth.isAuthDataValid() === true) {
       $q.notify({
         type: 'positive',
         message: 'Authorization successful',
       })
-      accessToken.value = auth.access_token
+      accessToken.value = authData.access_token
     }
   } else {
     $q.notify({
@@ -493,6 +490,7 @@ function showLoading(data) {
     $q.loading.hide()
   }
 }
+
 //End Settings
 
 //Begin Vault
@@ -515,6 +513,7 @@ async function importVault() {
     }
   }
 }
+
 //End Vault
 
 //Begin Tags
@@ -538,6 +537,7 @@ async function loadTags() {
   tag_info_options.value = await db.tags.toArray()
   tag_info_options.value = tag_info_options.value.sort((a, b) => (a.label > b.label) ? 1 : -1)
 }
+
 //End Tags
 
 //Drawer

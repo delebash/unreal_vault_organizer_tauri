@@ -13,17 +13,40 @@ export const vault = {
     await db.vaultLibrary.update(assetId, data)
   },
   async loadVault() {
-    loadingMsg.show = true
-    loadingMsg.msg = "Please wait while your vault is loading."
-    utils.showLoading(loadingMsg)
-    let data = await db.vaultLibrary.toArray()
-
-    let timer = setTimeout(() => {
-      loadingMsg.show = false
+    let userSettings = await settings.getUserSettings()
+    let assets = await db.vaultLibrary.toArray()
+    if (userSettings?.cachePath && userSettings?.cachePath !== '' && userSettings !== undefined && assets.length > 0) {
+      loadingMsg.show = true
+      loadingMsg.msg = "Please wait while your vault is loading."
       utils.showLoading(loadingMsg)
-      timer = void 0
-    }, 2000)
-    return data
+      let bSucess
+
+      bSucess = await this.updateInstalledProjects(userSettings.cachePath)
+
+      let installedProjects = await db.installedProjects.toArray()
+      for (let project of installedProjects) {
+        for (let i = 0; i < assets.length; i++) {
+          let result = utils.findByArtifactId(assets[i], project.AppNameString)
+          if (result !== null) {
+            if (result.buildVersion !== project.buildVersionString) {
+              assets[i].updatesAvailable = true
+              break;
+            } else {
+              assets[i].updatesAvailable = false
+              break;
+            }
+          }
+        }
+      }
+
+      let timer = setTimeout(() => {
+        loadingMsg.show = false
+        utils.showLoading(loadingMsg)
+        timer = void 0
+      }, 2000)
+
+      return assets
+    }
   },
   async importVault(count = 100) {
     let userSettings = await settings.getUserSettings()
@@ -75,14 +98,45 @@ export const vault = {
     }, 2000)
 
   },
-  async checkForUpdates() {
-    //   let filteredAsset = await db.vaultLibrary.where("artifactIds").equals("AncientGame_5.0").toArray()
-    // console.log(filteredAsset[0])
-    let myasset = filteredAsset[0]
-    console.log(myasset)
-    let result = myasset.projectVersions.find(item => item.artifactId === "AncientGame_5.0");
-    console.log(result)
+
+  async saveVaultData(data) {
+    try {
+      if (data.length > 0) {
+        for (let asset of data) {
+          let asset_row = await db.vaultLibrary.get(asset.assetId)
+          let artifactEngineVersion = this.getArtifactEngineVersion(asset.projectVersions)
+          if (asset_row === undefined) {
+            await db.vaultLibrary.add({
+              assetId: asset.assetId,
+              engineVersions: artifactEngineVersion?.engineVersions,
+              artifactIds: artifactEngineVersion?.artifactIds,
+              description: asset.description,
+              image: asset?.images[0],
+              projectVersions: asset?.projectVersions,
+              title: asset.title,
+              url: asset.url,
+              updatesAvailable: false
+            })
+          } else {
+            console.log(artifactEngineVersion?.engineVersions)
+            await db.vaultLibrary.update(asset.assetId, {
+              engineVersions: artifactEngineVersion?.engineVersions,
+              artifactIds: artifactEngineVersion?.artifactIds,
+              description: asset.description,
+              image: asset?.images[0],
+              projectVersions: asset?.projectVersions,
+              title: asset.title,
+              url: asset.url,
+              updatesAvailable: false
+            })
+          }
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
   },
+
   getArtifactEngineVersion(projectVersions) {
     let engineVersions = []
     let artifactIds = []
@@ -94,43 +148,14 @@ export const vault = {
         artifactIds.push(project.artifactId)
       }
     }
-    let engineVer = engineVersions.join(' ').replaceAll('UE_', '')
+    let engineVer = engineVersions.join(',').replaceAll('UE_', '')
     let obj = {
       'engineVersions': engineVer,
       'artifactIds': artifactIds
     }
     return obj
   },
-  async saveVaultData(data) {
-    if (data.length > 0) {
-      for (let asset of data) {
-        let asset_row = db.vaultLibrary.get(asset.assetId)
-        let artifactEngineVersion = this.getArtifactEngineVersion(asset.projectVersions)
-        if (asset_row === undefined) {
-          await db.vaultLibrary.put({
-            assetId: asset.assetId,
-            engineVersions: artifactEngineVersion.engineVersions,
-            artifactIds: artifactEngineVersion.artifactIds,
-            description: asset.description,
-            image: asset?.images[0],
-            projectVersions: asset.projectVersions,
-            title: asset.title,
-            url: asset.url
-          })
-        } else {
-          await db.vaultLibrary.update(asset.assetId, {
-            engineVersions: artifactEngineVersion.engineVersions,
-            artifactIds: artifactEngineVersion.artifactIds,
-            description: asset.description,
-            image: asset?.images[0],
-            projectVersions: asset.projectVersions,
-            title: asset.title,
-            url: asset.url
-          })
-        }
-      }
-    }
-  },
+
   async updateTagsByRow(assets, tagIds) {
     for (let asset of assets) {
       await db.vaultLibrary.update(asset.assetId, {
@@ -166,14 +191,17 @@ export const vault = {
         } catch (error) {
           console.error(error)
         }
-        // console.log(buildInfo)
+
+        await db.installedProjects.clear()
         await db.installedProjects.add({
           AppNameString: buildInfo.AppNameString,
           buildVersionString: buildInfo.BuildVersionString
         })
       }
+      return true
     } catch (error) {
       console.log(error)
     }
-  },
+    return false
+  }
 }

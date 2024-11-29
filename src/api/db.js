@@ -2,7 +2,7 @@ import Dexie from 'dexie'
 
 export const db = new Dexie('unreal_vault_organizer')
 db.version(3).stores({
-  vaultLibrary: 'assetId, comment, *tagIds, description, image, *artifactIds, engineVersions, title, url',
+  vaultLibrary: 'assetId, comment, *tagIds, description, image, *artifactIds, engineVersions, title, url, updatesAvailable',
   userSettings: 'id , cachePath , checkForUpdates ,auth',
   installedProjects: 'AppNameString, buildVersionString',
   tags: '++id, label, value',
