@@ -44,7 +44,7 @@ export const vault = {
         loadingMsg.show = false
         utils.showLoading(loadingMsg)
         if (bUpdatesAvailable === true) {
-          utils.showNotification('Updates Available! Filter Update Available column to true', 'positive')
+          utils.showNotification('Updates Available! Filter the Updates Available column to true', 'positive')
         }
         timer = void 0
       }, 1000)

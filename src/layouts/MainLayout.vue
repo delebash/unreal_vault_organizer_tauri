@@ -20,8 +20,6 @@
               <div v-show="vaultButtons">
                 <q-btn class="q-mr-sm" dense @click="importVault" color="green-9"
                        label="Import Vault"></q-btn>
-                <q-btn class="q-mr-sm" dense @click="test" color="green-9"
-                       label="Test"></q-btn>
                 <q-btn class="q-mr-sm" dense @click="loadVault(true)" color="orange-9"
                        label="Refresh Grid"></q-btn>
               </div>
@@ -231,136 +229,6 @@ onMounted(async () => {
 //   }
 // });
 
-async function test() {
-  // let row = await db.vaultLibrary.get('000f642b49f546b99475c670f1801ba8')
-  let raw_asset = {
-    "assetId": "7228b582dc9a49c09d7f6e0880d92d3d",
-    "assetNamespace": "89efe5924d3d467c839449ab6ab52e7f",
-    "categories": [
-      {
-        "id": "4172743f-9a9a-4239-afa2-74708fb07ef9",
-        "name": "Unreal Engine"
-      }
-    ],
-    "description": "Valley of the Ancient",
-    "distributionMethod": "COMPLETE_PROJECT",
-    "images": [
-      {
-        "md5": null,
-        "type": "Featured",
-        "url": "https://media.fab.com/image_previews/gallery_images/6eafee9c-476f-41fd-85fa-dbc5c82e0364/964b85ff-e314-4ae9-aaa0-695b0eb03b59.jpg",
-        "width": "320",
-        "height": "165",
-        "uploadedDate": "2024-10-17T09:05:11.484848Z"
-      }
-    ],
-    "projectVersions": [
-      {
-        "artifactId": "AncientGame_5.0",
-        "engineVersions": [
-          "UE_5.0"
-        ],
-        "targetPlatforms": [
-          "Windows"
-        ],
-        "buildVersions": [
-          {
-            "buildVersion": "5.0.0-19531542+++UE5+Release-5.0-Windows",
-            "platform": "Windows"
-          }
-        ]
-      },
-      {
-        "artifactId": "AncientGame_5.1",
-        "engineVersions": [
-          "UE_5.1"
-        ],
-        "targetPlatforms": [
-          "Windows"
-        ],
-        "buildVersions": [
-          {
-            "buildVersion": "5.1.0-23058290+++UE5+Release-5.1-Windows",
-            "platform": "Windows"
-          }
-        ]
-      },
-      {
-        "artifactId": "AncientGame_5.2",
-        "engineVersions": [
-          "UE_5.2"
-        ],
-        "targetPlatforms": [
-          "Windows"
-        ],
-        "buildVersions": [
-          {
-            "buildVersion": "5.2.0-25360045+++UE5+Release-5.2-Windows",
-            "platform": "Windows"
-          }
-        ]
-      },
-      {
-        "artifactId": "AncientGame_5.3",
-        "engineVersions": [
-          "UE_5.3"
-        ],
-        "targetPlatforms": [
-          "Windows"
-        ],
-        "buildVersions": [
-          {
-            "buildVersion": "5.3.0-27405482+++UE5+Release-5.3-Windows",
-            "platform": "Windows"
-          }
-        ]
-      },
-      {
-        "artifactId": "AncientGame_5.4",
-        "engineVersions": [
-          "UE_5.4"
-        ],
-        "targetPlatforms": [
-          "Windows"
-        ],
-        "buildVersions": [
-          {
-            "buildVersion": "5.4.0-33043543+++UE5+Release-5.4-Windows",
-            "platform": "Windows"
-          }
-        ]
-      },
-      {
-        "artifactId": "AncientGame_5.5",
-        "engineVersions": [
-          "UE_5.5"
-        ],
-        "targetPlatforms": [
-          "Windows"
-        ],
-        "buildVersions": [
-          {
-            "buildVersion": "5.5.0-37670630+++UE5+Release-5.5-Windows",
-            "platform": "Windows"
-          }
-        ]
-      }
-    ],
-    "source": "fab",
-    "title": "Valley of the Ancient",
-    "url": "https://www.fab.com/listings/0c19880e-21bd-42ba-8287-1caccc3951b1",
-    "customAttributes": [
-      {
-        "ListingIdentifier": "0c19880e-21bd-42ba-8287-1caccc3951b1"
-      }
-    ],
-    "legacyItemId": "b8acb476727441ef90fd0cef264c6633"
-  }
-  let data = []
-  data.push(raw_asset)
-  await vault.saveVaultData(data)
-}
-
 async function bulkAddTagIds(data) {
   let assets = refVaultGrid.value.getSelectedRowsData()
   if (assets.length > 0 && data.tagIds.length > 0) {
@@ -493,12 +361,14 @@ function showLoading(data) {
     $q.loading.hide()
   }
 }
-function showNotification(data){
+
+function showNotification(data) {
   $q.notify({
     color: data.type,
     message: data.message
   })
 }
+
 //End Settings
 
 //Begin Vault
