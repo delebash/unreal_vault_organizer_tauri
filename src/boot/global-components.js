@@ -4,6 +4,7 @@ const eventBus = mitt()
 import {db} from "src/api/db.js";
 import {colorPalette} from "src/utils/quasarColorPalatte.js";
 
+
 export default boot(async ({app}) => {
   await loadColorPalette()
 })

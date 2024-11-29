@@ -5,7 +5,7 @@
 
 
 import {defineConfig} from '#q-app/wrappers'
-
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 export default defineConfig((/* ctx */) => {
   return {
 
@@ -69,15 +69,19 @@ export default defineConfig((/* ctx */) => {
       // viteVuePluginOptions: {},
 
 
-      // vitePlugins: [
-      //   [ 'package-name', { ..pluginOptions.. }, { server: true, client: true } ]
-      // ]
+      vitePlugins: [
+        [nodePolyfills, {
+          globals: {
+            Buffer: true
+          }
+        }],
+      ]
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
-      open: true // opens browser window automatically
+      open: false // opens browser window automatically
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework

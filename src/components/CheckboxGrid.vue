@@ -11,22 +11,23 @@
 
 <script setup>
 import {ref} from 'vue'
-import {api} from "src/api/api.js";
+import {vault} from "src/api/vault.js";
 
 const props = defineProps({
   params: Object
 });
 
 const updates_available = ref('0')
+
 loadData()
 
 async function loadData() {
 
-  updates_available.value = props.params.data.updates_available || '0'
+  updates_available.value = props.params.data.updatesAvailable || '0'
 }
 
 async function updateCheckbox(value) {
-  await api.updateVaultAsset(props.params.data.assetId,{updates_available: value})
+  await vault.updateVaultAsset(props.params.data.assetId,{updatesAvailable: value})
 }
 </script>
 

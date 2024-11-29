@@ -15,6 +15,22 @@
     "updater:default",
     "updater:allow-check",
     "updater:allow-download-and-install",
+    "fs:default",
+    "fs:allow-exists",
+    "fs:allow-open",
+    "fs:allow-read",
+    "fs:allow-read-dir",
+    "fs:allow-read-file",
+    "fs:allow-read-text-file",
+    "fs:allow-read-text-file-lines",
+    "fs:allow-read-text-file-lines-next",
+    "fs:allow-fstat",
+    "fs:allow-stat",
+    "fs:read-dirs",
+    "fs:read-files",
+    "fs:read-all",
+    "fs:allow-lstat",
+    "fs:allow-create",
     {
       "identifier": "http:default",
       "allow": [
@@ -22,6 +38,15 @@
           "url": "https://*"
         }
       ]
-    }
+    },
+    {
+      "identifier": "fs:scope",
+      "allow": [
+        {
+          "path": "*/**"
+        }
+      ]
+    },
+    "fs:default"
   ]
 }

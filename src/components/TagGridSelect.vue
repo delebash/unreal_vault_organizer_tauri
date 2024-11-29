@@ -56,11 +56,9 @@
 <script setup>
 
 import {ref} from 'vue'
-import {api} from "../api/api.js";
 import {db} from "../api/db.js";
-
+import {vault} from "src/api/vault.js";
 const tags = ref([])
-const tags_listed = ''
 const tag_info_options = ref([])
 
 const props = defineProps({
@@ -74,11 +72,8 @@ async function updateTags(tags) {
   for (let tag of tags) {
     arrTags.push(tag.id)
   }
-  await api.updateVaultAsset(props.params.data.assetId,{tagIds: arrTags})
+  await vault.updateVaultAsset(props.params.data.assetId,{tagIds: arrTags})
 
-}
-
-function selectedTag(e) {
 }
 
 async function loadData() {

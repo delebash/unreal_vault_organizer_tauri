@@ -18,6 +18,7 @@
     :paginationPageSizeSelector="paginationPageSizeSelector"
     :getRowNodeId="getRowNodeId"
     :valueCache="true"
+    :enableCellTextSelection="true"
     :overlayLoadingTemplate="overlayLoadingTemplate"
     @cell-value-changed="onCellValueChanged"
     @selection-changed="onSelectionChanged"
@@ -29,17 +30,15 @@
 </style>
 <script setup>
 
-import {onBeforeMount, onMounted, ref, shallowRef} from 'vue'
+import {onBeforeMount, ref, shallowRef} from 'vue'
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional Theme applied to the Data Grid
 import {AgGridVue} from "ag-grid-vue3"; // Vue Data Grid Component
-import {api} from '../api/api'
 import TagGridSelect from '../components/TagGridSelect.vue'
 import CheckboxGrid from '../components/CheckboxGrid.vue'
 import TitleImageGrid from '../components/TitleImageGrid.vue'
-// import {getSelectedRows} from "ag-grid-community/dist/types/core/api/rowSelectionApi.js";
+import {vault} from "src/api/vault.js";
 
-let build_versions = []
 let updates = false
 const columnDefs = ref([])
 
@@ -62,13 +61,13 @@ const defaultColDef = {
 columnDefs.value = [
   {
     headerName: "Asset Id",
-    field: "asset.assetID",
+    field: "assetId",
     editable: false,
     hide: true
   },
   {
     headerName: "Title",
-    field: "asset.title",
+    field: "title",
     sort: 'asc',
     editable: false,
     wrapText: true,
@@ -77,7 +76,7 @@ columnDefs.value = [
   },
   {
     headerName: "Description",
-    field: "asset.description",
+    field: "description",
     editable: false,
     autoHeight: true,
     wrapText: true,
@@ -100,26 +99,44 @@ columnDefs.value = [
   },
   {
     headerName: 'Updates Available',
-    field: 'updates_available',
+    field: 'updatesAvailable',
     autoHeight: true,
     editable: false,
-    cellRenderer: 'CheckboxGrid',
+    cellRenderer: 'agCheckboxCellRenderer',
+    // cellRenderer: 'CheckboxGrid',
+    valueGetter: updatesAvailable,
     width: 165,
   },
+  // {
+  //   headerName: 'Build Version',
+  //   field: 'buildVersions',
+  //   valueGetter: getBuildVersions,
+  //   editable: false,
+  //   wrapText: true,
+  //   width: 270,
+  // },
   {
-    headerName: 'Build Version',
-    field: 'buildVersion',
+    headerName: 'Engine Versions',
+    field: 'engineVersions',
     editable: false,
-    width: 270,
-  },
-  {
-    headerName: 'Compatible Version',
-    field: 'ue_version',
-    editable: false,
+    wrapText: true,
     width: 270,
   },
 
 ];
+
+function updatesAvailable(params) {
+  // let ProjectVersion = params.node.data.asset?.projectVersions
+  // for (let project of ProjectVersion) {
+  //
+  //   if (project.artifactId === "Raytrace68a070bd6f8fV1") {
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // }
+}
+
 
 onBeforeMount(() => {
   rowSelection.value = {
@@ -133,12 +150,8 @@ const overlayLoadingTemplate =
   '<span class="ag-overlay-loading-center">Please wait while your rows are loading. This could take a minute to refresh your data.</span>';
 
 async function importVault() {
-  await api.importVault();
+  await vault.importVault();
   await getVault()
-}
-
-function testMatch() {
-  console.log('testMatch')
 }
 
 const onFilterTextBoxChanged = (filterValue) => {
@@ -148,26 +161,19 @@ const onFilterTextBoxChanged = (filterValue) => {
   );
 };
 
-async function getVault() {
-  rowData.value = await api.loadVault();
+async function getVault(reset = false) {
+  //reset filters and sort
+  if (reset === true) {
+    gridApi.value.setFilterModel(null);
+    gridApi.value.applyColumnState({
+      defaultState: {sort: null},
+    });
+  }
+  rowData.value = await vault.loadVault();
 }
-
 
 function filterRows(args) {
   rowData.value = args.rows;
-}
-
-async function getVaultUpdates(catalogItem) {
-  for (let build of build_versions) {
-    if (catalogItem.catalogItemId === build.CatalogItemId) {
-      if (catalogItem.buildVersion !== build.BuildVersionString) {
-        updates = true
-        return '1'
-      } else {
-        return '0'
-      }
-    }
-  }
 }
 
 function getSelectedRowsData() {
@@ -198,7 +204,7 @@ async function onCellValueChanged(event) {
   }
   if (event.column.colId === 'updates_available') {
     await api.updateVaultAsset(event.data.assetId, {
-      updates_available: event.data.updates_available
+      updatesAvailable: event.data.updates_available
     })
   }
 }

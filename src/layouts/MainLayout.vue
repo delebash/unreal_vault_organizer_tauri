@@ -2,22 +2,6 @@
   <Suspense>
     <q-layout view="hHh Lpr lff" class="rounded-borders">
       <check-for-updates ref="refCheckUpdates"></check-for-updates>
-      <!--Dialog Box-->
-      <!--      <q-dialog v-model="confirmDeleteTagDialog" ref="dialogRef" @hide="onDialogHide">-->
-      <!--        <q-card>-->
-      <!--          <q-card-section class="row items-center">-->
-      <!--          <span-->
-      <!--            class="q-ml-sm">The tag you are trying to delete is currently used in a record. Continue deleting?</span>-->
-      <!--          </q-card-section>-->
-
-      <!--          <q-card-actions align="right">-->
-      <!--            <q-btn flat label="OK" color="primary" position="top" @click="clickOKConfirmDelete"/>-->
-      <!--            <q-btn flat label="Cancel" color="primary" @click="onDialogCancel"/>-->
-      <!--          </q-card-actions>-->
-      <!--        </q-card>-->
-      <!--      </q-dialog>-->
-      <!--End Dialog Box-->
-
       <!--Begin Header-->
       <q-header dense elevated>
         <div class="row items-center">
@@ -36,7 +20,9 @@
               <div v-show="vaultButtons">
                 <q-btn class="q-mr-sm" dense @click="importVault" color="green-9"
                        label="Import Vault"></q-btn>
-                <q-btn class="q-mr-sm" dense @click="loadVault" color="orange-9"
+                <q-btn class="q-mr-sm" dense @click="test" color="green-9"
+                       label="Test"></q-btn>
+                <q-btn class="q-mr-sm" dense @click="loadVault(true)" color="orange-9"
                        label="Refresh Grid"></q-btn>
               </div>
             </div>
@@ -86,9 +72,11 @@
                   </div>
                   <div>
                     <b>Next copy the value of authorizationCode and paste in the field below, do not include quotes.
-                      Then click Authorize. You will have to repeat this step every so often when your token expires.</b>
+                      Then click Authorize. You will have to repeat this step every so often when your token
+                      expires.</b>
                   </div>
-                  <i>NOTE: this application does not have any access to your username or password. We just obtain the one time
+                  <i>NOTE: this application does not have any access to your username or password. We just obtain the
+                    one time
                     use authorization code you copy to obtain an access token.
                   </i>
                   <q-card-section>
@@ -148,7 +136,7 @@
                   </q-card-section>
                   <q-separator color="primary" size="5px" inset/>
                   <q-card-section>
-                  <q-scroll-area  :visible="true" style="height: 200px; max-width: 100%;">
+                    <q-scroll-area :visible="true" style="height: 200px; max-width: 100%;">
                   <span v-for="tag in tag_info_options.sort((a, b) => (a.label > b.label) ? 1 : -1)">
                     <q-chip
                       text-color="white"
@@ -159,8 +147,8 @@
                       <div class="q-pl-md q-ma-xs">{{ tag.label }}</div>
                     </q-chip>
                   </span>
-                  </q-scroll-area>
-                    </q-card-section>
+                    </q-scroll-area>
+                  </q-card-section>
                 </q-card>
               </div>
 
@@ -174,13 +162,15 @@
 </template>
 
 <script setup>
-import {ref, computed, onMounted, nextTick, watch} from 'vue'
+import {ref, computed, onMounted} from 'vue'
 import {useQuasar} from 'quasar'
-import {api} from '../api/api.js'
 import {db} from '../api/db.js'
+import {eventBus} from "boot/global-components.js";
+import {auth} from "src/api/auth.js";
+import {settings} from "src/api/setting.js";
+import {vault} from "src/api/vault.js";
 import VaultGrid from "components/VaultGrid.vue";
 import SideNav from "components/SideNav.vue";
-import {eventBus} from "boot/global-components.js";
 import CheckForUpdates from "components/CheckForUpdates.vue";
 
 const $q = useQuasar()
@@ -196,9 +186,7 @@ const refCheckUpdates = ref(null)
 const cbCheckForUpdates = ref(true)
 const accessToken = ref(null)
 const tag_info_options = ref([])
-const refsLoaded = ref(false);
 let currentTag = {}
-let userSettings
 
 onMounted(async () => {
   eventBus.on('refreshGrid', (args) => {
@@ -209,7 +197,6 @@ onMounted(async () => {
   })
   eventBus.on('bulkAddTags', (args) => {
     bulkAddTagIds(args)
-
   })
   eventBus.on('showLoading', (args) => {
     showLoading(args)
@@ -224,23 +211,152 @@ onMounted(async () => {
         color = 'negative'
         break;
     }
-
     $q.notify({
       color: color,
       message: args.message
     })
   })
-
+  await loadSettings(true)
 })
 
 
-watch([refCheckUpdates], () => {
-  if (refCheckUpdates.value) {
-    nextTick(() => {
-      loadSettings()
-    });
+// watch([refCheckUpdates], () => {
+//   if (refCheckUpdates.value) {
+//     nextTick(() => {
+//       loadSettings()
+//     });
+//   }
+// });
+
+async function test() {
+  // let row = await db.vaultLibrary.get('000f642b49f546b99475c670f1801ba8')
+  let raw_asset = {
+    "assetId": "7228b582dc9a49c09d7f6e0880d92d3d",
+    "assetNamespace": "89efe5924d3d467c839449ab6ab52e7f",
+    "categories": [
+      {
+        "id": "4172743f-9a9a-4239-afa2-74708fb07ef9",
+        "name": "Unreal Engine"
+      }
+    ],
+    "description": "Valley of the Ancient",
+    "distributionMethod": "COMPLETE_PROJECT",
+    "images": [
+      {
+        "md5": null,
+        "type": "Featured",
+        "url": "https://media.fab.com/image_previews/gallery_images/6eafee9c-476f-41fd-85fa-dbc5c82e0364/964b85ff-e314-4ae9-aaa0-695b0eb03b59.jpg",
+        "width": "320",
+        "height": "165",
+        "uploadedDate": "2024-10-17T09:05:11.484848Z"
+      }
+    ],
+    "projectVersions": [
+      {
+        "artifactId": "AncientGame_5.0",
+        "engineVersions": [
+          "UE_5.0"
+        ],
+        "targetPlatforms": [
+          "Windows"
+        ],
+        "buildVersions": [
+          {
+            "buildVersion": "5.0.0-19531542+++UE5+Release-5.0-Windows",
+            "platform": "Windows"
+          }
+        ]
+      },
+      {
+        "artifactId": "AncientGame_5.1",
+        "engineVersions": [
+          "UE_5.1"
+        ],
+        "targetPlatforms": [
+          "Windows"
+        ],
+        "buildVersions": [
+          {
+            "buildVersion": "5.1.0-23058290+++UE5+Release-5.1-Windows",
+            "platform": "Windows"
+          }
+        ]
+      },
+      {
+        "artifactId": "AncientGame_5.2",
+        "engineVersions": [
+          "UE_5.2"
+        ],
+        "targetPlatforms": [
+          "Windows"
+        ],
+        "buildVersions": [
+          {
+            "buildVersion": "5.2.0-25360045+++UE5+Release-5.2-Windows",
+            "platform": "Windows"
+          }
+        ]
+      },
+      {
+        "artifactId": "AncientGame_5.3",
+        "engineVersions": [
+          "UE_5.3"
+        ],
+        "targetPlatforms": [
+          "Windows"
+        ],
+        "buildVersions": [
+          {
+            "buildVersion": "5.3.0-27405482+++UE5+Release-5.3-Windows",
+            "platform": "Windows"
+          }
+        ]
+      },
+      {
+        "artifactId": "AncientGame_5.4",
+        "engineVersions": [
+          "UE_5.4"
+        ],
+        "targetPlatforms": [
+          "Windows"
+        ],
+        "buildVersions": [
+          {
+            "buildVersion": "5.4.0-33043543+++UE5+Release-5.4-Windows",
+            "platform": "Windows"
+          }
+        ]
+      },
+      {
+        "artifactId": "AncientGame_5.5",
+        "engineVersions": [
+          "UE_5.5"
+        ],
+        "targetPlatforms": [
+          "Windows"
+        ],
+        "buildVersions": [
+          {
+            "buildVersion": "5.5.0-37670630+++UE5+Release-5.5-Windows",
+            "platform": "Windows"
+          }
+        ]
+      }
+    ],
+    "source": "fab",
+    "title": "Valley of the Ancient",
+    "url": "https://www.fab.com/listings/0c19880e-21bd-42ba-8287-1caccc3951b1",
+    "customAttributes": [
+      {
+        "ListingIdentifier": "0c19880e-21bd-42ba-8287-1caccc3951b1"
+      }
+    ],
+    "legacyItemId": "b8acb476727441ef90fd0cef264c6633"
   }
-});
+  let data = []
+  data.push(raw_asset)
+  api.testSaveVaultData(data)
+}
 
 async function bulkAddTagIds(data) {
   let assets = refVaultGrid.value.getSelectedRowsData()
@@ -256,25 +372,12 @@ async function bulkAddTagIds(data) {
 }
 
 const getAuthUrl = computed(() => {
-  return api.getAuthUrl()
+  return auth.getAuthUrl()
 })
 
-
 //Settings
-async function loadSettings() {
-
-  userSettings = await api.getUserSettings()
-  cbCheckForUpdates.value = userSettings?.checkForUpdates
-
-  if (cbCheckForUpdates.value || userSettings === undefined) {
-    cbCheckForUpdates.value = true
-    refCheckUpdates.value.checkForAppUpdates()
-  }
-
-
-  await loadTags()
-
-  accessToken.value = userSettings?.auth?.access_token
+async function loadSettings(mounted = false) {
+  let userSettings = await settings.getUserSettings()
 
   if (!userSettings?.cachePath || userSettings?.cachePath === '') {
     selectedTab.value = 'settings'
@@ -283,11 +386,22 @@ async function loadSettings() {
       color: 'negative',
       message: 'On your settings tab, you must set a vault cache path and have an access token by logging in and requesting an authorization code.',
     })
-    return false
   }
+
+  accessToken.value = userSettings?.auth?.access_token
   cachePath.value = userSettings?.cachePath
-  return true
+  await loadTags()
+
+  cbCheckForUpdates.value = userSettings?.checkForUpdates
+  if (cbCheckForUpdates.value || userSettings === undefined) {
+    cbCheckForUpdates.value = true
+    refCheckUpdates.value.checkForAppUpdates()
+  }
+  if (mounted === true && cachePath.value !== undefined && cachePath.value !== '') {
+    await vault.updateInstalledProjects(cachePath.value)
+  }
 }
+
 
 function checkForUpdatesChange() {
   if (cbCheckForUpdates.value === true) {
@@ -307,7 +421,7 @@ function tabChange() {
 
 async function saveUserSettings() {
   if (cachePath.value !== '') {
-    await api.saveUserSettings({cachePath: cachePath.value, checkForUpdates: cbCheckForUpdates.value})
+    await settings.saveUserSettings({cachePath: cachePath.value, checkForUpdates: cbCheckForUpdates.value})
     $q.notify({
       type: 'positive',
       message: 'Settings saved successfully',
@@ -322,8 +436,8 @@ async function saveUserSettings() {
 
 async function authorize() {
   if (authorizationCode.value !== '') {
-    let auth = await api.authorize(authorizationCode.value)
-    let data = {auth: auth}
+    let auth = await auth.authorize(authorizationCode.value)
+    let data = {auth: auth, cachePath: cachePath.value, checkForUpdates: cbCheckForUpdates.value}
     await api.saveUserSettings(data)
     if (await api.isAuthDataValid() === true) {
       $q.notify({
@@ -384,11 +498,12 @@ function showLoading(data) {
 //End Settings
 
 //Begin Vault
-async function loadVault() {
-  await refVaultGrid.value.getVault()
+async function loadVault(reset) {
+  await refVaultGrid.value.getVault(reset)
 }
 
 async function importVault() {
+  let userSettings = await settings.getUserSettings()
   if (!userSettings?.cachePath || userSettings?.cachePath === '') {
     selectedTab.value = 'settings'
     vaultButtons.value = false
@@ -397,7 +512,7 @@ async function importVault() {
       message: 'On your settings tab, you must set a vault cache path and have an access token by logging in and requesting an authorization code.',
     })
   } else {
-    if (await api.isAuthDataValid()) {
+    if (await auth.isAuthDataValid()) {
       await refVaultGrid.value.importVault()
     }
   }

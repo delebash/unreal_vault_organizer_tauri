@@ -4,7 +4,7 @@ const props = defineProps({
   params: Object
 });
 
-const asset = props.params.data.asset
+const asset = props.params.data
 
 </script>
 <template>
@@ -12,7 +12,7 @@ const asset = props.params.data.asset
   <div class="q-ml-xs">
     {{asset.title}}
     <q-img
-      :src="asset?.images[0]?.url"
+      :src="asset?.image.url"
       spinner-color="white"
       style="height: 140px; max-width: 150px">
     </q-img>
