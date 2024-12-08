@@ -12,14 +12,8 @@ Organizer your Unreal vault the way you want.  Tired of not being able to add cu
 
 
 Intro video:
-<div style="position: relative; width: 100%; padding-bottom: 56.25%">
-<iframe src="https://www.youtube.com/embed/Rl1VeQUUC00" 
-        title="Unreal Vault Organizer for Fab" frameborder="0" allowfullscreen
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        style="position: absolute; width: 100%; height: 100%;">
-</iframe>
-</div>
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Rl1VeQUUC00/0.jpg)](https://www.youtube.com/watch?v=Rl1VeQUUC00)
 
 Thanks to Quasar and Tauri for making development easy.
 
