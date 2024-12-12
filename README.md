@@ -22,7 +22,7 @@ https://discord.gg/2WkHWNDf8q
 
 ## My other projects:
 
-Global Environmental System (GES) -- This system integrates Ultra Dynamic Sky Weather (potentially any Weather System) with Megascan Foliage, Trees, Props, UE Water, Ambient Wind System, and various other Systems.
+Global Environmental System (GES) -- Using Unreal Engine. This system integrates Ultra Dynamic Sky Weather (potentially any Weather System) with Megascan Foliage, Trees, Props, UE Water, Ambient Wind System, and various other Systems.
 https://github.com/delebash/UE_GlobalEnvironmentalSystem
 
 Unreal Mapbox Bridge  -  Import real world locations into UE as Landscapes
