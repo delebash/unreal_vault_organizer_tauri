@@ -15,6 +15,24 @@ Intro video:
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Rl1VeQUUC00/0.jpg)](https://www.youtube.com/watch?v=Rl1VeQUUC00)
 
+## Support:
+https://discord.gg/2WkHWNDf8q
+
+## Roadmap:
+
+## My other projects:
+
+Global Environmental System (GES) -- This system integrates Ultra Dynamic Sky Weather (potentially any Weather System) with Megascan Foliage, Trees, Props, UE Water, Ambient Wind System, and various other Systems.
+https://github.com/delebash/UE_GlobalEnvironmentalSystem
+
+Unreal Mapbox Bridge  -  Import real world locations into UE as Landscapes
+https://github.com/delebash/UnrealMapboxBridgePlugin
+
+Texture From Mesh Creator - Creates a texture from a screen shot of a Mesh.  Main puporse for this was so I could easily capture the show print of my characters so I could stamp that texture into the landscape for footprint effects.
+https://github.com/delebash/TextureFromMeshCreator
+
+
+
 Thanks to Quasar and Tauri for making development easy.
 
 Dev Notes:
