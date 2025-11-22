@@ -34,6 +34,58 @@ Example return data:
 
 [fab-detail.json](fab-detail.json)
 
+## Get tags lookup data (all tags available to use for any product)
+
+> https://www.fab.com/i/tags
+
+Example return data:
+
+[fab-tags.json](fab-tags.json)
+
+
+## taxonamy-license
+
+> https://www.fab.com/i/taxonomy/licenses
+
+Example return data:
+
+[taxonomy-licenses.json](taxonomy-licenses.json)
+
+## search by seller
+
+https://www.fab.com/i/listings/search?seller=Velarion
+
+Example return data:
+
+[listing-search-by-seller.json](listing-search-by-seller.json)
+
+# Requires different authentication method maybe use puppeteer
+
+## listing-states
+
+> https://www.fab.com/i/users/me/listings-states/967505ae-397f-498a-ab4e-1166ff3d2978?
+
+Example return data:
+
+[listing-states.json](listing-states.json)
+
+## ownership
+
+> https://www.fab.com/i/listings/967505ae-397f-498a-ab4e-1166ff3d2978/ownership
+
+Example return data:
+
+[ownership.json](ownership.json)
+
+## cart
+
+> https://www.fab.com/i/cart
+
+## old bulk
+
+> https://catalog-public-service-prod06.ol.epicgames.com/catalog/api/shared/namespace/{{account_id}}/bulk/items?includeDLCDetails=false&includeMainGameDetails=false&country=US&locale=en
+
+
 # Authentication
 
 **Documentation of some epic api's and authentication methods from this github repo:**
@@ -43,7 +95,6 @@ Example return data:
 **Specific method used -- Authenticating by Authorization Code**
 
 https://github.com/MixV2/EpicResearch/blob/master/docs/auth/grant_types/authorization_code.md
-
 
 
 **Example code -- client_id is from list of clients**

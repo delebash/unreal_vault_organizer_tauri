@@ -1,0 +1,59 @@
+{
+  "cursors": {
+    "next": null,
+    "previous": null
+  },
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "isPriceable": true,
+      "name": "Other",
+      "slug": "legacy",
+      "url": "",
+      "licenses": [
+        {
+          "name": "UE Marketplace License",
+          "slug": "legacy-uem",
+          "uid": "2ab286a6-56bc-444b-9e73-594b1f24c5bb"
+        }
+      ]
+    },
+    {
+      "isPriceable": true,
+      "name": "Standard License",
+      "slug": "standard",
+      "url": "/eula",
+      "licenses": [
+        {
+          "name": "UEFN - Reference only",
+          "slug": "uefn-reference-only",
+          "uid": "eec3bdd5-ba7a-45a8-b15d-67462b9630f8"
+        },
+        {
+          "name": "Personal",
+          "slug": "personal",
+          "uid": "eec3bdd5-ba7a-45a8-b15d-67462b9630f6"
+        },
+        {
+          "name": "Professional",
+          "slug": "professional",
+          "uid": "eec3bdd5-ba7a-45a8-b15d-67462b9630f9"
+        }
+      ]
+    },
+    {
+      "isPriceable": false,
+      "name": "Creative Commons Attribution (CC BY 4.0)",
+      "slug": "cc",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "licenses": [
+        {
+          "name": "CC-BY",
+          "slug": "cc-by",
+          "uid": "fc23593c-8271-45b8-a041-ca58c53e0146"
+        }
+      ]
+    }
+  ]
+}

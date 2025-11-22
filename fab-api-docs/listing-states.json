@@ -1,0 +1,15 @@
+{
+  "acquired": true,
+  "entitlementId": "e55087b1-b772-4eb9-b083-ec2a22b8793f",
+  "ownership": [
+    {
+      "fabLicenseId": "eec3bdd5-ba7a-45a8-b15d-67462b9630f9",
+      "name": "Professional",
+      "path": "license/standard/professional",
+      "slug": "professional"
+    }
+  ],
+  "review": null,
+  "uid": "967505ae-397f-498a-ab4e-1166ff3d2978",
+  "wishlisted": false
+}
