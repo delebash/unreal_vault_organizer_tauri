@@ -16,7 +16,7 @@ Example return data:
 [fab-get-assets-by-account.json](fab-get-assets-by-account.json)
 
 
-## Get asset formats for unreal engine are better to use the one in main asset listing because of build info
+## Get asset formats for unreal engine (Above api Get assets by account has this information as well as build info)
 
 Example assetid `84fda27a-c79f-49c9-8458-82401fb37cfb` for Ultra Dynamic Sky
 
