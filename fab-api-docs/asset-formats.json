@@ -1,0 +1,217 @@
+{
+  "assetFormatType": {
+    "code": "unreal-engine",
+    "extensions": [
+      "uasset",
+      "uproject"
+    ],
+    "icon": "unreal-engine",
+    "name": "Unreal Engine",
+    "groupName": "Game Engine Formats"
+  },
+  "developmentPlatforms": [],
+  "distributionMethod": "asset_pack",
+  "techDetails": {
+    "animation": null,
+    "audio": null,
+    "brush": null,
+    "decal": null,
+    "gameSystem": null,
+    "gameTemplate": null,
+    "hdri": null,
+    "material": null,
+    "spritesAndFlipbooks": null,
+    "threeDModel": null,
+    "toolAndPlugin": null,
+    "tutorialsExamples": null,
+    "ui": null,
+    "vfx": null
+  },
+  "technicalDetails": "<p>For full documentation, see the included readme utility, in the Blueprints folder.</p><p></p><p>Total Contents of the Product (As of Latest Version):</p><p><strong>10 Blueprint Actor Classes:</strong></p><p>Ultra Dynamic Sky</p><p>Ultra Dynamic Weather</p><p>Rain Drip Spline</p><p>Weather Override VolumeRadial StormPuddle Fluid Volume</p><p>Weather Mask Brush</p><p>Ambient Sound_Time and Weather Controlled</p><p>Weather Mask Projection Box</p><p>UDS Occlusion Volume</p><p><strong>19 Materials:</strong></p><p>1 for Main Sky Material</p><p>3 for Volumetric Clouds</p><p>1 for Volumetric Auroras</p><p>2 for Cloud Shadows</p><p>1 for Static Clouds</p><p>1 for Volumetric Cloud Fog</p><p>6 for Rain, Dust and Snow effects</p><p>4 for Lightning effects</p><p>3 for Post Process</p><p><strong>78 Textures:</strong></p><p>4 for 3D Volumetric Cloud textures</p><p>3 for Base 2D Cloud Textures</p><p>1 for Sky Light</p><p>5 for Sky Textures (Moon, stars, ect)</p><p>3 for Static Clouds</p><p>3 for Lightning particles</p><p>2 for Snow</p><p>3 for Rain</p><p>1 for Dust</p><p>2 for Rain Snow and Splash particles</p><p>11 for Post Processing Effects</p><p>38 for Editor Icons</p><p><strong>9 Niagara Particle Systems</strong></p><p>8 for Weather Effects</p><p>1 for Volumetric Cloud Fog</p><p>1 for Volumetric Cloud Light Rays</p><p><strong>11 Metasound Sources</strong><strong>38 Sound Waves</strong></p><p>Wind  - 5 Sound Waves</p><p>Close Thunder - 6 Sound Waves</p><p>Distant Thunder - 1 Sound Wave</p><p>Rain - 8 Sound Waves</p><p>Puddle Sounds - 5 Sound Waves</p><p>Snow Movement - 7 Sound Waves</p><p>Dust Movement - 6 Sound Waves</p>",
+  "versions": [
+    {
+      "artifactId": "UltraDyn12790d13e818V1",
+      "engineVersions": [
+        "UE_4.10",
+        "UE_4.11",
+        "UE_4.12",
+        "UE_4.13",
+        "UE_4.14",
+        "UE_4.15",
+        "UE_4.8",
+        "UE_4.9"
+      ],
+      "fileType": "source",
+      "name": "UltraDynamicSky",
+      "targetPlatforms": [
+        "Windows",
+        "Mac",
+        "PS4",
+        "iOS",
+        "Android",
+        "Xbox One",
+        "Oculus"
+      ],
+      "uid": "7ecda9af-860d-4276-972d-7d69af5beb1a"
+    },
+    {
+      "artifactId": "UltraDyn12790d13e818V2",
+      "engineVersions": [
+        "UE_4.16",
+        "UE_4.17",
+        "UE_4.18",
+        "UE_4.19",
+        "UE_4.20"
+      ],
+      "fileType": "source",
+      "name": "UltraDynamicSky416",
+      "targetPlatforms": [
+        "Windows",
+        "Mac",
+        "PS4",
+        "iOS",
+        "Android",
+        "Xbox One",
+        "Oculus"
+      ],
+      "uid": "5fdf065f-046a-4ee6-9609-6501a6097c67"
+    },
+    {
+      "artifactId": "UltraDyn12790d13e818V3",
+      "engineVersions": [
+        "UE_4.21"
+      ],
+      "fileType": "source",
+      "name": "UltraDynamicSky421",
+      "targetPlatforms": [
+        "Windows",
+        "PS4",
+        "Mac",
+        "iOS",
+        "Android",
+        "Xbox One",
+        "Oculus"
+      ],
+      "uid": "ec2d8fd6-0ae1-47bc-ac82-a9ed003be452"
+    },
+    {
+      "artifactId": "UltraDyn12790d13e818V4",
+      "engineVersions": [
+        "UE_4.22",
+        "UE_4.23"
+      ],
+      "fileType": "source",
+      "name": "UltraDynamicSky422",
+      "targetPlatforms": [
+        "Android",
+        "iOS",
+        "Mac",
+        "Oculus",
+        "PS4",
+        "Windows",
+        "Xbox One"
+      ],
+      "uid": "b87419d0-47e6-4fd2-8294-37dcac128694"
+    },
+    {
+      "artifactId": "UltraDyn12790d13e818V5",
+      "engineVersions": [
+        "UE_4.24",
+        "UE_4.25"
+      ],
+      "fileType": "source",
+      "name": "UDS_424",
+      "targetPlatforms": [
+        "Xbox One",
+        "Windows",
+        "PS4",
+        "Oculus",
+        "Mac",
+        "iOS",
+        "Android"
+      ],
+      "uid": "3c827dde-2d87-40c9-9f28-34bbddb2f9ae"
+    },
+    {
+      "artifactId": "UltraDyn12790d13e818V6",
+      "engineVersions": [
+        "UE_4.26",
+        "UE_4.27"
+      ],
+      "fileType": "source",
+      "name": "V6",
+      "targetPlatforms": [
+        "Android",
+        "iOS",
+        "Oculus",
+        "Mac",
+        "PS4",
+        "Windows",
+        "Xbox One"
+      ],
+      "uid": "ee012d82-adcc-4f3d-80f9-488a4df7ef4a"
+    },
+    {
+      "artifactId": "UltraDyn12790d13e818V7",
+      "engineVersions": [
+        "UE_5.0"
+      ],
+      "fileType": "source",
+      "name": "V7",
+      "targetPlatforms": [
+        "iOS",
+        "Android",
+        "Mac",
+        "Oculus",
+        "PS4",
+        "Windows",
+        "Xbox One",
+        "Linux"
+      ],
+      "uid": "3530de1e-1a31-4ddd-8cdf-a954b58f0317"
+    },
+    {
+      "artifactId": "UltraDyn12790d13e818V8",
+      "engineVersions": [
+        "UE_5.1",
+        "UE_5.2",
+        "UE_5.3",
+        "UE_5.4"
+      ],
+      "fileType": "source",
+      "name": "V8",
+      "targetPlatforms": [
+        "Android",
+        "iOS",
+        "Linux",
+        "Mac",
+        "Oculus",
+        "PS4",
+        "Windows",
+        "Xbox One"
+      ],
+      "uid": "11c119aa-c369-4da9-a936-6bef20dc1f63"
+    },
+    {
+      "artifactId": "UltraDyn9b878d3aeffeV9",
+      "engineVersions": [
+        "UE_5.5",
+        "UE_5.6",
+        "UE_5.7"
+      ],
+      "fileType": "source",
+      "name": "V9",
+      "targetPlatforms": [
+        "Windows",
+        "Mac",
+        "PS4",
+        "iOS",
+        "Android",
+        "Xbox One",
+        "Oculus",
+        "Linux"
+      ],
+      "uid": "e6a0a412-873f-49aa-b6a7-fc3e19925f7b"
+    }
+  ]
+}

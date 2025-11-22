@@ -16,6 +16,11 @@ Intro video:
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Rl1VeQUUC00/0.jpg)](https://www.youtube.com/watch?v=Rl1VeQUUC00)
 
+Misc:
+Unreal fab api and authentication documentation
+
+[fab-api.md](fab-api-docs/fab-api.md)
+
 ## Support:
 https://discord.gg/2WkHWNDf8q
 
@@ -40,8 +45,31 @@ Dev Notes:
 
 clone the repo and then to install `npm install` to run `npm run app`
 
+Dev Notes:
+
 create keys
 npx tauri signer generate -- -w test/.tauri/myapp.key
 then you will setup a github action and add a repo secret copying the value of the prive key just generated.
 
 tauri open all in external url just add the shell plugin and set the default:shell permissions
+
+Debug Tauri Front End:
+
+Set Env Variabe: WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS=port
+
+via powershell
+`$env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS="--remote-debugging-port=9222"`
+
+or set via system environmental variables
+
+Webstorm debug:
+
+Add Debug configuration Attach to Node/Chrome
+
+Set port to same as remote-debugging-port in this case 9222
+
+start tauri app `npm run tauri dev`
+
+start webstorm debug session
+
+

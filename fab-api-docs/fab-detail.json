@@ -1,0 +1,847 @@
+{
+  "assetFormats": [
+    {
+      "assetFormatType": {
+        "code": "unreal-engine",
+        "extensions": [
+          "uasset",
+          "uproject"
+        ],
+        "icon": "unreal-engine",
+        "name": "Unreal Engine",
+        "groupName": "Game Engine Formats"
+      }
+    }
+  ],
+  "availableInEurope": true,
+  "averageRating": 4.9,
+  "catalogItemId": "59b4ed87f57b4430a5e706bc60799df1",
+  "category": {
+    "name": "Procedural Systems",
+    "path": "procedural-systems",
+    "slug": "procedural-systems",
+    "uid": "5007619e-a12c-46aa-97cd-fae99744236f"
+  },
+  "changelogs": [
+    {
+      "content": "Initial release",
+      "publishedAt": "2015-07-30T15:41:07.683000Z",
+      "uid": "864a2ed3-bba4-48a8-9b85-03c6265af916"
+    },
+    {
+      "content": "<p>Added v9.0 release, for 5.5 and 5.6.  See Update History document for full changelog.</p>",
+      "publishedAt": "2025-06-05T13:29:50.436096Z",
+      "uid": "03b07de1-fd8d-4e26-81ad-9c30a2dd6956"
+    },
+    {
+      "content": "No notes provided for this update.",
+      "publishedAt": "2025-06-05T18:03:20.101310Z",
+      "uid": "e2e75a5f-c762-4339-8cd2-cfe5606ba1b1"
+    },
+    {
+      "content": "<p>9.0A Hot</p>",
+      "publishedAt": "2025-06-09T18:41:13.006665Z",
+      "uid": "32a1ad90-1eaf-41bb-b213-c9bd05cb18da"
+    },
+    {
+      "content": "<p>9.0B Hotfix</p>",
+      "publishedAt": "2025-06-16T18:24:51.946590Z",
+      "uid": "e49cb8ea-d59b-484a-b8cd-754c0bf056b2"
+    },
+    {
+      "content": "No notes provided for this update.",
+      "publishedAt": "2025-09-08T15:34:55.296343Z",
+      "uid": "4708c3de-3059-42a9-9266-d2899cda2b38"
+    },
+    {
+      "content": "<p>9.2 Release - See Update History document for changes</p>",
+      "publishedAt": "2025-11-12T07:23:04.253290Z",
+      "uid": "fb94c15f-31b3-43c8-aa3c-5139ff6789a1"
+    },
+    {
+      "content": "No notes provided for this update.",
+      "publishedAt": "2025-11-12T16:39:43.534382Z",
+      "uid": "05c77003-f6f6-4a69-8747-2465a18a2b35"
+    }
+  ],
+  "commentThreadStatus": null,
+  "createdAt": "2015-07-30T15:41:07.683000Z",
+  "description": "<p><strong>Latest Product Video</strong>  <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=ENMuqbNSLTs\" rel=\"noopener noreferrer nofollow\">https://www.youtube.com/watch?v=ENMuqbNSLTs</a></p><p></p><p>Ultra Dynamic Sky is a sky system designed to be more dynamic and natural than most sky solutions, offer a great degree of flexibility and customization options, with an interface designed for speed and simplicity.</p><p></p><h4>Features</h4><p>&nbsp;&nbsp;• Set a single Time of Day variable and have every aspect of the sky update along with it, making changing the time your scene takes place a one step process.</p><p>&nbsp;&nbsp;• Fully dynamic, with customizable clouds, moon and stars.</p><p>&nbsp;&nbsp;• A built in lighting solution with sun, moon and sky lighting all synced with the sky.</p><p>&nbsp;&nbsp;• Adjust cloud coverage from a clear sky to overcast.</p><p>&nbsp;&nbsp;• Animate a day/night cycle with a single click.</p><p>&nbsp;&nbsp;• Dynamic aurora effects</p><p> &nbsp;• Multiplayer ready</p><p>&nbsp;&nbsp;• Choose from volumetric 3D clouds, 2D dynamic clouds, static clouds, and even volumetric auroras.</p><p>&nbsp;&nbsp;• A full weather system is included, Ultra Dynamic Weather, which adds rain, snow, lightning, and more to your scene in seconds.</p><p> &nbsp;• Enable Simulation features, which calculate the real world position of the Sun, Moon and Stars, using latitude, longitude, date and time.<br> &nbsp;• A wealth of supplemental features for additional effects and functionality. Be sure to watch the product video for a full rundown.</p><p></p><p>Note: Ultra Dynamic Sky's materials, blueprints, and effects are built with typical flat level structures in mind, where the Z axis is always up and down. Spherical/planetary level structures are not supported by the features of the asset.</p><p></p><p><strong>Past Product Videos:</strong></p><p>V7 Product Video (5.0)  <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=b52npy-XUdQ\" rel=\"noopener noreferrer nofollow\">https://www.youtube.com/watch?v=b52npy-XUdQ</a></p><p>V6 Product Video (4.26/4.27)  <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=xZ5IoX5EkqA\" rel=\"noopener noreferrer nofollow\">https://www.youtube.com/watch?v=xZ5IoX5EkqA</a></p><p></p><p><strong>Support</strong></p><p>To contact me for support or with any question about the product, email me here:</p><p>support@ultradynamicsky.com</p><p>I reply to new emails every weekday morning, so typically you can expect a response within one business day.</p><p></p><p><strong>Update History</strong></p><p>You can see the history of updates released, and read the full list of changes here:</p><p><a target=\"_blank\" href=\"https://docs.google.com/document/d/1xAr0Hd3mY7Mp0g0waKLUvJaddUPaVxEeRoEEFXctCE0\" rel=\"noopener noreferrer nofollow\">https://docs.google.com/document/d/1xAr0Hd3mY7Mp0g0waKLUvJaddUPaVxEeRoEEFXctCE0</a></p><p></p><p><strong>Discord</strong></p><p>To connect with other UDS users and discuss the product with them, you can join the official Discord server here:</p><p><a target=\"_blank\" href=\"https://discord.gg/aVwX2BFqWv\" rel=\"noopener noreferrer nofollow\">https://discord.gg/aVwX2BFqWv</a></p>",
+  "externalUrl": null,
+  "faqs": [],
+  "firstPublishedAt": "2015-07-30T15:41:07.683000Z",
+  "hasPromotionalContent": false,
+  "isAiForbidden": true,
+  "isAiGenerated": false,
+  "isFree": false,
+  "isMature": false,
+  "lastUpdatedAt": "2025-09-08T15:35:15.875868Z",
+  "licenses": [
+    {
+      "isCc0": false,
+      "group": "standard",
+      "listingLicenseId": "008f87f1-91a0-4d90-a2de-5598ac0bcdb3",
+      "name": "Personal",
+      "offerId": "53769d6f015b48668e3c89ca7b70f37e",
+      "priceTier": {
+        "currencyCode": "CAD",
+        "price": 69.91,
+        "priceTierId": "45da1a2f292a46c78dab0c98c5181e9a_USD_4999_1701881400533",
+        "discountedPrice": null,
+        "discountType": null,
+        "discountSettings": null,
+        "discountStartDate": null,
+        "discountEndDate": null,
+        "lowestPriorPrice": null,
+        "effectiveDiscountPercentage": null
+      },
+      "slug": "personal",
+      "uid": "eec3bdd5-ba7a-45a8-b15d-67462b9630f6"
+    },
+    {
+      "isCc0": false,
+      "group": "standard",
+      "listingLicenseId": "e1108a6a-aa4c-4c5f-a418-bccbedf5b6be",
+      "name": "Professional",
+      "offerId": "52265e49311b4d11ab81ed307b7caccb",
+      "priceTier": {
+        "currencyCode": "CAD",
+        "price": 279.69,
+        "priceTierId": "45da1a2f292a46c78dab0c98c5181e9a_USD_19999_1701881428298",
+        "discountedPrice": null,
+        "discountType": null,
+        "discountSettings": null,
+        "discountStartDate": null,
+        "discountEndDate": null,
+        "lowestPriorPrice": null,
+        "effectiveDiscountPercentage": null
+      },
+      "slug": "professional",
+      "uid": "eec3bdd5-ba7a-45a8-b15d-67462b9630f9"
+    }
+  ],
+  "listingType": "game-system",
+  "medias": [
+    {
+      "images": [
+        {
+          "uid": "d66a1b01-4cc3-4570-a8f3-2f3eb80ae0e1",
+          "width": 144,
+          "height": 81,
+          "size": 2601,
+          "url": "https://media.fab.com/image_previews/gallery_images/195e886c-60ad-4f8b-b41f-1ce0332cd634/d66a1b01-4cc3-4570-a8f3-2f3eb80ae0e1.jpg"
+        },
+        {
+          "uid": "5ca9394d-fa9f-4f1c-be3d-1b89a428272a",
+          "width": 160,
+          "height": 90,
+          "size": 6384,
+          "url": "https://media.fab.com/image_previews/gallery_images/195e886c-60ad-4f8b-b41f-1ce0332cd634/5ca9394d-fa9f-4f1c-be3d-1b89a428272a.jpg"
+        },
+        {
+          "uid": "e7e8e69a-242f-4a88-a07b-1fc44416094d",
+          "width": 320,
+          "height": 180,
+          "size": 18145,
+          "url": "https://media.fab.com/image_previews/gallery_images/195e886c-60ad-4f8b-b41f-1ce0332cd634/e7e8e69a-242f-4a88-a07b-1fc44416094d.jpg"
+        },
+        {
+          "uid": "21f09d46-cf2e-4681-b14a-aafe47764ce3",
+          "width": 640,
+          "height": 360,
+          "size": 53117,
+          "url": "https://media.fab.com/image_previews/gallery_images/195e886c-60ad-4f8b-b41f-1ce0332cd634/21f09d46-cf2e-4681-b14a-aafe47764ce3.jpg"
+        },
+        {
+          "uid": "1d46b294-a73a-43c7-83a5-8df05ee31223",
+          "width": 960,
+          "height": 540,
+          "size": 101525,
+          "url": "https://media.fab.com/image_previews/gallery_images/195e886c-60ad-4f8b-b41f-1ce0332cd634/1d46b294-a73a-43c7-83a5-8df05ee31223.jpg"
+        },
+        {
+          "uid": "f85959ad-1756-4602-aeb2-decf73db1312",
+          "width": 1280,
+          "height": 720,
+          "size": 159751,
+          "url": "https://media.fab.com/image_previews/gallery_images/195e886c-60ad-4f8b-b41f-1ce0332cd634/f85959ad-1756-4602-aeb2-decf73db1312.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/195e886c-60ad-4f8b-b41f-1ce0332cd634/0e321fd3-ec55-4204-903f-9399a3d83a3d.png",
+      "name": "0e321fd3-ec55-4204-903f-9399a3d83a3d.png",
+      "position": 0,
+      "previewUid": "195e886c-60ad-4f8b-b41f-1ce0332cd634",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "a81f6b56-96c3-44aa-8e2d-4a313b22fb5b"
+    },
+    {
+      "images": [
+        {
+          "uid": "0767013e-bca8-4cd0-83c0-c68f2c3164bd",
+          "width": 144,
+          "height": 81,
+          "size": 2332,
+          "url": "https://media.fab.com/image_previews/gallery_images/fd650b2d-56bc-4575-b6e9-5ca58288177f/0767013e-bca8-4cd0-83c0-c68f2c3164bd.jpg"
+        },
+        {
+          "uid": "52430b55-d616-4243-b730-0b33b0b3b0d2",
+          "width": 160,
+          "height": 90,
+          "size": 5946,
+          "url": "https://media.fab.com/image_previews/gallery_images/fd650b2d-56bc-4575-b6e9-5ca58288177f/52430b55-d616-4243-b730-0b33b0b3b0d2.jpg"
+        },
+        {
+          "uid": "b9fc0c6c-31af-4a47-abc6-dcf48154f3f4",
+          "width": 320,
+          "height": 180,
+          "size": 16988,
+          "url": "https://media.fab.com/image_previews/gallery_images/fd650b2d-56bc-4575-b6e9-5ca58288177f/b9fc0c6c-31af-4a47-abc6-dcf48154f3f4.jpg"
+        },
+        {
+          "uid": "8b2a91a6-4e4b-43e8-9c30-4c16a6ba519e",
+          "width": 640,
+          "height": 360,
+          "size": 52020,
+          "url": "https://media.fab.com/image_previews/gallery_images/fd650b2d-56bc-4575-b6e9-5ca58288177f/8b2a91a6-4e4b-43e8-9c30-4c16a6ba519e.jpg"
+        },
+        {
+          "uid": "35d4bb99-b64a-4452-9066-86b9027d8ad9",
+          "width": 960,
+          "height": 540,
+          "size": 102636,
+          "url": "https://media.fab.com/image_previews/gallery_images/fd650b2d-56bc-4575-b6e9-5ca58288177f/35d4bb99-b64a-4452-9066-86b9027d8ad9.jpg"
+        },
+        {
+          "uid": "ec8910db-dd79-4f49-b3b8-09f219bf3999",
+          "width": 1280,
+          "height": 720,
+          "size": 164855,
+          "url": "https://media.fab.com/image_previews/gallery_images/fd650b2d-56bc-4575-b6e9-5ca58288177f/ec8910db-dd79-4f49-b3b8-09f219bf3999.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/fd650b2d-56bc-4575-b6e9-5ca58288177f/31ab82a6-44ae-44c1-82a4-49eb57e34f5b.png",
+      "name": "31ab82a6-44ae-44c1-82a4-49eb57e34f5b.png",
+      "position": 1,
+      "previewUid": "fd650b2d-56bc-4575-b6e9-5ca58288177f",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "c1019add-93d1-4f07-ba5e-13387796a89c"
+    },
+    {
+      "images": [
+        {
+          "uid": "e279b0a6-6836-4bee-b909-6177992dd490",
+          "width": 144,
+          "height": 81,
+          "size": 2056,
+          "url": "https://media.fab.com/image_previews/gallery_images/5f16abdc-c03c-4f87-bec4-cd0d5c6333fe/e279b0a6-6836-4bee-b909-6177992dd490.jpg"
+        },
+        {
+          "uid": "21af7c75-c639-454b-9b8a-8643bec457b8",
+          "width": 160,
+          "height": 90,
+          "size": 5105,
+          "url": "https://media.fab.com/image_previews/gallery_images/5f16abdc-c03c-4f87-bec4-cd0d5c6333fe/21af7c75-c639-454b-9b8a-8643bec457b8.jpg"
+        },
+        {
+          "uid": "8d5586ea-2a39-483d-8795-a6dcf3579c85",
+          "width": 320,
+          "height": 180,
+          "size": 15665,
+          "url": "https://media.fab.com/image_previews/gallery_images/5f16abdc-c03c-4f87-bec4-cd0d5c6333fe/8d5586ea-2a39-483d-8795-a6dcf3579c85.jpg"
+        },
+        {
+          "uid": "25f3b38a-0824-40c6-9c56-5e20ac27a4d9",
+          "width": 640,
+          "height": 360,
+          "size": 57870,
+          "url": "https://media.fab.com/image_previews/gallery_images/5f16abdc-c03c-4f87-bec4-cd0d5c6333fe/25f3b38a-0824-40c6-9c56-5e20ac27a4d9.jpg"
+        },
+        {
+          "uid": "ad5a977d-58ee-4605-944b-c8bfe475fbdd",
+          "width": 960,
+          "height": 540,
+          "size": 129854,
+          "url": "https://media.fab.com/image_previews/gallery_images/5f16abdc-c03c-4f87-bec4-cd0d5c6333fe/ad5a977d-58ee-4605-944b-c8bfe475fbdd.jpg"
+        },
+        {
+          "uid": "bcb5222d-0b5f-4704-9ca3-fb84d8925c98",
+          "width": 1280,
+          "height": 720,
+          "size": 227918,
+          "url": "https://media.fab.com/image_previews/gallery_images/5f16abdc-c03c-4f87-bec4-cd0d5c6333fe/bcb5222d-0b5f-4704-9ca3-fb84d8925c98.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/5f16abdc-c03c-4f87-bec4-cd0d5c6333fe/a2b3169a-14bf-4610-be47-b5a8d927fac8.png",
+      "name": "a2b3169a-14bf-4610-be47-b5a8d927fac8.png",
+      "position": 2,
+      "previewUid": "5f16abdc-c03c-4f87-bec4-cd0d5c6333fe",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "04f8f2d5-13a7-406d-a727-7427eea548ad"
+    },
+    {
+      "images": [
+        {
+          "uid": "32d8f851-be6c-4a51-8bc8-5d3024d33ced",
+          "width": 144,
+          "height": 81,
+          "size": 2196,
+          "url": "https://media.fab.com/image_previews/gallery_images/b2e3f1d9-ae1b-4b2a-8e53-8b58fb9076ed/32d8f851-be6c-4a51-8bc8-5d3024d33ced.jpg"
+        },
+        {
+          "uid": "8fd41c1b-380d-4386-9c5e-59aea8d230d8",
+          "width": 160,
+          "height": 90,
+          "size": 4206,
+          "url": "https://media.fab.com/image_previews/gallery_images/b2e3f1d9-ae1b-4b2a-8e53-8b58fb9076ed/8fd41c1b-380d-4386-9c5e-59aea8d230d8.jpg"
+        },
+        {
+          "uid": "3b4ff82c-a1b7-4dea-85bd-62a266fbd3f4",
+          "width": 320,
+          "height": 180,
+          "size": 11194,
+          "url": "https://media.fab.com/image_previews/gallery_images/b2e3f1d9-ae1b-4b2a-8e53-8b58fb9076ed/3b4ff82c-a1b7-4dea-85bd-62a266fbd3f4.jpg"
+        },
+        {
+          "uid": "69560d67-5c28-459f-b4e8-e31d8d6a7585",
+          "width": 640,
+          "height": 360,
+          "size": 31455,
+          "url": "https://media.fab.com/image_previews/gallery_images/b2e3f1d9-ae1b-4b2a-8e53-8b58fb9076ed/69560d67-5c28-459f-b4e8-e31d8d6a7585.jpg"
+        },
+        {
+          "uid": "6d6a1fcb-ce9f-41f6-8d64-370a92998d96",
+          "width": 960,
+          "height": 540,
+          "size": 60981,
+          "url": "https://media.fab.com/image_previews/gallery_images/b2e3f1d9-ae1b-4b2a-8e53-8b58fb9076ed/6d6a1fcb-ce9f-41f6-8d64-370a92998d96.jpg"
+        },
+        {
+          "uid": "99f5c985-7519-4948-a108-5452ba84b845",
+          "width": 1280,
+          "height": 720,
+          "size": 98162,
+          "url": "https://media.fab.com/image_previews/gallery_images/b2e3f1d9-ae1b-4b2a-8e53-8b58fb9076ed/99f5c985-7519-4948-a108-5452ba84b845.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/b2e3f1d9-ae1b-4b2a-8e53-8b58fb9076ed/e4c4c95f-8894-45e3-a03f-339a0f17e150.png",
+      "name": "e4c4c95f-8894-45e3-a03f-339a0f17e150.png",
+      "position": 3,
+      "previewUid": "b2e3f1d9-ae1b-4b2a-8e53-8b58fb9076ed",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "5cd6ba17-74df-43fc-acc0-0aa200c4d568"
+    },
+    {
+      "images": [
+        {
+          "uid": "def5b838-62c6-415f-b529-627bc2918b56",
+          "width": 144,
+          "height": 81,
+          "size": 2381,
+          "url": "https://media.fab.com/image_previews/gallery_images/32437708-cb3e-4d75-abe8-e626209ce410/def5b838-62c6-415f-b529-627bc2918b56.jpg"
+        },
+        {
+          "uid": "efb9926c-9d84-470d-ac0b-a817ccf50b46",
+          "width": 160,
+          "height": 90,
+          "size": 6061,
+          "url": "https://media.fab.com/image_previews/gallery_images/32437708-cb3e-4d75-abe8-e626209ce410/efb9926c-9d84-470d-ac0b-a817ccf50b46.jpg"
+        },
+        {
+          "uid": "6db4b8d1-e1fb-4f2d-943c-2b4ac4194018",
+          "width": 320,
+          "height": 180,
+          "size": 17000,
+          "url": "https://media.fab.com/image_previews/gallery_images/32437708-cb3e-4d75-abe8-e626209ce410/6db4b8d1-e1fb-4f2d-943c-2b4ac4194018.jpg"
+        },
+        {
+          "uid": "f36f500e-f4bf-4f51-9307-94711dea9280",
+          "width": 640,
+          "height": 360,
+          "size": 50608,
+          "url": "https://media.fab.com/image_previews/gallery_images/32437708-cb3e-4d75-abe8-e626209ce410/f36f500e-f4bf-4f51-9307-94711dea9280.jpg"
+        },
+        {
+          "uid": "c711b21e-7c15-4619-929c-6365fb2bd642",
+          "width": 960,
+          "height": 540,
+          "size": 97599,
+          "url": "https://media.fab.com/image_previews/gallery_images/32437708-cb3e-4d75-abe8-e626209ce410/c711b21e-7c15-4619-929c-6365fb2bd642.jpg"
+        },
+        {
+          "uid": "be1a3a7b-5eec-428b-9810-7ad350898f16",
+          "width": 1280,
+          "height": 720,
+          "size": 156097,
+          "url": "https://media.fab.com/image_previews/gallery_images/32437708-cb3e-4d75-abe8-e626209ce410/be1a3a7b-5eec-428b-9810-7ad350898f16.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/32437708-cb3e-4d75-abe8-e626209ce410/ad383b19-06f9-441d-8fff-12877bcbc72e.png",
+      "name": "ad383b19-06f9-441d-8fff-12877bcbc72e.png",
+      "position": 4,
+      "previewUid": "32437708-cb3e-4d75-abe8-e626209ce410",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "193060ab-c189-4e27-b875-8d513d3854ee"
+    },
+    {
+      "images": [
+        {
+          "uid": "1e33661c-5581-4b72-a038-3c030edd7ad6",
+          "width": 144,
+          "height": 81,
+          "size": 2260,
+          "url": "https://media.fab.com/image_previews/gallery_images/3b4308b3-b6d7-4d4e-8908-4fbdc79c0adc/1e33661c-5581-4b72-a038-3c030edd7ad6.jpg"
+        },
+        {
+          "uid": "ae8498f9-ad44-4628-858d-094e6303a7cb",
+          "width": 160,
+          "height": 90,
+          "size": 5157,
+          "url": "https://media.fab.com/image_previews/gallery_images/3b4308b3-b6d7-4d4e-8908-4fbdc79c0adc/ae8498f9-ad44-4628-858d-094e6303a7cb.jpg"
+        },
+        {
+          "uid": "b8e63e5e-5586-40d3-a104-219208fb7b67",
+          "width": 320,
+          "height": 180,
+          "size": 17425,
+          "url": "https://media.fab.com/image_previews/gallery_images/3b4308b3-b6d7-4d4e-8908-4fbdc79c0adc/b8e63e5e-5586-40d3-a104-219208fb7b67.jpg"
+        },
+        {
+          "uid": "4e6aac65-4fe5-4e2e-88c6-c7ebfb6f192d",
+          "width": 640,
+          "height": 360,
+          "size": 69974,
+          "url": "https://media.fab.com/image_previews/gallery_images/3b4308b3-b6d7-4d4e-8908-4fbdc79c0adc/4e6aac65-4fe5-4e2e-88c6-c7ebfb6f192d.jpg"
+        },
+        {
+          "uid": "6254842b-a841-4058-904b-bddeaa1b1d1f",
+          "width": 960,
+          "height": 540,
+          "size": 159924,
+          "url": "https://media.fab.com/image_previews/gallery_images/3b4308b3-b6d7-4d4e-8908-4fbdc79c0adc/6254842b-a841-4058-904b-bddeaa1b1d1f.jpg"
+        },
+        {
+          "uid": "04a98db1-52a3-4d85-9ba6-f3040fe3e89c",
+          "width": 1280,
+          "height": 720,
+          "size": 281697,
+          "url": "https://media.fab.com/image_previews/gallery_images/3b4308b3-b6d7-4d4e-8908-4fbdc79c0adc/04a98db1-52a3-4d85-9ba6-f3040fe3e89c.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/3b4308b3-b6d7-4d4e-8908-4fbdc79c0adc/f7c696a9-cc5b-4789-85c5-39f28cd7f94c.png",
+      "name": "f7c696a9-cc5b-4789-85c5-39f28cd7f94c.png",
+      "position": 5,
+      "previewUid": "3b4308b3-b6d7-4d4e-8908-4fbdc79c0adc",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "71cc9b77-1d66-4a30-86cf-901883f07810"
+    },
+    {
+      "images": [
+        {
+          "uid": "5748c551-31e7-4072-b887-6ab27f514a90",
+          "width": 144,
+          "height": 81,
+          "size": 2138,
+          "url": "https://media.fab.com/image_previews/gallery_images/338aa0d2-41f3-42a9-a274-09a3f7ae4485/5748c551-31e7-4072-b887-6ab27f514a90.jpg"
+        },
+        {
+          "uid": "77467956-25e5-4897-a461-ab3a292f9a81",
+          "width": 160,
+          "height": 90,
+          "size": 4786,
+          "url": "https://media.fab.com/image_previews/gallery_images/338aa0d2-41f3-42a9-a274-09a3f7ae4485/77467956-25e5-4897-a461-ab3a292f9a81.jpg"
+        },
+        {
+          "uid": "3a6e901e-587b-4816-a136-753df9dfb5dc",
+          "width": 320,
+          "height": 180,
+          "size": 14184,
+          "url": "https://media.fab.com/image_previews/gallery_images/338aa0d2-41f3-42a9-a274-09a3f7ae4485/3a6e901e-587b-4816-a136-753df9dfb5dc.jpg"
+        },
+        {
+          "uid": "eb9bf729-ee0c-4fb2-bba4-87f316cc8b7b",
+          "width": 640,
+          "height": 360,
+          "size": 53269,
+          "url": "https://media.fab.com/image_previews/gallery_images/338aa0d2-41f3-42a9-a274-09a3f7ae4485/eb9bf729-ee0c-4fb2-bba4-87f316cc8b7b.jpg"
+        },
+        {
+          "uid": "a02f0e28-dcd7-48d2-8011-efb70c02f656",
+          "width": 960,
+          "height": 540,
+          "size": 123708,
+          "url": "https://media.fab.com/image_previews/gallery_images/338aa0d2-41f3-42a9-a274-09a3f7ae4485/a02f0e28-dcd7-48d2-8011-efb70c02f656.jpg"
+        },
+        {
+          "uid": "60caba47-cf40-4fb8-8d2b-2f6b72a59cfc",
+          "width": 1280,
+          "height": 720,
+          "size": 221623,
+          "url": "https://media.fab.com/image_previews/gallery_images/338aa0d2-41f3-42a9-a274-09a3f7ae4485/60caba47-cf40-4fb8-8d2b-2f6b72a59cfc.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/338aa0d2-41f3-42a9-a274-09a3f7ae4485/afda97ac-bc3c-48e6-9e0c-622b8c3599de.png",
+      "name": "afda97ac-bc3c-48e6-9e0c-622b8c3599de.png",
+      "position": 6,
+      "previewUid": "338aa0d2-41f3-42a9-a274-09a3f7ae4485",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "700fda08-6aef-40fa-b519-e2dc6a1cd6dd"
+    },
+    {
+      "images": [
+        {
+          "uid": "e0084194-b3c2-4814-8047-fddc84896f73",
+          "width": 144,
+          "height": 81,
+          "size": 2358,
+          "url": "https://media.fab.com/image_previews/gallery_images/0e8e5bae-dde6-4c24-a6e7-28ba399f295e/e0084194-b3c2-4814-8047-fddc84896f73.jpg"
+        },
+        {
+          "uid": "b5eeb813-3d1a-4c08-92a8-c25c2079ea30",
+          "width": 160,
+          "height": 90,
+          "size": 5475,
+          "url": "https://media.fab.com/image_previews/gallery_images/0e8e5bae-dde6-4c24-a6e7-28ba399f295e/b5eeb813-3d1a-4c08-92a8-c25c2079ea30.jpg"
+        },
+        {
+          "uid": "a8b4e4e5-9867-4094-8902-58a455e10d41",
+          "width": 320,
+          "height": 180,
+          "size": 15662,
+          "url": "https://media.fab.com/image_previews/gallery_images/0e8e5bae-dde6-4c24-a6e7-28ba399f295e/a8b4e4e5-9867-4094-8902-58a455e10d41.jpg"
+        },
+        {
+          "uid": "4e418eba-42e8-4539-a0cb-0d0a1cb2bd40",
+          "width": 640,
+          "height": 360,
+          "size": 47173,
+          "url": "https://media.fab.com/image_previews/gallery_images/0e8e5bae-dde6-4c24-a6e7-28ba399f295e/4e418eba-42e8-4539-a0cb-0d0a1cb2bd40.jpg"
+        },
+        {
+          "uid": "3e740f1c-e1e2-47e2-a0b2-71b97bb40dde",
+          "width": 960,
+          "height": 540,
+          "size": 92746,
+          "url": "https://media.fab.com/image_previews/gallery_images/0e8e5bae-dde6-4c24-a6e7-28ba399f295e/3e740f1c-e1e2-47e2-a0b2-71b97bb40dde.jpg"
+        },
+        {
+          "uid": "1d217246-b52d-442d-b6b2-3dc5d7cefd90",
+          "width": 1280,
+          "height": 720,
+          "size": 151379,
+          "url": "https://media.fab.com/image_previews/gallery_images/0e8e5bae-dde6-4c24-a6e7-28ba399f295e/1d217246-b52d-442d-b6b2-3dc5d7cefd90.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/0e8e5bae-dde6-4c24-a6e7-28ba399f295e/b4f80184-a532-4f13-b0d7-c3696cea15b9.png",
+      "name": "b4f80184-a532-4f13-b0d7-c3696cea15b9.png",
+      "position": 7,
+      "previewUid": "0e8e5bae-dde6-4c24-a6e7-28ba399f295e",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "d3395b0a-9c0c-4f47-ac7c-45b3a30b29a4"
+    },
+    {
+      "images": [
+        {
+          "uid": "368d5ed4-4797-4a59-a983-081c8b7ba7b3",
+          "width": 144,
+          "height": 81,
+          "size": 2567,
+          "url": "https://media.fab.com/image_previews/gallery_images/cb044d09-ee4c-4e25-bd82-dc98799d38b2/368d5ed4-4797-4a59-a983-081c8b7ba7b3.jpg"
+        },
+        {
+          "uid": "82217b43-7b90-4a73-b2e9-8d12048efd67",
+          "width": 160,
+          "height": 90,
+          "size": 7118,
+          "url": "https://media.fab.com/image_previews/gallery_images/cb044d09-ee4c-4e25-bd82-dc98799d38b2/82217b43-7b90-4a73-b2e9-8d12048efd67.jpg"
+        },
+        {
+          "uid": "d6c30c2b-ad8e-445c-bbad-3b2123514700",
+          "width": 320,
+          "height": 180,
+          "size": 19941,
+          "url": "https://media.fab.com/image_previews/gallery_images/cb044d09-ee4c-4e25-bd82-dc98799d38b2/d6c30c2b-ad8e-445c-bbad-3b2123514700.jpg"
+        },
+        {
+          "uid": "e0103920-766d-4f5e-85df-0b8c564ab5d0",
+          "width": 640,
+          "height": 360,
+          "size": 57893,
+          "url": "https://media.fab.com/image_previews/gallery_images/cb044d09-ee4c-4e25-bd82-dc98799d38b2/e0103920-766d-4f5e-85df-0b8c564ab5d0.jpg"
+        },
+        {
+          "uid": "49fc4aaf-3e0c-46c6-890f-772e07f4eff0",
+          "width": 960,
+          "height": 540,
+          "size": 108239,
+          "url": "https://media.fab.com/image_previews/gallery_images/cb044d09-ee4c-4e25-bd82-dc98799d38b2/49fc4aaf-3e0c-46c6-890f-772e07f4eff0.jpg"
+        },
+        {
+          "uid": "4d38d970-bc14-4342-a5bc-14c295ae7212",
+          "width": 1280,
+          "height": 720,
+          "size": 165656,
+          "url": "https://media.fab.com/image_previews/gallery_images/cb044d09-ee4c-4e25-bd82-dc98799d38b2/4d38d970-bc14-4342-a5bc-14c295ae7212.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/cb044d09-ee4c-4e25-bd82-dc98799d38b2/d832acef-da56-401a-8460-ba8d58d609b6.jpg",
+      "name": "d832acef-da56-401a-8460-ba8d58d609b6.jpg",
+      "position": 8,
+      "previewUid": "cb044d09-ee4c-4e25-bd82-dc98799d38b2",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "ca3edaa0-18bd-4c6e-a3a3-a49c41760c4d"
+    },
+    {
+      "images": [
+        {
+          "uid": "8ad96273-8dd2-4e3c-9eaa-3d3b8560d557",
+          "width": 144,
+          "height": 81,
+          "size": 2138,
+          "url": "https://media.fab.com/image_previews/gallery_images/c5b4295e-d302-415e-a208-13ad325637e7/8ad96273-8dd2-4e3c-9eaa-3d3b8560d557.jpg"
+        },
+        {
+          "uid": "07ac553e-d8a1-4304-8c9b-c0686197f503",
+          "width": 160,
+          "height": 90,
+          "size": 8116,
+          "url": "https://media.fab.com/image_previews/gallery_images/c5b4295e-d302-415e-a208-13ad325637e7/07ac553e-d8a1-4304-8c9b-c0686197f503.jpg"
+        },
+        {
+          "uid": "2903a7b8-5e98-4c49-9af4-b44197bff80e",
+          "width": 320,
+          "height": 180,
+          "size": 24272,
+          "url": "https://media.fab.com/image_previews/gallery_images/c5b4295e-d302-415e-a208-13ad325637e7/2903a7b8-5e98-4c49-9af4-b44197bff80e.jpg"
+        },
+        {
+          "uid": "17f0bdcf-f7a9-4858-8d65-425f780ddb6b",
+          "width": 640,
+          "height": 360,
+          "size": 59973,
+          "url": "https://media.fab.com/image_previews/gallery_images/c5b4295e-d302-415e-a208-13ad325637e7/17f0bdcf-f7a9-4858-8d65-425f780ddb6b.jpg"
+        },
+        {
+          "uid": "c4b93d6b-a3a6-4841-aa92-b515116cbe72",
+          "width": 960,
+          "height": 540,
+          "size": 96135,
+          "url": "https://media.fab.com/image_previews/gallery_images/c5b4295e-d302-415e-a208-13ad325637e7/c4b93d6b-a3a6-4841-aa92-b515116cbe72.jpg"
+        },
+        {
+          "uid": "9a9c62be-c361-403d-a5ef-fc70d4b5aa2b",
+          "width": 1280,
+          "height": 720,
+          "size": 137193,
+          "url": "https://media.fab.com/image_previews/gallery_images/c5b4295e-d302-415e-a208-13ad325637e7/9a9c62be-c361-403d-a5ef-fc70d4b5aa2b.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/c5b4295e-d302-415e-a208-13ad325637e7/84d56108-c1cd-4346-ab94-310ab78fa67d.jpg",
+      "name": "84d56108-c1cd-4346-ab94-310ab78fa67d.jpg",
+      "position": 9,
+      "previewUid": "c5b4295e-d302-415e-a208-13ad325637e7",
+      "processingStatus": "succeeded",
+      "type": "image",
+      "uid": "b4c14e6d-c8ab-4d3f-9015-a46c89448a54"
+    }
+  ],
+  "promotionRequestId": "f6c2093d-4777-47a0-a0af-c87396a8df4b",
+  "publishedAt": "2025-11-12T16:39:43.534382Z",
+  "ratings": {
+    "averageRating": 4.89,
+    "rating5": 1157,
+    "rating4": 33,
+    "rating3": 10,
+    "rating2": 5,
+    "rating1": 18,
+    "rating5Percent": 94.6,
+    "rating4Percent": 2.7,
+    "rating3Percent": 0.82,
+    "rating2Percent": 0.41,
+    "rating1Percent": 1.47,
+    "total": 1223
+  },
+  "reviewCount": 1270,
+  "startingPrice": {
+    "currencyCode": "CAD",
+    "price": 69.91,
+    "priceTierId": "45da1a2f292a46c78dab0c98c5181e9a_USD_4999_1701881400533",
+    "discountedPrice": null,
+    "discountType": null,
+    "discountSettings": null,
+    "discountStartDate": null,
+    "discountEndDate": null,
+    "lowestPriorPrice": null,
+    "effectiveDiscountPercentage": null
+  },
+  "tags": [
+    {
+      "name": "Star",
+      "slug": "star",
+      "uid": "116576db-c1f8-428b-96a2-1ed1f7458f92"
+    },
+    {
+      "name": "Lighting",
+      "slug": "lighting",
+      "uid": "2266ec39-d0f5-4872-a869-8bc93085298d"
+    },
+    {
+      "name": "Snow",
+      "slug": "snow",
+      "uid": "2e4b792b-895d-4db0-a02c-f3404afea7a7"
+    },
+    {
+      "name": "Customizable",
+      "slug": "customizable",
+      "uid": "2fb0fa1e-f388-4388-90cd-82be84e01d8f"
+    },
+    {
+      "name": "Time",
+      "slug": "time",
+      "uid": "3cefa1bb-07e7-4104-a0ce-3be7535e09f3"
+    },
+    {
+      "name": "Wind",
+      "slug": "wind",
+      "uid": "6e068f87-7f27-4dd9-a956-d31426010712"
+    },
+    {
+      "name": "Sky",
+      "slug": "sky",
+      "uid": "7d32dd36-de0f-4ad2-affc-b592ded27dc4"
+    },
+    {
+      "name": "Weather",
+      "slug": "weather",
+      "uid": "883cd7ed-e240-45bf-b355-d22fd2f613f7"
+    },
+    {
+      "name": "Dynamic",
+      "slug": "dynamic",
+      "uid": "8e1daf63-3049-40fe-8b5b-35092bd32325"
+    },
+    {
+      "name": "Rain",
+      "slug": "rain",
+      "uid": "9139a93b-44d9-40d2-abfb-1758bea4bac9"
+    },
+    {
+      "name": "Aurora",
+      "slug": "aurora",
+      "uid": "91be5487-8d3a-437e-b85d-2c3e82d21fec"
+    },
+    {
+      "name": "Realistic",
+      "slug": "realistic",
+      "uid": "93b0d3f1-a96c-4d68-9d44-69a313519e32"
+    },
+    {
+      "name": "Cloud",
+      "slug": "cloud",
+      "uid": "a2277c36-d131-4102-acc1-2eff20df4f8b"
+    },
+    {
+      "name": "Moon",
+      "slug": "moon",
+      "uid": "c4df6602-e4b7-40bf-9f72-92b9c7d46d60"
+    },
+    {
+      "name": "Sun",
+      "slug": "sun",
+      "uid": "c88c3e8f-38e2-463a-935d-f9d0b250a6c9"
+    },
+    {
+      "name": "Blueprint",
+      "slug": "blueprint",
+      "uid": "dbbd9d66-1c51-49f8-a0b6-4bbabf0463f4"
+    },
+    {
+      "name": "Fog",
+      "slug": "fog",
+      "uid": "e20e2dca-5e7e-473f-83dc-0c6907cd148b"
+    },
+    {
+      "name": "Skybox",
+      "slug": "skybox",
+      "uid": "e5483fd5-b102-4e8f-b3b2-9777683e5db7"
+    }
+  ],
+  "thumbnails": [
+    {
+      "images": [
+        {
+          "uid": "b355e26e-c825-4d73-9057-0e01d7894b18",
+          "width": 144,
+          "height": 81,
+          "size": 2442,
+          "url": "https://media.fab.com/image_previews/gallery_images/6b8d04db-1de2-4bdf-b50d-cb938c907c0b/b355e26e-c825-4d73-9057-0e01d7894b18.jpg"
+        },
+        {
+          "uid": "c4ecd4ad-3e7a-4cfd-bb7b-440180e614ce",
+          "width": 160,
+          "height": 90,
+          "size": 6017,
+          "url": "https://media.fab.com/image_previews/gallery_images/6b8d04db-1de2-4bdf-b50d-cb938c907c0b/c4ecd4ad-3e7a-4cfd-bb7b-440180e614ce.jpg"
+        },
+        {
+          "uid": "b75efcf4-d1cb-41ca-8671-06bcaed2ed35",
+          "width": 320,
+          "height": 180,
+          "size": 16598,
+          "url": "https://media.fab.com/image_previews/gallery_images/6b8d04db-1de2-4bdf-b50d-cb938c907c0b/b75efcf4-d1cb-41ca-8671-06bcaed2ed35.jpg"
+        },
+        {
+          "uid": "b51842ec-1f32-4a1f-9266-0d162ef06255",
+          "width": 640,
+          "height": 360,
+          "size": 47038,
+          "url": "https://media.fab.com/image_previews/gallery_images/6b8d04db-1de2-4bdf-b50d-cb938c907c0b/b51842ec-1f32-4a1f-9266-0d162ef06255.jpg"
+        },
+        {
+          "uid": "72f47ac3-fc62-45d8-9ea3-37c699dc6cc1",
+          "width": 960,
+          "height": 540,
+          "size": 88739,
+          "url": "https://media.fab.com/image_previews/gallery_images/6b8d04db-1de2-4bdf-b50d-cb938c907c0b/72f47ac3-fc62-45d8-9ea3-37c699dc6cc1.jpg"
+        },
+        {
+          "uid": "ea3cf449-7600-4877-9bd5-b97c5c87d325",
+          "width": 1280,
+          "height": 720,
+          "size": 138640,
+          "url": "https://media.fab.com/image_previews/gallery_images/6b8d04db-1de2-4bdf-b50d-cb938c907c0b/ea3cf449-7600-4877-9bd5-b97c5c87d325.jpg"
+        }
+      ],
+      "mediaUrl": "https://media.fab.com/image_previews/gallery_images/6b8d04db-1de2-4bdf-b50d-cb938c907c0b/43ced85d-aaf9-4e24-8445-b5dfa2ab4b37.jpg",
+      "name": "43ced85d-aaf9-4e24-8445-b5dfa2ab4b37.jpg",
+      "position": null,
+      "previewUid": "6b8d04db-1de2-4bdf-b50d-cb938c907c0b",
+      "processingStatus": "succeeded",
+      "type": "thumbnail",
+      "uid": "ea4a5079-73fb-4bc5-854b-256b9d7e1330"
+    }
+  ],
+  "title": "Ultra Dynamic Sky",
+  "uid": "84fda27a-c79f-49c9-8458-82401fb37cfb",
+  "updatedAt": "2025-09-08T15:35:15.875868Z",
+  "user": {
+    "account": "basic",
+    "avatars": {},
+    "coverImageUrl": null,
+    "hasCompletedSellerOnboarding": true,
+    "isAiRestricted": false,
+    "planDetail": null,
+    "profileImageUrl": null,
+    "profileUrl": "https://www.fab.com/sellers/Everett%20Gunther",
+    "sellerName": "Everett Gunther",
+    "uid": "27cd7f25-45f2-48e8-bb8e-9346ada92e92"
+  }
+}
