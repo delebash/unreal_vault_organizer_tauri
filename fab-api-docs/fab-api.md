@@ -1,4 +1,4 @@
-# List of fab api url and example return data
+# List of fab api urls and example return data
 
 ## Get assets by account with page count and loop to next cursor
 
