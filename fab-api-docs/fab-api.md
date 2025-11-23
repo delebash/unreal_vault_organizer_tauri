@@ -1,92 +1,104 @@
 # List of fab api urls and example return data
 
-## Get assets by account with page count and loop to next cursor
+## Authentication needed for below api urls
 
-accountId will be in data returned when you authenticated.
+### Get assets by account with page count and loop to next cursor
+
+accountId will be in data returned after you have [authenticated](#authentication)
 
 > https://www.fab.com/e/accounts/{accountId}/ue/library?count=100
 > 
 > get next 100 using next cursor
 > 
 > https://www.fab.com/e/accounts/{account}/ue/library?cursor=ZW1wPTM2NyZmYWI9MzU3JnVlcz0zNTc=&count=100
+>
+> Example return data:
+> 
+> [fab-get-assets-by-account.json](fab-get-assets-by-account.json)
 
 
-Example return data:
+## No authentication needed for below api urls
 
-[fab-get-assets-by-account.json](fab-get-assets-by-account.json)
+### Get asset formats for unreal engine (api Get assets by account has this information as well as build info)
 
-
-## Get asset formats for unreal engine (Above api Get assets by account has this information as well as build info)
-
-Example assetid `84fda27a-c79f-49c9-8458-82401fb37cfb` for Ultra Dynamic Sky
+Example assetId `84fda27a-c79f-49c9-8458-82401fb37cfb` for Ultra Dynamic Sky
 
 > https://www.fab.com/i/listings/{assetID}/asset-formats/unreal-engine
+>
+> Example return data:
+> 
+> [asset-formats.json](asset-formats.json)
 
-Example return data:
 
-[asset-formats.json](asset-formats.json)
-
-## Get asset detail by id
+### Get asset detail by id
 
 > https://www.fab.com/i/listings/84fda27a-c79f-49c9-8458-82401fb37cfb
+>
+> Example return data:
+> 
+> [fab-detail.json](fab-detail.json)
 
-Example return data:
 
-[fab-detail.json](fab-detail.json)
-
-## Get tags lookup data (all tags available to use for any product)
+### Get tags lookup data (all tags available to use for any product)
 
 > https://www.fab.com/i/tags
+>
+> Example return data:
+> 
+> [fab-tags.json](fab-tags.json)
 
-Example return data:
-
-[fab-tags.json](fab-tags.json)
-
-
-## taxonamy-license
+### taxonamy-license
 
 > https://www.fab.com/i/taxonomy/licenses
+>
+> Example return data:
+> 
+> [taxonomy-licenses.json](taxonomy-licenses.json)
 
-Example return data:
 
-[taxonomy-licenses.json](taxonomy-licenses.json)
+### search by seller
 
-## search by seller
+> https://www.fab.com/i/listings/search?seller=Velarion
+> 
+> Example return data:
+> 
+> [listing-search-by-seller.json](listing-search-by-seller.json)
 
-https://www.fab.com/i/listings/search?seller=Velarion
+## Requires different authentication method maybe use puppeteer
 
-Example return data:
+Example puppeteer node app
 
-[listing-search-by-seller.json](listing-search-by-seller.json)
+https://github.com/delebash/puppeteer_epic_games_auth
 
-# Requires different authentication method maybe use puppeteer
-
-## listing-states
+### listing-states
 
 > https://www.fab.com/i/users/me/listings-states/967505ae-397f-498a-ab4e-1166ff3d2978?
 
-Example return data:
+> https://www.fab.com/i/users/me/listings-states?listing_ids=16c7386a-a699-48fa-8361-18d57d1d24d3&listing_ids=4d40d3b0-d964-4b71-ab0d-de15e3cebff8&listing_ids=710bb906-5a72-452a-b80d-4795cbdd382c&listing_ids=b4f01806-75cc-4538-812b-e834fdbe032f
+>
+> Example return data:
+> 
+> [listing-states.json](listing-states.json)
 
-[listing-states.json](listing-states.json)
 
-## ownership
+### ownership
 
 > https://www.fab.com/i/listings/967505ae-397f-498a-ab4e-1166ff3d2978/ownership
+>
+> Example return data:
+> 
+> [ownership.json](ownership.json)
 
-Example return data:
 
-[ownership.json](ownership.json)
-
-## cart
+### cart
 
 > https://www.fab.com/i/cart
 
-## old bulk
+### old bulk
 
 > https://catalog-public-service-prod06.ol.epicgames.com/catalog/api/shared/namespace/{{account_id}}/bulk/items?includeDLCDetails=false&includeMainGameDetails=false&country=US&locale=en
 
-
-# Authentication
+# Authentication method example:
 
 **Documentation of some epic api's and authentication methods from this github repo:**
 
@@ -95,7 +107,6 @@ Example return data:
 **Specific method used -- Authenticating by Authorization Code**
 
 https://github.com/MixV2/EpicResearch/blob/master/docs/auth/grant_types/authorization_code.md
-
 
 **Example code -- client_id is from list of clients**
 
@@ -165,7 +176,8 @@ This returns a json result with authorization code, manually copy this code for 
       }
     }
 
-# Misc:
+# Mis api urls:
 
 https://www.fab.com/i/layouts/homepage
+
 https://www.fab.com/i/taxonomy/listing-type-groups
