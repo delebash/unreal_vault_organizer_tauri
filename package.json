@@ -7,36 +7,37 @@
   "type": "module",
   "private": false,
   "scripts": {
-    "app": "npx tauri dev",
+    "start": "npm run tauri dev",
     "dev": "quasar dev",
     "build": "quasar build",
     "postinstall": "quasar prepare",
     "tauri": "tauri"
   },
   "dependencies": {
-    "@quasar/extras": "^1.16.13",
-    "@tauri-apps/api": "^2.1.1",
-    "@tauri-apps/plugin-dialog": "^2.0.1",
-    "@tauri-apps/plugin-fs": "^2.0.2",
-    "@tauri-apps/plugin-http": "^2.0.1",
-    "@tauri-apps/plugin-process": "^2.0.0",
-    "@tauri-apps/plugin-shell": "^2.0.1",
-    "@tauri-apps/plugin-updater": "^2.0.0",
-    "ag-grid-community": "^32.3.3",
-    "ag-grid-vue3": "^32.3.3",
-    "dexie": "^4.0.10",
+    "@quasar/extras": "^1.17.0",
+    "@tauri-apps/api": "^2.9.0",
+    "@tauri-apps/plugin-dialog": "^2.4.2",
+    "@tauri-apps/plugin-fs": "^2.4.4",
+    "@tauri-apps/plugin-http": "^2.5.4",
+    "@tauri-apps/plugin-process": "^2.3.1",
+    "@tauri-apps/plugin-shell": "^2.3.3",
+    "@tauri-apps/plugin-updater": "^2.9.0",
+    "ag-grid-community": "^34.3.1",
+    "ag-grid-vue3": "^34.3.1",
+    "dexie": "^4.2.1",
+    "dexie-export-import": "^4.1.4",
     "lodash": "^4.17.21",
     "mitt": "^3.0.1",
     "pako": "^2.1.0",
-    "quasar": "^2.17.4",
-    "vite-plugin-node-polyfills": "^0.22.0",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "quasar": "^2.18.5",
+    "vite-plugin-node-polyfills": "^0.24.0",
+    "vue": "^3.5.24",
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
-    "@quasar/app-vite": "^2.0.0-rc.1",
-    "@tauri-apps/cli": "^2.1.0",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49"
+    "@quasar/app-vite": "^2.4.0",
+    "@tauri-apps/cli": "^2.9.2",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6"
   }
 }

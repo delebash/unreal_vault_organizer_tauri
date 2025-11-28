@@ -12,7 +12,7 @@ const asset = props.params.data
   <div class="q-ml-xs">
     {{asset.title}}
     <q-img
-      :src="asset.image?.url"
+      :src="asset.images?.[0]?.url"
       spinner-color="white"
       style="height: 140px; max-width: 150px">
     </q-img>

@@ -238,7 +238,7 @@ async function saveTagInfo() {
     value: tag_clicked.value.value,
     color: tag_clicked.value.color
   })
-  eventBus.emit('refreshGrid', {})
+  eventBus.emit('gridRedrawRows', {})
 }
 
 async function removeTag(tag) {
@@ -246,7 +246,7 @@ async function removeTag(tag) {
   tag_info_options.value.splice(index, 1)
   selected_tags.value.splice(index, 1)
   await db.tags.delete(tag.id)
-  eventBus.emit('refreshGrid', {})
+  // eventBus.emit('refreshGrid', {})
 }
 
 function displayTag(tag) {
@@ -286,7 +286,7 @@ async function createValue(val, done) {
     }
     tags.value = []
     new_tags.value = []
-    eventBus.emit('refreshGrid', {})
+    eventBus.emit('gridRedrawRows', {})
   }
 }
 

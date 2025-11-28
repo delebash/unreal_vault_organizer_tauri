@@ -60,10 +60,11 @@ import {db} from "../api/db.js";
 import {vault} from "src/api/vault.js";
 const tags = ref([])
 const tag_info_options = ref([])
-
+import { defineProps, defineExpose } from 'vue';
 const props = defineProps({
   params: Object
 });
+
 
 loadData()
 
@@ -73,17 +74,17 @@ async function updateTags(tags) {
     arrTags.push(tag.id)
   }
   await vault.updateVaultAsset(props.params.data.assetId,{tagIds: arrTags})
-
 }
 
+
 async function loadData() {
-  const rowID = props.params.data.id
   tag_info_options.value = await db.tags.toArray()
   tag_info_options.value = tag_info_options.value.sort((a, b) => (a.label > b.label) ? 1 : -1)
   if (props.params.data.tagIds !== undefined) {
     tags.value = await db.tags.where('id').anyOf(props.params.data.tagIds).toArray() || []
   }
 }
+
 </script>
 <style scoped>
 

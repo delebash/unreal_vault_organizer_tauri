@@ -10,16 +10,19 @@ export const utils = {
       if (response.ok) {
         return await response.json()
       } else {
-        console.error(response.statusText)
-        this.showErrorMessage(response.statusText)
+        if (response. status === 404 || response.status === 403) {
+          console.error(`Url ${url} ${response.statusText}`)
+        } else {
+          console.error(`Url ${url} ${response.statusText}`)
+          this.showErrorMessage(`Url ${url} ${response.statusText}`)
+        }
       }
     } catch (err) {
       console.error(err)
       this.showErrorMessage(err)
     }
-    return false
   },
-  showNotification(msg,type) {
+  showNotification(msg, type) {
     let data = {}
     data.message = msg
     data.type = type
@@ -44,6 +47,10 @@ export const utils = {
       }
     }
     return array1;
+  },
+  waitMilliseconds(milliseconds = 1000) {
+
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
   },
   findNestedObject(arr, key, value) {
     for (const obj of arr) {
@@ -76,5 +83,17 @@ export const utils = {
       }
     }
     return null
+  },
+  hasDuplicateObjects(arr,keyValue) {
+    const seen = new Set();
+    for (const obj of arr) {
+      // Create a unique key from relevant property values
+      const key = `${obj[keyValue]}`; // Adjust based on your object structure
+      if (seen.has(key)) {
+        return true; // Duplicate found
+      }
+      seen.add(key);
+    }
+    return false; // No duplicates
   }
 }

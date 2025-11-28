@@ -31,6 +31,8 @@
     "fs:read-all",
     "fs:allow-lstat",
     "fs:allow-create",
+    "fs:write-all",
+    "fs:write-files",
     {
       "identifier": "http:default",
       "allow": [

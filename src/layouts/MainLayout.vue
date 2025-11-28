@@ -22,11 +22,15 @@
                        label="Import Vault"></q-btn>
                 <q-btn class="q-mr-sm" dense @click="loadVault(true)" color="orange-9"
                        label="Refresh Grid"></q-btn>
+                <q-btn class="q-mr-sm" dense @click="test" color="orange-9"
+                       label="Test"></q-btn>
               </div>
             </div>
           </div>
           <div class="col-shrink ">
             <q-btn dense class="q-mr-sm" color="yellow-9" @click="toggleLeftDrawer">Tags</q-btn>
+            <q-btn class="q-mr-sm" dense @click="exportSelectedRows" color="purple"
+                   label="Export Selected Rows"></q-btn>
           </div>
         </div>
       </q-header>
@@ -115,26 +119,38 @@
                              label="Vault Cache Path *Required*.  You can find the path in your epic launcher settings"
                              :rules="[val => !!val || 'Field is required']"
                     >
-                      <q-checkbox dense v-model="cbCheckForUpdates" @update:model-value="checkForUpdatesChange"
-                                  label="Automatically check software updates?"/>
+                      <template v-slot:append>
+                        <q-btn class="q-mr-xl"
+                               @click="selectDirectory"
+                               color="primary" label="Select Directory">
+                        </q-btn>
+                      </template>
                     </q-input>
-                    <q-btn dense @click="saveUserSettings()" color="positive"
+
+                    <q-btn dense @click="saveUserSettings" color="positive"
                            label="Save settings">
                     </q-btn>
                     <div class="float-right">
+                      <q-checkbox class="q-mr-xl" dense v-model="cbCheckForUpdates"
+                                  @update:model-value="checkForUpdatesChange"
+                                  label="Automatically check software updates?"/>
+                      <q-btn class="q-mr-xl"
+                             @click="exportDatabase"
+                             color="primary" label="Export Database">
+                      </q-btn>
                       <q-btn
-                        @click="showDialog({function:'deleteDatabase',message:'Confirm deleting database.'})"
+                        @click="showDialog({function:'deleteDatabase',message:'Delete database?'})"
                         color="negative" label="Delete Database">
                       </q-btn>
                     </div>
                   </q-card-section>
 
                   <q-card-section>
-                    <div class="text-h6">Delete Tags</div>
+                    <div class="text-h6">Custom Tags</div>
                   </q-card-section>
                   <q-separator color="primary" size="5px" inset/>
                   <q-card-section>
-                    <q-scroll-area :visible="true" style="height: 200px; max-width: 100%;">
+                    <q-scroll-area :visible="true" style="height: 100px; max-width: 100%;">
                   <span v-for="tag in tag_info_options.sort((a, b) => (a.label > b.label) ? 1 : -1)">
                     <q-chip
                       text-color="white"
@@ -143,6 +159,25 @@
                       :color=tag.color
                     >
                       <div class="q-pl-md q-ma-xs">{{ tag.label }}</div>
+                    </q-chip>
+                  </span>
+                    </q-scroll-area>
+                  </q-card-section>
+
+                  <q-card-section>
+                    <div class="text-h6">Fab Tags</div>
+                  </q-card-section>
+                  <q-separator color="primary" size="5px" inset/>
+                  <q-card-section>
+                    <q-scroll-area :visible="true" style="height: 120px; max-width: 100%;">
+                  <span v-for="fabTag in fabTags">
+                    <q-chip
+                      text-color="white"
+                      :color=fabTag.color
+                      clickable
+                      @dblclick="displayTag(fabTag)"
+                    >
+                      <div class="q-pl-md q-ma-xs">{{ fabTag.name }}</div>
                     </q-chip>
                   </span>
                     </q-scroll-area>
@@ -157,6 +192,49 @@
       </q-page-container>
     </q-layout>
   </Suspense>
+
+  <q-dialog v-model="tag_edit">
+
+    <q-card style="width: 300px" class="q-px-sm q-pb-md">
+      <q-btn icon="close" flat round dense v-close-popup/>
+      <q-card-section>
+        <div class="text-h6">Change Fab tag color</div>
+      </q-card-section>
+      <q-input readonly v-model="tag_label" label="Tag Name"/>
+      <q-select
+        filled
+        use-chips
+        v-model="tag_color"
+        :options="tag_color_options"
+      >
+        <template v-slot:option="scope">
+          <q-item
+            v-bind="scope.itemProps"
+          >
+            <q-item-section>
+              <q-item-label v-html="scope.opt.label"></q-item-label>
+            </q-item-section>
+            <q-item-section avatar>
+              <q-avatar :color="scope.opt.value"></q-avatar>
+            </q-item-section>
+          </q-item>
+        </template>
+        <template v-slot:selected-item="scope">
+          <q-chip
+            text-color="white"
+            removable
+            dense
+            :color="tag_color.value"
+            :tabindex="scope.tabindex"
+            class="q-ma-none"
+          >
+            {{ tag_color.label }}
+          </q-chip>
+        </template>
+      </q-select>
+      <q-btn @click="saveTagInfo" color="primary" label="Save Tag"/>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup>
@@ -170,10 +248,15 @@ import {vault} from "src/api/vault.js";
 import VaultGrid from "components/VaultGrid.vue";
 import SideNav from "components/SideNav.vue";
 import CheckForUpdates from "components/CheckForUpdates.vue";
+import {exportDB} from "dexie-export-import";
+import {readDir, writeTextFile} from '@tauri-apps/plugin-fs';
+import {downloadDir, join, homeDir} from '@tauri-apps/api/path';
+import {save, open} from "@tauri-apps/plugin-dialog";
+
 
 const $q = useQuasar()
 const leftDrawerOpen = ref(false)
-const cachePath = ref('')
+let cachePath = ref('')
 const isPwd = ref(true)
 const selectedTab = ref('vault')
 const vaultButtons = ref(true)
@@ -185,8 +268,17 @@ const cbCheckForUpdates = ref(true)
 const accessToken = ref(null)
 const tag_info_options = ref([])
 let currentTag = {}
+const fabTags = ref([])
+const tag_edit = ref(false)
+const tag_label = ref('')
+const tag_color = ref({})
+const tag_color_options = ref([])
+const tag_clicked = ref({})
+
+
 
 onMounted(async () => {
+  tag_color_options.value = await db.colorPalette.orderBy('label').toArray()
   eventBus.on('refreshGrid', (args) => {
     loadVault()
   })
@@ -198,28 +290,45 @@ onMounted(async () => {
   })
   eventBus.on('showLoading', (args) => {
     showLoading(args)
-  }),
-    eventBus.on('showNotification', (args) => {
-      showNotification(args)
-    })
-  eventBus.on('showMessage', (args) => {
-    let color
-    switch (args.type) {
-      case 'success':
-        color = 'positive'
-        break;
-      case 'error':
-        color = 'negative'
-        break;
-    }
-    $q.notify({
-      color: color,
-      message: args.message
-    })
+  })
+  eventBus.on('showNotification', (args) => {
+    showNotification(args)
+  })
+  eventBus.on('showMessage', async (args) => {
+    showMessage(args)
+  })
+  eventBus.on('gridRedrawRows', async () => {
+    gridRedrawRows()
   })
   await loadSettings(true)
 })
 
+
+async function saveTagInfo() {
+  tag_clicked.value.name = tag_label.value
+  tag_clicked.value.color = tag_color.value.value
+  tag_edit.value = false
+  await db.fabTags.put({
+    uid: tag_clicked.value.uid,
+    name: tag_clicked.value.name,
+    color: tag_clicked.value.color
+  })
+  gridRedrawRows()
+}
+function gridRedrawRows() {
+  let gridApi = refVaultGrid.value.getGridApi()
+  if (refVaultGrid.value && gridApi) {
+    gridApi.redrawRows();
+  }
+}
+function displayTag(tag) {
+  tag_color.value = {}
+  tag_edit.value = true
+  tag_clicked.value = tag
+  tag_label.value = tag.name
+  tag_color.value.value = tag.color
+  tag_color.value.label = tag.name
+}
 
 // watch([refCheckUpdates], () => {
 //   if (refCheckUpdates.value) {
@@ -228,12 +337,17 @@ onMounted(async () => {
 //     });
 //   }
 // });
-
+async function test(){
+ //vault.importAssetDetail()
+  //let importedTags = await db.importedTags.orderBy('name').toArray();
+  //console.log(importedTags)
+}
 async function bulkAddTagIds(data) {
   let assets = refVaultGrid.value.getSelectedRowsData()
   if (assets.length > 0 && data.tagIds.length > 0) {
     await vault.updateTagsByRow(assets, data.tagIds)
-    await loadVault()
+    // await loadVault()
+    gridRedrawRows()
   } else {
     $q.notify({
       color: 'info',
@@ -287,7 +401,8 @@ function tabChange() {
 }
 
 async function saveUserSettings() {
-  if (cachePath.value !== '') {
+  let directoryExists = await isDirectory(cachePath.value)
+  if (cachePath.value !== '' && directoryExists) {
     await settings.saveUserSettings({cachePath: cachePath.value, checkForUpdates: cbCheckForUpdates.value})
     $q.notify({
       type: 'positive',
@@ -296,7 +411,7 @@ async function saveUserSettings() {
   } else {
     $q.notify({
       color: 'negative',
-      message: 'Vault cache path is required',
+      message: 'Vault cache path is required or not a valid directory',
     })
   }
 }
@@ -321,6 +436,32 @@ async function authorize() {
   }
 }
 
+async function isDirectory(path) {
+  try {
+    await readDir(path);
+    return true; // If readDir succeeds, it's a directory
+  } catch (error) {
+    // Handle specific errors if needed, e.g., if it's a file
+    return false;
+  }
+}
+
+async function selectDirectory() {
+  const defaultPath = await homeDir(); // Get the application directory to use as a default
+  const selected = await open({
+    directory: true, // This is crucial for selecting a directory
+    multiple: false, // Set to true if you want to allow multiple directory selections
+    defaultPath: defaultPath, // Optional: Set an initial directory for the dialog
+  });
+
+  if (selected === null) {
+    console.log('Directory selection cancelled.');
+  } else {
+    console.log('Selected directory:', selected);
+    cachePath.value = selected;
+  }
+}
+
 async function deleteDatabase() {
   db.delete({disableAutoOpen: false});
   $q.notify({
@@ -328,6 +469,59 @@ async function deleteDatabase() {
     message: 'Database deleted.',
   })
   location.reload();
+}
+
+async function exportSelectedRows() {
+  let rows = refVaultGrid.value.getSelectedRowsData()
+  if (rows.length > 0) {
+    const filename = "Unreal_Vault_Organizer_Selected_Rows.json";
+    await downloadJsonFile(rows, filename);
+  } else {
+    let data = {}
+    data.message = `Now rows have been selected.`;
+    data.type = 'error'
+    showMessage(data)
+  }
+}
+
+async function exportDatabase() {
+  const filename = "Unreal_Vault_Organizer_Database.json";
+  const blob = await exportDB(db);
+  let jsonData = await blobToJson(blob)
+  await downloadJsonFile(jsonData, filename);
+}
+
+async function blobToJson(blob) {
+  const text = await blob.text();
+  return JSON.parse(text);
+}
+
+async function downloadJsonFile(jsonData, filename) {
+  try {
+    const jsonString = JSON.stringify(jsonData, null, 2);
+    const defaultPath = await downloadDir();
+    const suggestedPath = await join(defaultPath, filename)
+    const filePath = await save({
+      defaultPath: suggestedPath,
+      filters: [{
+        name: 'JSON File',
+        extensions: ['json']
+      }]
+    });
+
+    if (filePath) {
+      await writeTextFile(filePath, jsonString);
+      console.log(`File successfully saved to: ${filePath}`);
+    } else {
+      console.log('File save cancelled by the user.');
+    }
+  } catch (error) {
+    console.error('Error saving the JSON file:', error);
+    let data = {}
+    data.message = `Error saving the JSON file ${error}`
+    data.type = 'error'
+    showMessage(data)
+  }
 }
 
 function showDialog(options) {
@@ -343,6 +537,9 @@ function showDialog(options) {
         break;
       case 'deleteDatabase':
         deleteDatabase()
+        break;
+      case 'exportDatabase':
+        exportDatabase()
         break;
     }
   }).onCancel(() => {
@@ -360,6 +557,22 @@ function showLoading(data) {
   } else {
     $q.loading.hide()
   }
+}
+
+function showMessage(args) {
+  let color
+  switch (args.type) {
+    case 'success':
+      color = 'positive'
+      break;
+    case 'error':
+      color = 'negative'
+      break;
+  }
+  $q.notify({
+    color: color,
+    message: args.message
+  })
 }
 
 function showNotification(data) {
@@ -383,15 +596,15 @@ async function importVault() {
     vaultButtons.value = false
     $q.notify({
       color: 'negative',
-      message: 'On your settings tab, you must set a vault cache path and have an access token by logging in and requesting an authorization code.',
+      message: 'On your settings tab, you must set a vault cache path.',
     })
   } else {
-    if (await auth.isAuthDataValid()) {
+    let bAuthDataValid = await auth.isAuthDataValid()
+    if(bAuthDataValid) {
       await refVaultGrid.value.importVault()
     }
   }
 }
-
 //End Vault
 
 //Begin Tags
@@ -399,6 +612,7 @@ async function removeTag() {
   refSideNav.value.removeTag(currentTag)
   const index = tag_info_options.value.findIndex(({label}) => label === currentTag.label);
   tag_info_options.value.splice(index, 1)
+  gridRedrawRows()
 }
 
 async function beforeRemoveTag(tag) {
@@ -414,6 +628,9 @@ async function beforeRemoveTag(tag) {
 async function loadTags() {
   tag_info_options.value = await db.tags.toArray()
   tag_info_options.value = tag_info_options.value.sort((a, b) => (a.label > b.label) ? 1 : -1)
+  fabTags.value = await db.fabTags.toArray()
+  fabTags.value = fabTags.value.sort((a, b) => (a.name > b.name) ? 1 : -1)
+
 }
 
 //End Tags

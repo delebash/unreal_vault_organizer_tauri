@@ -5,12 +5,23 @@ export const ENDPOINTS = {
       encodeURIComponent(`https://www.epicgames.com/id/api/redirect?clientId=${clientId}&responseType=code`);
   },
 
-  auth_code: "https://account-public-service-prod.ak.epicgames.com/account/api/oauth/token",
+  auth_token: "https://account-public-service-prod.ak.epicgames.com/account/api/oauth/token",
+
+  refresh_token: "https://account-public-service-prod.ol.epicgames.com/account/api/oauth/token",
+
+  fab_tags: function (accountId) {
+    return "https://www.fab.com/i/tags"
+  },
 
   vault: function (accountId) {
     return `https://www.fab.com/e/accounts/${accountId}/ue/library`;
+  },
+
+  detail: function (listingIdentifier) {
+    return `https://www.fab.com/i/listings/${listingIdentifier}`;
   }
 };
+
 
 export const VARS = {
   client_id: "34a02cf8f4414e29b15921876da36f9a",

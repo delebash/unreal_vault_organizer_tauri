@@ -14,7 +14,7 @@ export const auth = {
       let authData = userSettings.auth
       if (authData.access_token && new Date() < new Date(authData.expires_at)) {
         return true;
-      } else if (authData.access_token && new Date() < new Date(authData.refresh_expires_at)) {
+      } else {
         utils.showErrorMessage('Access token expired.  On your settings tab please request a new authorization code to get a new access token.')
         console.log('Auth expired.');
         return false;
@@ -24,11 +24,10 @@ export const auth = {
       console.log('Auth invalid.');
       return false;
     }
-    return false
   },
 
   async authorize(authorizationCode) {
-    return await utils.httpRequest(ENDPOINTS.auth_code, {
+    return await utils.httpRequest(ENDPOINTS.auth_token, {
       method: 'post',
       body: new URLSearchParams({
         grant_type: 'authorization_code',
