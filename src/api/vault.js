@@ -51,80 +51,6 @@ export const vault = {
     }
   },
 
-  // async importTags() {
-  //   let userSettings = await settings.getUserSettings()
-  //
-  //   let url = ENDPOINTS.fab_tags();
-  //   let options = {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'User-Agent': VARS.client_ua
-  //     }
-  //   }
-  //
-  //   let data = []
-  //   let continueLoop = true
-  //   loadingMsg.show = true
-  //   let msg = "Please wait while asset tags downloaded."
-  //   loadingMsg.msg = msg
-  //   utils.showLoading(loadingMsg)
-  //   while (continueLoop === true) {
-  //     const json_response = await utils.httpRequest(url, options)
-  //     if (json_response !== undefined) {
-  //       if (url === json_response?.next) {
-  //         url = null
-  //       } else {
-  //         url = json_response?.next
-  //       }
-  //       let results = json_response?.results
-  //       if (url === null) {
-  //         if (results.length > 0) {
-  //           // data.push(...results)
-  //           await this.saveTagData(results)
-  //           loadingMsg.msg = msg + ' Finished downloading, total tags count = ' + data.length
-  //           utils.showLoading(loadingMsg)
-  //           await utils.waitMilliseconds(2000)
-  //         }
-  //         continueLoop = false
-  //       } else {
-  //         //   url.searchParams.set("cursor", next);
-  //         await this.saveTagData(results)
-  //         // data.push(...results)
-  //         loadingMsg.msg = msg + ' Tags downloaded ' + data.length
-  //         utils.showLoading(loadingMsg)
-  //       }
-  //     } else {
-  //       continueLoop = false
-  //     }
-  //   }
-  //
-  //   // loadingMsg.msg = "Begin saving tags"
-  //   // utils.showLoading(loadingMsg)
-  //   // await this.saveTagData(data)
-  //   // loadingMsg.show = true
-  //   loadingMsg.msg = "Finished saving tags"
-  //   utils.showLoading(loadingMsg)
-  //   await utils.waitMilliseconds(2000)
-  //   loadingMsg.show = false
-  //   utils.showLoading(loadingMsg)
-  // },
-
-  async saveTagData(results) {
-    // let results = data.results
-    try {
-      await db.importedTags.bulkAdd(results)
-      console.log("Successfully imported")
-      console.log(results.length)
-    } catch (error) {
-      if (error.name === "BulkError") {
-        // Explicitly catching the bulkAdd() operation makes those successful
-        // additions commit despite that there were errors.
-        console.error("Some tags did not succeed")
-      } else {
-        throw error; // we're only handling BulkError specifically here...
-      }
-    }
-  },
 
   async importVault(count = 2000) {
     let userSettings = await settings.getUserSettings()
@@ -146,6 +72,7 @@ export const vault = {
     loadingMsg.msg = msg
     utils.showLoading(loadingMsg)
     let authFailure = false
+
     while (continueLoop === true) {
       const json_response = await utils.httpRequest(url, options)
       if (json_response !== undefined) {
@@ -192,74 +119,78 @@ export const vault = {
   async saveVaultData(data) {
     try {
       if (data.length > 0) {
-        for (let asset of data) {
-          let asset_row = await db.vaultLibrary.get(asset.assetId)
-          let artifactEngineVersion = this.getArtifactEngineVersion(asset.projectVersions)
-          let listingIdentifier = null
-          if (asset.customAttributes) {
-            const objListingIdentifier = asset.customAttributes.find(obj => Object.hasOwn(obj, 'ListingIdentifier'));
-            listingIdentifier = objListingIdentifier?.ListingIdentifier || null;
-          }
-
-          //User can click on the link to goto fab for asset detail.  It will slow the loading process too much.
-          if (listingIdentifier === undefined || listingIdentifier == null || listingIdentifier.length <= 0) {
-            listingIdentifier = 'No listing identifier'
-          }
-
-          let categories = []
-          if (asset.categories && asset.categories.length > 0) {
-            categories = asset.categories.map(category =>  category.name).join(', ');
-          }
-
-          if (asset_row === undefined) {
-            await db.vaultLibrary.add({
-              assetId: asset.assetId,
-              assetNamespace: asset.assetNamespace,
-              categories: categories,
-              description: asset.description,
-              listingType: asset.listingType,
-              seller: asset.seller || 'Not Available',
-              distributionMethod: asset.distributionMethod,
-              images: asset.images,
-              projectVersions: asset.projectVersions,
-              source: asset.source,
-              title: asset.title,
-              url: asset.url,
-              customAttributes: asset.customAttributes,
-              legacyItemId: asset.legacyItemId,
-              engineVersions: artifactEngineVersion?.engineVersions,
-              artifactIds: artifactEngineVersion?.artifactIds,
-              updatesAvailable: false,
-              listingIdentifier: listingIdentifier,
-              targetPlatforms: artifactEngineVersion?.targetPlatforms,
-
-            })
-          } else {
-            await db.vaultLibrary.update(asset.assetId, {
-              assetNamespace: asset.assetNamespace,
-              categories: categories,
-              description: asset.description,
-              listingType: asset.listingType,
-              seller: asset.seller || 'Not Available',
-              distributionMethod: asset.distributionMethod,
-              images: asset.images,
-              projectVersions: asset.projectVersions,
-              source: asset.source,
-              title: asset.title,
-              url: asset.url,
-              customAttributes: asset.customAttributes,
-              legacyItemId: asset.legacyItemId,
-              engineVersions: artifactEngineVersion?.engineVersions,
-              artifactIds: artifactEngineVersion?.artifactIds,
-              updatesAvailable: false,
-              listingIdentifier: listingIdentifier,
-              targetPlatforms: artifactEngineVersion?.targetPlatforms,
-            })
-          }
-        }
+        console.time()
+        await db.vaultLibrary.bulkPut(data)
+        // for (let asset of data) {
+        //   let asset_row = await db.vaultLibrary.get(asset.assetId)
+        //   let artifactEngineVersion = this.getArtifactEngineVersion(asset.projectVersions)
+        //   let listingIdentifier = null
+        //   if (asset.customAttributes) {
+        //     const objListingIdentifier = asset.customAttributes.find(obj => Object.hasOwn(obj, 'ListingIdentifier'));
+        //     listingIdentifier = objListingIdentifier?.ListingIdentifier || null;
+        //   }
+        //
+        //   //User can click on the link to goto fab for asset detail.  It will slow the loading process too much.
+        //   if (listingIdentifier === undefined || listingIdentifier == null || listingIdentifier.length <= 0) {
+        //     listingIdentifier = 'No listing identifier'
+        //   }
+        //
+        //   let categories = []
+        //   if (asset.categories && asset.categories.length > 0) {
+        //     categories = asset.categories.map(category =>  category.name).join(', ');
+        //   }
+        //
+        //   if (asset_row === undefined) {
+        //     await db.vaultLibrary.add({
+        //       assetId: asset.assetId,
+        //       assetNamespace: asset.assetNamespace,
+        //       categories: categories,
+        //       description: asset.description,
+        //       listingType: asset.listingType,
+        //       seller: asset.seller || 'Not Available',
+        //       distributionMethod: asset.distributionMethod,
+        //       images: asset.images,
+        //       projectVersions: asset.projectVersions,
+        //       source: asset.source,
+        //       title: asset.title,
+        //       url: asset.url,
+        //       customAttributes: asset.customAttributes,
+        //       legacyItemId: asset.legacyItemId,
+        //       engineVersions: artifactEngineVersion?.engineVersions,
+        //       artifactIds: artifactEngineVersion?.artifactIds,
+        //       updatesAvailable: false,
+        //       listingIdentifier: listingIdentifier,
+        //       targetPlatforms: artifactEngineVersion?.targetPlatforms,
+        //
+        //     })
+        //   } else {
+        //     await db.vaultLibrary.update(asset.assetId, {
+        //       assetNamespace: asset.assetNamespace,
+        //       categories: categories,
+        //       description: asset.description,
+        //       listingType: asset.listingType,
+        //       seller: asset.seller || 'Not Available',
+        //       distributionMethod: asset.distributionMethod,
+        //       images: asset.images,
+        //       projectVersions: asset.projectVersions,
+        //       source: asset.source,
+        //       title: asset.title,
+        //       url: asset.url,
+        //       customAttributes: asset.customAttributes,
+        //       legacyItemId: asset.legacyItemId,
+        //       engineVersions: artifactEngineVersion?.engineVersions,
+        //       artifactIds: artifactEngineVersion?.artifactIds,
+        //       updatesAvailable: false,
+        //       listingIdentifier: listingIdentifier,
+        //       targetPlatforms: artifactEngineVersion?.targetPlatforms,
+        //     })
+        //   }
+        // }
+        console.timeEnd()
       }
     } catch (e) {
       console.error(e)
+      console.timeEnd()
     }
   },
 
@@ -267,6 +198,7 @@ export const vault = {
     let assets = await db.vaultLibrary.toArray()
     let promiseArray = [];
     let assetDetails = []
+    let listingIdentifier
     loadingMsg.show = true
     let msg = "Please wait while additional asset details are being downloaded."
     loadingMsg.msg = msg
@@ -281,12 +213,16 @@ export const vault = {
 
     try {
       for (let asset of assets) {
-        if (asset.listingIdentifier !== 'No listing identifier') {
-          let assetId = asset.assetId
-          let url = new URL(ENDPOINTS.detail(asset.listingIdentifier));
-          promiseArray.push(utils.httpRequest(url, options).then((assetDetail) => {
-            if (assetDetail) {
-              assetDetail.assetId = assetId
+        if (asset.customAttributes) {
+          const objListingIdentifier = asset.customAttributes.find(obj => Object.hasOwn(obj, 'ListingIdentifier'));
+          listingIdentifier = objListingIdentifier?.ListingIdentifier || null;
+        }
+        if (listingIdentifier !== null) {
+          //let assetId = asset.assetId
+          let url = new URL(ENDPOINTS.detail(listingIdentifier));
+          promiseArray.push(fetch(url).then((assetDetail) => {
+            if (typeof assetDetail === 'object') {
+              // assetDetail.assetId = assetId
               assetDetails.push(assetDetail)
               loadingMsg.msg = msg + ' Assets downloaded ' + count++
               utils.showLoading(loadingMsg)
@@ -302,41 +238,40 @@ export const vault = {
         if (fabTags !== null && fabTags.length > 0) {
           fabTagIds = await this.addFabTags(fabTags)
         }
-
-        await db.vaultLibrary.update(assetDetail.assetId, {
-          assetFormats: assetDetail?.assetFormats || null,
-          availableInEurope: assetDetail?.availableInEurope || null,
-          averageRating: assetDetail?.averageRating || null,
-          catalogItemId: assetDetail?.catalogItemId || null,
-          category: assetDetail?.category || null,
-          changelogs: assetDetail?.changelogs || null,
-          commentThreadStatus: assetDetail?.commentThreadStatus || null,
-          createdAt: assetDetail?.createdAt || null,
-          longDescription: assetDetail?.description || null,
-          externalUrl: assetDetail?.externalUrl || null,
-          faqs: assetDetail?.faqs || null,
-          firstPublishedAt: assetDetail?.firstPublishedAt || null,
-          hasPromotionalContent: assetDetail?.hasPromotionalContent || null,
-          isAiForbidden: assetDetail?.isAiForbidden || null,
-          isAiGenerated: assetDetail?.isAiGenerated || null,
-          isFree: assetDetail?.isFree || null,
-          isMature: assetDetail?.isMature || null,
-          lastUpdatedAt: assetDetail?.lastUpdatedAt || null,
-          licenses: assetDetail?.licenses || null,
-          fabListingType: assetDetail?.listingType || null,
-          medias: assetDetail?.medias || null,
-          promotionRequestId: assetDetail?.promotionRequestId || null,
-          publishedAt: assetDetail?.publishedAt || null,
-          ratings: assetDetail?.ratings || null,
-          reviewCount: assetDetail?.reviewCount || null,
-          startingPrice: assetDetail?.startingPrice || null,
-          fabTagIds: fabTagIds || null,
-          fabThumbnails: assetDetail?.thumbnails || null,
-          fabTitle: assetDetail?.tags || null,
-          uid: assetDetail?.uid || null,
-          updatedAt: assetDetail?.updatedAt || null,
-          user: assetDetail?.user || null
-        })
+      // await db.vaultLibrary.update(assetDetail.assetId, {
+      //   assetFormats: assetDetail?.assetFormats || null,
+      //   availableInEurope: assetDetail?.availableInEurope || null,
+      //   averageRating: assetDetail?.averageRating || null,
+      //   catalogItemId: assetDetail?.catalogItemId || null,
+      //   category: assetDetail?.category || null,
+      //   changelogs: assetDetail?.changelogs || null,
+      //   commentThreadStatus: assetDetail?.commentThreadStatus || null,
+      //   createdAt: assetDetail?.createdAt || null,
+      //   longDescription: assetDetail?.description || null,
+      //   externalUrl: assetDetail?.externalUrl || null,
+      //   faqs: assetDetail?.faqs || null,
+      //   firstPublishedAt: assetDetail?.firstPublishedAt || null,
+      //   hasPromotionalContent: assetDetail?.hasPromotionalContent || null,
+      //   isAiForbidden: assetDetail?.isAiForbidden || null,
+      //   isAiGenerated: assetDetail?.isAiGenerated || null,
+      //   isFree: assetDetail?.isFree || null,
+      //   isMature: assetDetail?.isMature || null,
+      //   lastUpdatedAt: assetDetail?.lastUpdatedAt || null,
+      //   licenses: assetDetail?.licenses || null,
+      //   fabListingType: assetDetail?.listingType || null,
+      //   medias: assetDetail?.medias || null,
+      //   promotionRequestId: assetDetail?.promotionRequestId || null,
+      //   publishedAt: assetDetail?.publishedAt || null,
+      //   ratings: assetDetail?.ratings || null,
+      //   reviewCount: assetDetail?.reviewCount || null,
+      //   startingPrice: assetDetail?.startingPrice || null,
+      //   fabTagIds: fabTagIds || null,
+      //   fabThumbnails: assetDetail?.thumbnails || null,
+      //   fabTitle: assetDetail?.tags || null,
+      //   uid: assetDetail?.uid || null,
+      //   updatedAt: assetDetail?.updatedAt || null,
+      //   user: assetDetail?.user || null
+      // })
       }
     } catch (err) {
       console.log(err)

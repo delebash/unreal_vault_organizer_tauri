@@ -338,7 +338,7 @@ function displayTag(tag) {
 //   }
 // });
 async function test(){
- //vault.importAssetDetail()
+ vault.importAssetDetail()
   //let importedTags = await db.importedTags.orderBy('name').toArray();
   //console.log(importedTags)
 }

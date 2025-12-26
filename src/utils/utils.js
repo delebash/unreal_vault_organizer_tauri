@@ -1,7 +1,30 @@
-import {fetch} from "@tauri-apps/plugin-http";
 import {eventBus} from "boot/global-components.js";
+import {fetch} from "@tauri-apps/plugin-http";
 
 export const utils = {
+
+  async fetchRequest(url, options) {
+    let response
+    try {
+      response = await fetch(url);
+      if (response.ok) {
+        return await response.json()
+      }else{
+        return response.statusText;
+      }
+      // } else {
+      //   if (response. status === 404 || response.status === 403) {
+      //     console.log(`Url ${url} ${response.statusText}`)
+      //   } else {
+      //     console.log(`Url ${url} ${response.statusText}`)
+      //     // this.showErrorMessage(`Url ${url} ${response.statusText}`)
+      //   }
+      // }
+    } catch (err) {
+      console.error(err)
+      // this.showErrorMessage(err)
+    }
+  },
 
   async httpRequest(url, options) {
     let response
@@ -11,10 +34,10 @@ export const utils = {
         return await response.json()
       } else {
         if (response. status === 404 || response.status === 403) {
-          console.error(`Url ${url} ${response.statusText}`)
+          console.log(`Url ${url} ${response.statusText}`)
         } else {
-          console.error(`Url ${url} ${response.statusText}`)
-          this.showErrorMessage(`Url ${url} ${response.statusText}`)
+          console.log(`Url ${url} ${response.statusText}`)
+         this.showErrorMessage(`Url ${url} ${response.statusText}`)
         }
       }
     } catch (err) {
